@@ -7,14 +7,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import axios from 'axios';
+import { WalterAPI } from '../../api/WalterAPI';
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [success, setSuccess] = useState<boolean>(false);
+  const [success, setSuccess] = useState<string>('');
   const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
@@ -29,30 +29,18 @@ const Signup: React.FC = () => {
     }
 
     try {
-      const response = await axios.post(
-        'https://084slq55lk.execute-api.us-east-1.amazonaws.com/dev/users',
-        {
-          email: email,
-          username: username,
-          password: password,
-        },
-      );
+      const response = await WalterAPI.createUser(email, username, password);
 
-      const status = response.data['Status']
-      const message = response.data['Message']
-
-
-      if (status === 'Failure') {
+      const message: string = response.getMessage();
+      if (response.isSuccess()) {
+        setSuccess(message);
+        setSuccessAlert(true);
+      } else {
         setError(message);
         setErrorAlert(true);
       }
-
-      if (status === 'Success') {
-        setSuccess(message);
-          setSuccessAlert(true);
-      }
     } catch (error) {
-      setError("Unexpected error!");
+      setError('Unexpected error!');
       setErrorAlert(true);
     }
 
@@ -115,12 +103,20 @@ const Signup: React.FC = () => {
           Sign Up
         </Button>
       </form>
-      <Snackbar open={openSuccessAlert} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={openSuccessAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="success">
           {success}
         </Alert>
       </Snackbar>
-      <Snackbar open={openErrorAlert} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={openErrorAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error">
           {error}
         </Alert>

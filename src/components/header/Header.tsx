@@ -28,7 +28,7 @@ const Header: React.FC = () => {
 
   const handleGetStocksForUserButtion = () => {
     navigate('/getstocksforuser');
-  }
+  };
 
   return (
     <AppBar position="static">

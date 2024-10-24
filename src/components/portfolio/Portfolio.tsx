@@ -2,22 +2,21 @@ import * as React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
 
 interface PortfolioProps {
-  stocks: []
+  stocks: any[];
 }
 
 const Portfolio: React.FC<PortfolioProps> = ({ stocks }) => {
-
   const graphStocks = () => {
-    const data = []
+    const data = [];
     for (const stock of stocks) {
       data.push({
-        id: stock["stock_symbol"],
-        value: stock["quantity"],
-        label: stock["stock_symbol"],
-      })
+        id: stock.symbol,
+        value: stock.equity,
+        label: stock.symbol,
+      });
     }
-    return data
-  }
+    return data;
+  };
 
   return (
     <PieChart
@@ -30,6 +29,6 @@ const Portfolio: React.FC<PortfolioProps> = ({ stocks }) => {
       height={200}
     />
   );
-}
+};
 
 export default Portfolio;

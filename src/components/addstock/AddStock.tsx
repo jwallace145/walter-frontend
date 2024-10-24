@@ -1,50 +1,45 @@
 import React, { useState } from 'react';
-import { Alert, Button, Container, Snackbar, TextField, Typography } from '@mui/material';
-import axios from 'axios';
+import {
+  Alert,
+  Button,
+  Container,
+  Snackbar,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { Response, WalterAPI } from '../../api/WalterAPI';
 
 const AddStock: React.FC = () => {
   const [token, setToken] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [stock, setStock] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('');
-  const [success, setSuccess] = useState<boolean>(false);
+  const [success, setSuccess] = useState<string>('');
   const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await axios({
-        method: 'POST',
-        url: 'https://084slq55lk.execute-api.us-east-1.amazonaws.com/dev/stocks',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          email: email,
-          stock: stock,
-          quantity: quantity,
-        },
-      });
-      const status = response.data['Status']
-      const message = response.data['Message']
+      const response: Response = await WalterAPI.addStock(
+        token,
+        email,
+        stock,
+        parseFloat(quantity),
+      );
 
-
-      if (status === 'Failure') {
+      const message: string = response.getMessage();
+      if (response.isSuccess()) {
+        setSuccess(message);
+        setSuccessAlert(true);
+      } else {
         setError(message);
         setErrorAlert(true);
       }
-
-      if (status === 'Success') {
-        setSuccess(message);
-        setSuccessAlert(true);
-      }
     } catch (error) {
-      setError("Unexpected error!");
+      setError('Unexpected error!');
       setErrorAlert(true);
     }
   };
@@ -100,12 +95,20 @@ const AddStock: React.FC = () => {
           Add Stock
         </Button>
       </form>
-      <Snackbar open={openSuccessAlert} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={openSuccessAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="success">
           {success}
         </Alert>
       </Snackbar>
-      <Snackbar open={openErrorAlert} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={openErrorAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error">
           {error}
         </Alert>

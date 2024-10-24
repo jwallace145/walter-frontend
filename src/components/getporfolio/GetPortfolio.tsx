@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
-import { Alert, Button, Container, Snackbar, TextField, Typography } from '@mui/material';
-import axios from 'axios';
+import {
+  Alert,
+  Button,
+  Container,
+  Snackbar,
+  TextField,
+  Typography,
+} from '@mui/material';
 import Portfolio from '../portfolio/Portfolio';
+import { Response, WalterAPI } from '../../api/WalterAPI';
 
-const GetStocksForUser: React.FC = () => {
+const GetPortfolio: React.FC = () => {
   const [token, setToken] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [stocks, setStocks] = useState<[]>([]);
@@ -12,38 +19,24 @@ const GetStocksForUser: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await axios({
-        method: 'POST',
-        url: 'https://084slq55lk.execute-api.us-east-1.amazonaws.com/dev/users/stocks',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        data: {
-          email: email
-        },
-      });
-      const status = response.data['Status']
-      const message = response.data['Message']
+      const response: Response = await WalterAPI.getPortfolio(token, email);
 
-      setStocks(message)
+      setStocks(response.getData().stocks);
 
-      if (status === 'Failure') {
-        setError("error");
+      const message: string = response.getMessage();
+      if (response.isSuccess()) {
+        setSuccess(message);
+        setSuccessAlert(true);
+      } else {
+        setError(message);
         setErrorAlert(true);
       }
-
-      if (status === 'Success') {
-        setSuccess("success");
-        setSuccessAlert(true);
-      }
     } catch (error) {
-      setError("Unexpected error!");
+      setError('Unexpected error!');
       setErrorAlert(true);
     }
   };
@@ -81,13 +74,21 @@ const GetStocksForUser: React.FC = () => {
           Get Stocks
         </Button>
       </form>
-      <Portfolio stocks={stocks}/>
-      <Snackbar open={openSuccessAlert} autoHideDuration={6000} onClose={handleClose}>
+      <Portfolio stocks={stocks} />
+      <Snackbar
+        open={openSuccessAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="success">
           {success}
         </Alert>
       </Snackbar>
-      <Snackbar open={openErrorAlert} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={openErrorAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error">
           {error}
         </Alert>
@@ -96,4 +97,4 @@ const GetStocksForUser: React.FC = () => {
   );
 };
 
-export default GetStocksForUser;
+export default GetPortfolio;

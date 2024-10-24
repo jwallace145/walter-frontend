@@ -1,13 +1,18 @@
-// src/Login.js
 import React, { useState } from 'react';
-import { Alert, Button, Container, Snackbar, TextField, Typography } from '@mui/material';
-import axios from 'axios';
-
+import {
+  Alert,
+  Button,
+  Container,
+  Snackbar,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { Response, WalterAPI } from '../../api/WalterAPI';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [success, setSuccess] = useState<boolean>(false);
+  const [success, setSuccess] = useState<string>('');
   const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
@@ -16,29 +21,20 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        'https://084slq55lk.execute-api.us-east-1.amazonaws.com/dev/auth',
-        {
-          email: email,
-          password: password,
-        },
-      );
+      const response: Response = await WalterAPI.authUser(email, password);
 
-      const status = response.data['Status']
-      const message = response.data['Message']
+      const message: string = response.getMessage();
+      const token: string = response.getData().token;
 
-
-      if (status === 'Failure') {
+      if (response.isSuccess()) {
+        setSuccess(`${message} Token: ${token}`);
+        setSuccessAlert(true);
+      } else {
         setError(message);
         setErrorAlert(true);
       }
-
-      if (status === 'Success') {
-        setSuccess(message);
-        setSuccessAlert(true);
-      }
     } catch (error) {
-      setError("Unexpected error!");
+      setError('Unexpected error!');
       setErrorAlert(true);
     }
   };
@@ -48,6 +44,7 @@ const Login = () => {
     setErrorAlert(false);
   };
 
+  // @ts-ignore
   return (
     <Container maxWidth="xs">
       <Typography variant="h4" align="center" gutterBottom>
@@ -77,12 +74,20 @@ const Login = () => {
           Login
         </Button>
       </form>
-      <Snackbar open={openSuccessAlert} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={openSuccessAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="success">
           {success}
         </Alert>
       </Snackbar>
-      <Snackbar open={openErrorAlert} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        open={openErrorAlert}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} severity="error">
           {error}
         </Alert>
