@@ -10,8 +10,6 @@ import {
 import { Response, WalterAPI } from '../../api/WalterAPI';
 
 const AddStock: React.FC = () => {
-  const [token, setToken] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
   const [stock, setStock] = useState<string>('');
   const [quantity, setQuantity] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
@@ -24,8 +22,6 @@ const AddStock: React.FC = () => {
 
     try {
       const response: Response = await WalterAPI.addStock(
-        token,
-        email,
         stock,
         parseFloat(quantity),
       );
@@ -55,24 +51,6 @@ const AddStock: React.FC = () => {
         Add Stock
       </Typography>
       <form onSubmit={handleSubmit}>
-        <TextField
-          label="Token"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
-          required
-        />
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
         <TextField
           label="Stock"
           variant="outlined"

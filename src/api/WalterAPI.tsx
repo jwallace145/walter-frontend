@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
+import { getCookie } from 'typescript-cookie';
 
 export class Response {
   private readonly status: string;
@@ -25,8 +26,8 @@ export class Response {
 }
 
 export class WalterAPI {
-  private static readonly ENDPOINT: string =
-    'https://084slq55lk.execute-api.us-east-1.amazonaws.com/dev';
+  private static readonly ENDPOINT: string = process.env
+    .REACT_APP_WALTER_API_ENDPOINT as string;
 
   public static async authUser(
     email: string,
@@ -63,11 +64,10 @@ export class WalterAPI {
   }
 
   public static async addStock(
-    token: string,
-    email: string,
     stock: string,
     quantity: number,
   ): Promise<Response> {
+    const token: string = getCookie('WalterToken') as string;
     const response: AxiosResponse = await axios({
       method: 'POST',
       url: `${WalterAPI.ENDPOINT}/stocks`,
@@ -76,7 +76,6 @@ export class WalterAPI {
         'Content-Type': 'application/json',
       },
       data: {
-        email: email,
         stock: stock,
         quantity: quantity,
       },
@@ -84,10 +83,8 @@ export class WalterAPI {
     return new Response(response.data['Status'], response.data['Message']);
   }
 
-  public static async getPortfolio(
-    token: string,
-    email: string,
-  ): Promise<Response> {
+  public static async getPortfolio(email: string): Promise<Response> {
+    const token: string = getCookie('WalterToken') as string;
     const response: AxiosResponse = await axios({
       method: 'POST',
       url: `${WalterAPI.ENDPOINT}/portfolios`,

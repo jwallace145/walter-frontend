@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Response, WalterAPI } from '../../api/WalterAPI';
+import { setCookie } from 'typescript-cookie';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -24,10 +25,11 @@ const Login = () => {
       const response: Response = await WalterAPI.authUser(email, password);
 
       const message: string = response.getMessage();
-      const token: string = response.getData().token;
-
       if (response.isSuccess()) {
-        setSuccess(`${message} Token: ${token}`);
+        const token: string = response.getData()['token'];
+        setCookie('WalterToken', token);
+        setCookie('WalterUser', email);
+        setSuccess(message);
         setSuccessAlert(true);
       } else {
         setError(message);
@@ -44,7 +46,6 @@ const Login = () => {
     setErrorAlert(false);
   };
 
-  // @ts-ignore
   return (
     <Container maxWidth="xs">
       <Typography variant="h4" align="center" gutterBottom>

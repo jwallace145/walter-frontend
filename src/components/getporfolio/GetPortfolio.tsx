@@ -1,17 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Alert,
-  Button,
-  Container,
-  Snackbar,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Alert, Button, Container, Snackbar, Typography } from '@mui/material';
 import Portfolio from '../portfolio/Portfolio';
 import { Response, WalterAPI } from '../../api/WalterAPI';
 
 const GetPortfolio: React.FC = () => {
-  const [token, setToken] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [stocks, setStocks] = useState<[]>([]);
   const [success, setSuccess] = useState<string>('');
@@ -23,7 +15,7 @@ const GetPortfolio: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response: Response = await WalterAPI.getPortfolio(token, email);
+      const response: Response = await WalterAPI.getPortfolio(email);
 
       setStocks(response.getData().stocks);
 
@@ -36,6 +28,7 @@ const GetPortfolio: React.FC = () => {
         setErrorAlert(true);
       }
     } catch (error) {
+      console.log(error);
       setError('Unexpected error!');
       setErrorAlert(true);
     }
@@ -49,31 +42,17 @@ const GetPortfolio: React.FC = () => {
   return (
     <Container maxWidth="xs">
       <Typography variant="h4" align="center" gutterBottom>
-        Get Stocks
+        Get Portfolio
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Token"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={token}
-          onChange={(e) => setToken(e.target.value)}
-          required
-        />
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <Button variant="contained" color="primary" fullWidth type="submit">
-          Get Stocks
-        </Button>
-      </form>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        type="submit"
+        onClick={handleSubmit}
+      >
+        Get Portfolio
+      </Button>
       <Portfolio stocks={stocks} />
       <Snackbar
         open={openSuccessAlert}
