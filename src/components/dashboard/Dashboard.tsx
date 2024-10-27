@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { WalterAPI } from '../../api/WalterAPI';
-import { PortfolioStock } from '../../api/GetPortfolio';
+import { GetPortfolioResponse, PortfolioStock } from '../../api/GetPortfolio';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import PortfolioPieChart from '../portfolio/PortfolioPieChart';
@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
   const [stocks, setStocks] = useState<PortfolioStock[]>([]);
 
   useEffect(() => {
-    WalterAPI.getPortfolio().then((response) => {
+    WalterAPI.getPortfolio().then((response: GetPortfolioResponse) => {
       setStocks(response.getStocks());
     });
   }, [stocks]);

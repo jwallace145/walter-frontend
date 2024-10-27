@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { WalterAPI } from '../../api/WalterAPI';
+import { CreateUserResponse } from '../../api/CreateUser';
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -29,7 +30,11 @@ const Signup: React.FC = () => {
     }
 
     try {
-      const response = await WalterAPI.createUser(email, username, password);
+      const response: CreateUserResponse = await WalterAPI.createUser(
+        email,
+        username,
+        password,
+      );
 
       const message: string = response.getMessage();
       if (response.isSuccess()) {

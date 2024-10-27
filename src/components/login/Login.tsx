@@ -7,8 +7,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Response, WalterAPI } from '../../api/WalterAPI';
+import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
+import { AuthUserResponse } from '../../api/AuthUser';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,11 +23,14 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response: Response = await WalterAPI.authUser(email, password);
+      const response: AuthUserResponse = await WalterAPI.authUser(
+        email,
+        password,
+      );
 
       const message: string = response.getMessage();
       if (response.isSuccess()) {
-        const token: string = response.getData()['token'];
+        const token: string = response.getToken();
         setCookie('WalterToken', token);
         setCookie('WalterUser', email);
         setSuccess(message);

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { SendNewsletterResponse } from '../../api/SendNewsletter';
+import { WalterAPI } from '../../api/WalterAPI';
 import {
   Alert,
   Button,
@@ -7,25 +9,17 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { WalterAPI } from '../../api/WalterAPI';
-import { AddStocksResponse } from '../../api/AddStocks';
 
-const AddStock: React.FC = () => {
-  const [stock, setStock] = useState<string>('');
-  const [quantity, setQuantity] = useState<string>('');
+const Newsletter: React.FC = () => {
   const [success, setSuccess] = useState<string>('');
   const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  async function handleSubmit(event: React.FormEvent): Promise<void> {
+    event.preventDefault();
     try {
-      const response: AddStocksResponse = await WalterAPI.addStock(
-        stock,
-        parseFloat(quantity),
-      );
+      const response: SendNewsletterResponse = await WalterAPI.sendNewsletter();
 
       const message: string = response.getMessage();
       if (response.isSuccess()) {
@@ -39,7 +33,7 @@ const AddStock: React.FC = () => {
       setError('Unexpected error!');
       setErrorAlert(true);
     }
-  };
+  }
 
   const handleClose = () => {
     setSuccessAlert(false);
@@ -49,31 +43,17 @@ const AddStock: React.FC = () => {
   return (
     <Container maxWidth="xs">
       <Typography variant="h4" align="center" gutterBottom>
-        Add Stock
+        Send Newsletter
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Stock"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
-          required
-        />
-        <TextField
-          label="Quantity"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          required
-        />
-        <Button variant="contained" color="primary" fullWidth type="submit">
-          Add Stock
-        </Button>
-      </form>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        type="submit"
+        onClick={handleSubmit}
+      >
+        Send Newsletter
+      </Button>
       <Snackbar
         open={openSuccessAlert}
         autoHideDuration={6000}
@@ -96,4 +76,4 @@ const AddStock: React.FC = () => {
   );
 };
 
-export default AddStock;
+export default Newsletter;

@@ -6,6 +6,7 @@ import SignUp from './components/signup/SignUp';
 import AddStock from './components/addstock/AddStock';
 import Header from './components/header/Header';
 import Dashboard from './components/dashboard/Dashboard';
+import Newsletter from './components/newsletter/Newsletter';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/addstock" element={<AddStock />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/newsletter" element={<Newsletter />} />
       </Routes>
     </Router>
   );

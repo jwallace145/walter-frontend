@@ -22,12 +22,16 @@ const Header: React.FC = () => {
     navigate('/signup');
   };
 
-  const handleAddStockButtion = () => {
+  const handleAddStockButton = () => {
     navigate('/addstock');
   };
 
   const handleDashboardButton = () => {
     navigate('/dashboard');
+  };
+
+  const handleNewsletterButton = () => {
+    navigate('/newsletter');
   };
 
   return (
@@ -47,11 +51,14 @@ const Header: React.FC = () => {
         <Button color="inherit" onClick={handleSignUpButton}>
           Sign Up
         </Button>
-        <Button color="inherit" onClick={handleAddStockButtion}>
+        <Button color="inherit" onClick={handleAddStockButton}>
           Add Stock
         </Button>
         <Button color="inherit" onClick={handleDashboardButton}>
           Get Stocks
+        </Button>
+        <Button color="inherit" onClick={handleNewsletterButton}>
+          Send Newsletter
         </Button>
       </Toolbar>
     </AppBar>
