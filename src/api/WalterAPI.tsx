@@ -1,5 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { getCookie } from 'typescript-cookie';
+import { getPortfolio, GetPortfolioResponse } from './GetPortfolio';
+import { GetPricesResponse, getPrices } from './GetPrices';
 
 export class Response {
   private readonly status: string;
@@ -83,23 +85,12 @@ export class WalterAPI {
     return new Response(response.data['Status'], response.data['Message']);
   }
 
-  public static async getPortfolio(email: string): Promise<Response> {
+  public static async getPrices(stock: string): Promise<GetPricesResponse> {
+    return getPrices(WalterAPI.ENDPOINT, stock);
+  }
+
+  public static async getPortfolio(): Promise<GetPortfolioResponse> {
     const token: string = getCookie('WalterToken') as string;
-    const response: AxiosResponse = await axios({
-      method: 'POST',
-      url: `${WalterAPI.ENDPOINT}/portfolios`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      data: {
-        email: email,
-      },
-    });
-    return new Response(
-      response.data['Status'],
-      response.data['Message'],
-      response.data['Data'],
-    );
+    return getPortfolio(WalterAPI.ENDPOINT, token);
   }
 }

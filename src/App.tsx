@@ -5,7 +5,7 @@ import Login from './components/login/Login';
 import SignUp from './components/signup/SignUp';
 import AddStock from './components/addstock/AddStock';
 import Header from './components/header/Header';
-import GetPortfolio from './components/getporfolio/GetPortfolio';
+import Dashboard from './components/dashboard/Dashboard';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/addstock" element={<AddStock />} />
-        <Route path="/getstocksforuser" element={<GetPortfolio />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </Router>
   );

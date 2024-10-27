@@ -26,8 +26,8 @@ const Header: React.FC = () => {
     navigate('/addstock');
   };
 
-  const handleGetStocksForUserButtion = () => {
-    navigate('/getstocksforuser');
+  const handleDashboardButton = () => {
+    navigate('/dashboard');
   };
 
   return (
@@ -50,7 +50,7 @@ const Header: React.FC = () => {
         <Button color="inherit" onClick={handleAddStockButtion}>
           Add Stock
         </Button>
-        <Button color="inherit" onClick={handleGetStocksForUserButtion}>
+        <Button color="inherit" onClick={handleDashboardButton}>
           Get Stocks
         </Button>
       </Toolbar>

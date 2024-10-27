@@ -5,7 +5,7 @@ interface PortfolioProps {
   stocks: any[];
 }
 
-const Portfolio: React.FC<PortfolioProps> = ({ stocks }) => {
+const PortfolioPieChart: React.FC<PortfolioProps> = ({ stocks }) => {
   const graphStocks = () => {
     const data = [];
     for (const stock of stocks) {
@@ -31,4 +31,4 @@ const Portfolio: React.FC<PortfolioProps> = ({ stocks }) => {
   );
 };
 
-export default Portfolio;
+export default PortfolioPieChart;
