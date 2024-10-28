@@ -18,14 +18,38 @@ const Dashboard: React.FC = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={4}>
-        <Grid size={6}>
+      <Grid container spacing={2} sx={{ padding: 2 }}>
+        <Grid
+          size={6}
+          sx={{
+            border: '2px solid #1976d2',
+            borderRadius: '8px',
+            padding: 2,
+            backgroundColor: '#f5f5f5',
+          }}
+        >
           <PortfolioPieChart stocks={stocks} />
         </Grid>
-        <Grid size={6}>
+        <Grid
+          size={6}
+          sx={{
+            border: '2px solid #1976d2',
+            borderRadius: '8px',
+            padding: 2,
+            backgroundColor: '#f5f5f5',
+          }}
+        >
           <PortfolioStockLineChartWidget stocks={stocks} />
         </Grid>
-        <Grid size={12}>
+        <Grid
+          size={12}
+          sx={{
+            border: '2px solid #1976d2',
+            borderRadius: '8px',
+            padding: 2,
+            backgroundColor: '#f5f5f5',
+          }}
+        >
           <PortfolioDataGrid stocks={stocks} />
         </Grid>
       </Grid>

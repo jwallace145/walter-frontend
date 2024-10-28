@@ -25,8 +25,8 @@ const PortfolioPieChart: React.FC<PortfolioProps> = ({ stocks }) => {
           data: graphStocks(),
         },
       ]}
-      width={400}
-      height={200}
+      width={600}
+      height={300}
     />
   );
 };
