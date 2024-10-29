@@ -32,7 +32,7 @@ export class GetPortfolioResponse {
   }
 
   private setPortfolio(data: any): Portfolio {
-    if (data === null) {
+    if (data === null || data === undefined || !this.isSuccess()) {
       return {
         totalEquity: 0,
         stocks: [],
@@ -52,6 +52,7 @@ export interface Portfolio {
 
 export interface PortfolioStock {
   symbol: string;
+  company: string;
   quantity: number;
   price: number;
   equity: number;

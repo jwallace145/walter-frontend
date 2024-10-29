@@ -14,7 +14,7 @@ const Dashboard: React.FC = () => {
     WalterAPI.getPortfolio().then((response: GetPortfolioResponse) => {
       setStocks(response.getStocks());
     });
-  }, [stocks]);
+  }, []);
 
   return (
     <Box sx={{ flexGrow: 1 }}>

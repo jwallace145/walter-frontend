@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { PieChart } from '@mui/x-charts/PieChart';
+import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
+import { Container, Typography } from '@mui/material';
 
 interface PortfolioProps {
   stocks: any[];
@@ -19,15 +20,28 @@ const PortfolioPieChart: React.FC<PortfolioProps> = ({ stocks }) => {
   };
 
   return (
-    <PieChart
-      series={[
-        {
-          data: graphStocks(),
-        },
-      ]}
-      width={600}
-      height={300}
-    />
+    <Container>
+      <Typography variant="h6">Portfolio</Typography>
+      <PieChart
+        series={[
+          {
+            data: graphStocks(),
+            innerRadius: 10,
+            paddingAngle: 2,
+            arcLabel: (value) => `$ ${value.value.toFixed(2)}`,
+            arcLabelMinAngle: 35,
+            valueFormatter: (value) => `$ ${value.value.toFixed(2)}`,
+          },
+        ]}
+        sx={{
+          [`& .${pieArcLabelClasses.root}`]: {
+            fontWeight: 'bold',
+          },
+        }}
+        width={600}
+        height={400}
+      />
+    </Container>
   );
 };
 

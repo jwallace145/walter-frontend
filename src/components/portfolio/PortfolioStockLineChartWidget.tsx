@@ -14,17 +14,22 @@ const PortfolioStockLineChartWidget: React.FC<
   PortfolioStockLineChartWidgetProps
 > = (props) => {
   const [page, setPage] = useState<number>(1);
+  const [stock, setStock] = useState<string>('');
   const [stocks, setStocks] = useState<PortfolioStock[]>([]);
   const [prices, setPrices] = useState<Price[]>([]);
 
   useEffect(() => {
     setStocks(props.stocks);
+  }, [props.stocks]);
+
+  useEffect(() => {
     if (stocks !== undefined && stocks.length > 0) {
+      setStock(stocks[page - 1].symbol);
       WalterAPI.getPrices(stocks[page - 1].symbol).then((response) => {
         setPrices(response.getPrices());
       });
     }
-  }, [props, page, stocks, prices]);
+  }, [page]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -32,7 +37,7 @@ const PortfolioStockLineChartWidget: React.FC<
 
   return (
     <Container>
-      <PortfolioStockLineChart prices={prices} />
+      <PortfolioStockLineChart stock={stock} prices={prices} />
       <Pagination
         count={stocks.length}
         color="primary"

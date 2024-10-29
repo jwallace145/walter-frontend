@@ -10,15 +10,17 @@ interface PortfolioDataGridProps {
 interface PortfolioDataGridRow {
   id: string;
   symbol: string;
-  quantity: number;
-  price: number;
-  equity: number;
+  company: string;
+  quantity: string;
+  price: string;
+  equity: string;
 }
 
-const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = ({ stocks }) => {
-  function getColumns(): GridColDef<PortfolioStock>[] {
+const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = (props) => {
+  function getColumns(): GridColDef<PortfolioDataGridRow>[] {
     return [
       { field: 'id', headerName: 'Stock', width: 300 },
+      { field: 'company', headerName: 'Company', width: 300 },
       {
         field: 'quantity',
         headerName: 'Number of Shares',
@@ -28,13 +30,13 @@ const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = ({ stocks }) => {
       {
         field: 'price',
         headerName: 'Price',
-        type: 'number',
+        type: 'string',
         width: 300,
       },
       {
         field: 'equity',
         headerName: 'Equity',
-        type: 'number',
+        type: 'string',
         width: 300,
       },
     ];
@@ -42,13 +44,14 @@ const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = ({ stocks }) => {
 
   function getRows(): PortfolioDataGridRow[] {
     const rows: PortfolioDataGridRow[] = [];
-    for (const stock of stocks) {
+    for (const stock of props.stocks) {
       rows.push({
         id: stock.symbol,
         symbol: stock.symbol,
-        quantity: stock.quantity,
-        price: stock.price,
-        equity: stock.equity,
+        company: stock.company,
+        quantity: `${stock.quantity.toFixed(2)}`,
+        price: `$ ${stock.price.toFixed(2)}`,
+        equity: `$ ${stock.equity.toFixed(2)}`,
       });
     }
     return rows;

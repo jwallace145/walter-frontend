@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="sm">
       <Typography variant="h4" align="center" gutterBottom>
         Login
       </Typography>

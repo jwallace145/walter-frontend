@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { Container, Typography } from '@mui/material';
 
 interface PortfolioStockLineChartProps {
+  stock: string;
   prices: Price[];
 }
 
@@ -19,16 +20,9 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
     return props.prices.map((price) => price.price);
   }
 
-  function getStock(): string {
-    if (props.prices === undefined || props.prices.length === 0) {
-      return '';
-    }
-    return props.prices[0].symbol;
-  }
-
   return (
     <Container>
-      <Typography variant="h6">{getStock()} Stocks</Typography>
+      <Typography variant="h6">{props.stock} Stocks</Typography>
       <LineChart
         xAxis={[
           {
