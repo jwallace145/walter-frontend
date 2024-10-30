@@ -51,8 +51,26 @@ const Login = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h4" align="center" gutterBottom>
+    <Container
+      maxWidth="xs"
+      sx={{
+        marginTop: 5,
+        backgroundColor: '#eeeeee',
+        padding: 3,
+        border: '2px solid #121212',
+        borderRadius: '8px',
+      }}
+    >
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+        sx={{
+          fontFamily: 'Raleway, sans-serif',
+          fontWeight: 700,
+          letterSpacing: '.2rem',
+        }}
+      >
         Login
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -75,7 +93,18 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button variant="contained" color="primary" fullWidth type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          type="submit"
+          sx={{
+            backgroundColor: '#121212',
+            fontFamily: 'Raleway, sans-serif',
+            fontWeight: 700,
+            letterSpacing: '.2rem',
+          }}
+        >
           Login
         </Button>
       </form>

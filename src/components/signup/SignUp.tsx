@@ -61,8 +61,26 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Typography variant="h4" align="center" gutterBottom>
+    <Container
+      maxWidth="xs"
+      sx={{
+        marginTop: 5,
+        backgroundColor: '#eeeeee',
+        padding: 3,
+        border: '2px solid #121212',
+        borderRadius: '8px',
+      }}
+    >
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+        sx={{
+          fontFamily: 'Raleway, sans-serif',
+          fontWeight: 700,
+          letterSpacing: '.2rem',
+        }}
+      >
         Sign Up
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -104,7 +122,18 @@ const Signup: React.FC = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <Button variant="contained" color="primary" fullWidth type="submit">
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          type="submit"
+          sx={{
+            backgroundColor: '#121212',
+            fontFamily: 'Raleway, sans-serif',
+            fontWeight: 700,
+            letterSpacing: '.2rem',
+          }}
+        >
           Sign Up
         </Button>
       </form>

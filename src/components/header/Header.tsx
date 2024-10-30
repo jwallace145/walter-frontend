@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -54,6 +54,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {}, []);
 
   const handleLoginButton = () => {
     navigate('/login');
@@ -153,7 +155,7 @@ const Header: React.FC = () => {
               }}
               onClick={handleDashboardButton}
             >
-              Get Stocks
+              Dashboard
             </Button>
             <Button
               color="inherit"

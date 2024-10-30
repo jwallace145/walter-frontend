@@ -41,8 +41,26 @@ const Newsletter: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <Typography variant="h4" align="center" gutterBottom>
+    <Container
+      maxWidth="xs"
+      sx={{
+        marginTop: 5,
+        backgroundColor: '#eeeeee',
+        padding: 3,
+        border: '2px solid #121212',
+        borderRadius: '8px',
+      }}
+    >
+      <Typography
+        variant="h4"
+        align="center"
+        gutterBottom
+        sx={{
+          fontFamily: 'Raleway, sans-serif',
+          fontWeight: 700,
+          letterSpacing: '.2rem',
+        }}
+      >
         Send Newsletter
       </Typography>
       <Button
@@ -51,8 +69,14 @@ const Newsletter: React.FC = () => {
         fullWidth
         type="submit"
         onClick={handleSubmit}
+        sx={{
+          backgroundColor: '#121212',
+          fontFamily: 'Raleway, sans-serif',
+          fontWeight: 700,
+          letterSpacing: '.2rem',
+        }}
       >
-        Send Newsletter
+        Send
       </Button>
       <Snackbar
         open={openSuccessAlert}
