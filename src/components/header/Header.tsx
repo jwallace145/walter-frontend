@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -52,10 +52,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Header: React.FC = () => {
-  const navigate = useNavigate();
+export interface HeaderProps {
+  authenticated: boolean;
+}
 
-  useEffect(() => {}, []);
+const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
+  const navigate = useNavigate();
 
   const handleLoginButton = () => {
     navigate('/login');
@@ -75,6 +77,95 @@ const Header: React.FC = () => {
 
   const handleNewsletterButton = () => {
     navigate('/newsletter');
+  };
+
+  const getButtons = () => {
+    if (props.authenticated) {
+      return (
+        <>
+          <Button
+            color="inherit"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 700,
+              letterSpacing: '.2rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+            onClick={handleAddStockButton}
+          >
+            Add Stock
+          </Button>
+          <Button
+            color="inherit"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 700,
+              letterSpacing: '.2rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+            onClick={handleDashboardButton}
+          >
+            Dashboard
+          </Button>
+          <Button
+            color="inherit"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 700,
+              letterSpacing: '.2rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+            onClick={handleNewsletterButton}
+          >
+            Send Newsletter
+          </Button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Button
+            color="inherit"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 700,
+              letterSpacing: '.2rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+            onClick={handleLoginButton}
+          >
+            Login
+          </Button>
+          <Button
+            color="inherit"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 700,
+              letterSpacing: '.2rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+            onClick={handleSignUpButton}
+          >
+            Sign Up
+          </Button>
+        </>
+      );
+    }
   };
 
   return (
@@ -97,81 +188,7 @@ const Header: React.FC = () => {
             WALTER
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            <Button
-              color="inherit"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'Raleway, sans-serif',
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-              onClick={handleLoginButton}
-            >
-              Login
-            </Button>
-            <Button
-              color="inherit"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'Raleway, sans-serif',
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-              onClick={handleSignUpButton}
-            >
-              Sign Up
-            </Button>
-            <Button
-              color="inherit"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'Raleway, sans-serif',
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-              onClick={handleAddStockButton}
-            >
-              Add Stock
-            </Button>
-            <Button
-              color="inherit"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'Raleway, sans-serif',
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-              onClick={handleDashboardButton}
-            >
-              Dashboard
-            </Button>
-            <Button
-              color="inherit"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'Raleway, sans-serif',
-                fontWeight: 700,
-                letterSpacing: '.2rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-              onClick={handleNewsletterButton}
-            >
-              Send Newsletter
-            </Button>
+            {getButtons()}
           </Box>
           <Search>
             <SearchIconWrapper>

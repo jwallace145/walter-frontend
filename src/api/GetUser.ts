@@ -1,13 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
-import { PortfolioStock } from './GetPortfolio';
 
 export class GetUserResponse {
   private readonly status: string;
   private readonly message: string;
+  private readonly user: User;
 
-  constructor(status: string, message: string) {
+  constructor(status: string, message: string, data?: any) {
     this.status = status;
     this.message = message;
+    this.user = this.initUser(data);
   }
 
   public isSuccess(): boolean {
@@ -17,6 +18,28 @@ export class GetUserResponse {
   public getMessage(): string {
     return this.message;
   }
+
+  public getUser(): User {
+    return this.user;
+  }
+
+  private initUser(data?: any): User {
+    if (data === null || data === undefined) {
+      return {
+        email: '',
+        username: '',
+      };
+    }
+    return {
+      email: data.email,
+      username: data.username,
+    };
+  }
+}
+
+export interface User {
+  email: string;
+  username: string;
 }
 
 export async function getUser(
@@ -30,5 +53,9 @@ export async function getUser(
       Authorization: `Bearer ${token}`,
     },
   });
-  return new GetUserResponse(response.data['Status'], response.data['Message']);
+  return new GetUserResponse(
+    response.data['Status'],
+    response.data['Message'],
+    response.data['Data'],
+  );
 }

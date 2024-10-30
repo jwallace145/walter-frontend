@@ -5,6 +5,7 @@ import { addStocks, AddStocksResponse } from './AddStocks';
 import { authUser, AuthUserResponse } from './AuthUser';
 import { createUser, CreateUserResponse } from './CreateUser';
 import { sendNewsletter, SendNewsletterResponse } from './SendNewsletter';
+import { getUser, GetUserResponse } from './GetUser';
 
 export class WalterAPI {
   private static readonly ENDPOINT: string = process.env
@@ -23,6 +24,11 @@ export class WalterAPI {
     password: string,
   ): Promise<CreateUserResponse> {
     return createUser(WalterAPI.ENDPOINT, email, username, password);
+  }
+
+  public static async getUser(): Promise<GetUserResponse> {
+    const token: string = getCookie('WalterToken') as string;
+    return getUser(WalterAPI.ENDPOINT, token);
   }
 
   public static async addStock(
