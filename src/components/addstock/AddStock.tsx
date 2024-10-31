@@ -93,12 +93,7 @@ const AddStock: React.FC = () => {
           color="primary"
           fullWidth
           type="submit"
-          sx={{
-            backgroundColor: '#121212',
-            fontFamily: 'Raleway, sans-serif',
-            fontWeight: 700,
-            letterSpacing: '.2rem',
-          }}
+          onClick={handleSubmit}
         >
           Add Stock
         </Button>

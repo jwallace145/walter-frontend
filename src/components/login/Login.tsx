@@ -32,7 +32,6 @@ const Login = () => {
       if (response.isSuccess()) {
         const token: string = response.getToken();
         setCookie('WalterToken', token);
-        setCookie('WalterUser', email);
         setSuccess(message);
         setSuccessAlert(true);
       } else {
@@ -61,16 +60,7 @@ const Login = () => {
         borderRadius: '8px',
       }}
     >
-      <Typography
-        variant="h4"
-        align="center"
-        gutterBottom
-        sx={{
-          fontFamily: 'Raleway, sans-serif',
-          fontWeight: 700,
-          letterSpacing: '.2rem',
-        }}
-      >
+      <Typography variant="h4" align="center" gutterBottom>
         Login
       </Typography>
       <form onSubmit={handleSubmit}>
@@ -93,18 +83,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          type="submit"
-          sx={{
-            backgroundColor: '#121212',
-            fontFamily: 'Raleway, sans-serif',
-            fontWeight: 700,
-            letterSpacing: '.2rem',
-          }}
-        >
+        <Button variant="contained" color="primary" fullWidth type="submit">
           Login
         </Button>
       </form>

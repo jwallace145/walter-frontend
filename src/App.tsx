@@ -9,6 +9,8 @@ import Dashboard from './components/dashboard/Dashboard';
 import Newsletter from './components/newsletter/Newsletter';
 import { WalterAPI } from './api/WalterAPI';
 import { GetUserResponse } from './api/GetUser';
+import { ThemeProvider } from '@mui/material';
+import theme from './theme/Theme';
 
 function App() {
   const [authenticated, setAuthenticated] = useState<boolean>(false);
@@ -20,16 +22,18 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <Header authenticated={authenticated} />
-      <Routes>
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/addstock" element={<AddStock />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/newsletter" element={<Newsletter />} />
-      </Routes>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Header authenticated={authenticated} />
+        <Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/addstock" element={<AddStock />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/newsletter" element={<Newsletter />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

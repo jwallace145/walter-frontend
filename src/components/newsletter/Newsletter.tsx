@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { SendNewsletterResponse } from '../../api/SendNewsletter';
 import { WalterAPI } from '../../api/WalterAPI';
-import {
-  Alert,
-  Button,
-  Container,
-  Snackbar,
-  Typography,
-} from '@mui/material';
+import { Alert, Button, Container, Snackbar, Typography } from '@mui/material';
 
 const Newsletter: React.FC = () => {
   const [success, setSuccess] = useState<string>('');
@@ -50,16 +44,7 @@ const Newsletter: React.FC = () => {
         borderRadius: '8px',
       }}
     >
-      <Typography
-        variant="h4"
-        align="center"
-        gutterBottom
-        sx={{
-          fontFamily: 'Raleway, sans-serif',
-          fontWeight: 700,
-          letterSpacing: '.2rem',
-        }}
-      >
+      <Typography variant="h4" align="center">
         Send Newsletter
       </Typography>
       <Button
@@ -68,12 +53,6 @@ const Newsletter: React.FC = () => {
         fullWidth
         type="submit"
         onClick={handleSubmit}
-        sx={{
-          backgroundColor: '#121212',
-          fontFamily: 'Raleway, sans-serif',
-          fontWeight: 700,
-          letterSpacing: '.2rem',
-        }}
       >
         Send
       </Button>

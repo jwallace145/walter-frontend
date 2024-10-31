@@ -83,86 +83,16 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     if (props.authenticated) {
       return (
         <>
-          <Button
-            color="inherit"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Raleway, sans-serif',
-              fontWeight: 700,
-              letterSpacing: '.2rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-            onClick={handleAddStockButton}
-          >
-            Add Stock
-          </Button>
-          <Button
-            color="inherit"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Raleway, sans-serif',
-              fontWeight: 700,
-              letterSpacing: '.2rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-            onClick={handleDashboardButton}
-          >
-            Dashboard
-          </Button>
-          <Button
-            color="inherit"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Raleway, sans-serif',
-              fontWeight: 700,
-              letterSpacing: '.2rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-            onClick={handleNewsletterButton}
-          >
-            Send Newsletter
-          </Button>
+          <Button onClick={handleAddStockButton}>Add Stock</Button>
+          <Button onClick={handleDashboardButton}>Dashboard</Button>
+          <Button onClick={handleNewsletterButton}>Send Newsletter</Button>
         </>
       );
     } else {
       return (
         <>
-          <Button
-            color="inherit"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Raleway, sans-serif',
-              fontWeight: 700,
-              letterSpacing: '.2rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-            onClick={handleLoginButton}
-          >
-            Login
-          </Button>
-          <Button
-            color="inherit"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'Raleway, sans-serif',
-              fontWeight: 700,
-              letterSpacing: '.2rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-            onClick={handleSignUpButton}
-          >
-            Sign Up
-          </Button>
+          <Button onClick={handleLoginButton}>Login</Button>
+          <Button onClick={handleSignUpButton}>Sign Up</Button>
         </>
       );
     }
