@@ -2,13 +2,6 @@ import * as React from 'react';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
 import { Container, Typography } from '@mui/material';
 
-const data = [
-  { value: 40, label: 'Segment 1' },
-  { value: 30, label: 'Segment 2' },
-  { value: 20, label: 'Segment 3' },
-  { value: 10, label: 'Segment 4' },
-];
-
 const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'];
 
 interface PortfolioProps {
