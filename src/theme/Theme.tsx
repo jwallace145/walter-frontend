@@ -28,6 +28,9 @@ const theme = createTheme({
           letterSpacing: '.2rem',
           color: 'inherit',
           fontWeight: 700,
+          '&:hover': {
+            backgroundColor: '#333333',
+          },
         },
       },
     },

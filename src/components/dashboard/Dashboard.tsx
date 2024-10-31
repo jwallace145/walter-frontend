@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: '#333333' }}>
+    <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2} sx={{ padding: 2 }}>
         <Grid size={6}>
           <PortfolioPieChart stocks={stocks} />

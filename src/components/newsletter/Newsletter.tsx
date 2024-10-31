@@ -47,13 +47,7 @@ const Newsletter: React.FC = () => {
       <Typography variant="h4" align="center">
         Send Newsletter
       </Typography>
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        type="submit"
-        onClick={handleSubmit}
-      >
+      <Button fullWidth type="submit" onClick={handleSubmit}>
         Send
       </Button>
       <Snackbar

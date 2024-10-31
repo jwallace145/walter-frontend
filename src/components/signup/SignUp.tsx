@@ -122,13 +122,7 @@ const Signup: React.FC = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          type="submit"
-          onClick={handleSubmit}
-        >
+        <Button fullWidth type="submit">
           Sign Up
         </Button>
       </form>
