@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
 import { alpha, styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import { removeCookie } from 'typescript-cookie';
+import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -54,6 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export interface HeaderProps {
   authenticated: boolean;
+  setAuthenticated: (authenticated: boolean) => void;
 }
 
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
@@ -79,6 +82,12 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     navigate('/newsletter');
   };
 
+  const handleLogoutButton = () => {
+    removeCookie(WALTER_TOKEN_NAME);
+    navigate('/login');
+    props.setAuthenticated(false);
+  };
+
   const getButtons = () => {
     if (props.authenticated) {
       return (
@@ -86,6 +95,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
           <Button onClick={handleAddStockButton}>Add Stock</Button>
           <Button onClick={handleDashboardButton}>Dashboard</Button>
           <Button onClick={handleNewsletterButton}>Send Newsletter</Button>
+          <Button onClick={handleLogoutButton}>Logout</Button>
         </>
       );
     } else {

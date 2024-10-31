@@ -10,8 +10,15 @@ import {
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/AuthUser';
+import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+export interface LoginProps {
+  setAuthenticated: (authenticated: boolean) => void;
+}
+
+const Login = (props: LoginProps) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [success, setSuccess] = useState<string>('');
@@ -31,9 +38,11 @@ const Login = () => {
       const message: string = response.getMessage();
       if (response.isSuccess()) {
         const token: string = response.getToken();
-        setCookie('WalterToken', token);
+        setCookie(WALTER_TOKEN_NAME, token);
         setSuccess(message);
         setSuccessAlert(true);
+        props.setAuthenticated(true);
+        navigate('/dashboard');
       } else {
         setError(message);
         setErrorAlert(true);

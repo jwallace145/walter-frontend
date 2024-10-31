@@ -11,7 +11,7 @@ export class GetUserResponse {
     this.user = this.initUser(data);
   }
 
-  public isSuccess(): boolean {
+  public isAuthenticated(): boolean {
     return this.status === 'Success';
   }
 
