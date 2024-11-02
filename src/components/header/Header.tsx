@@ -2,8 +2,7 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { Container } from '@mui/material';
+import { Avatar, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import SearchIcon from '@mui/icons-material/Search';
@@ -11,6 +10,13 @@ import { alpha, styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { removeCookie } from 'typescript-cookie';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import { grey } from '@mui/material/colors';
+import SendIcon from '@mui/icons-material/Send';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
+import EmailIcon from '@mui/icons-material/Email';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -78,7 +84,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     navigate('/dashboard');
   };
 
-  const handleNewsletterButton = () => {
+  const handleSendNewsletterButton = () => {
     navigate('/newsletter');
   };
 
@@ -92,17 +98,83 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     if (props.authenticated) {
       return (
         <>
-          <Button onClick={handleAddStockButton}>Add Stock</Button>
-          <Button onClick={handleDashboardButton}>Dashboard</Button>
-          <Button onClick={handleNewsletterButton}>Send Newsletter</Button>
-          <Button onClick={handleLogoutButton}>Logout</Button>
+          <Avatar
+            sx={{
+              bgcolor: grey[600],
+              cursor: 'pointer',
+              '&:hover': {
+                bgcolor: grey[400], // Change to your desired hover color
+              },
+            }}
+            onClick={handleDashboardButton}
+          >
+            <ShowChartIcon />
+          </Avatar>
+          <Avatar
+            sx={{
+              bgcolor: grey[600],
+              cursor: 'pointer',
+              '&:hover': {
+                bgcolor: grey[400], // Change to your desired hover color
+              },
+            }}
+            onClick={handleSendNewsletterButton}
+          >
+            <SendIcon />
+          </Avatar>
+          <Avatar
+            sx={{
+              bgcolor: grey[600],
+              cursor: 'pointer',
+              '&:hover': {
+                bgcolor: grey[400], // Change to your desired hover color
+              },
+            }}
+            onClick={handleDashboardButton}
+          >
+            <EmailIcon />
+          </Avatar>
+          <Avatar
+            sx={{
+              bgcolor: grey[600],
+              cursor: 'pointer',
+              '&:hover': {
+                bgcolor: grey[400], // Change to your desired hover color
+              },
+            }}
+            onClick={handleLogoutButton}
+          >
+            <LogoutIcon />
+          </Avatar>
         </>
       );
     } else {
       return (
         <>
-          <Button onClick={handleLoginButton}>Login</Button>
-          <Button onClick={handleSignUpButton}>Sign Up</Button>
+          <Avatar
+            sx={{
+              bgcolor: grey[600],
+              cursor: 'pointer',
+              '&:hover': {
+                bgcolor: grey[400], // Change to your desired hover color
+              },
+            }}
+            onClick={handleLoginButton}
+          >
+            <LoginIcon />
+          </Avatar>
+          <Avatar
+            sx={{
+              bgcolor: grey[600],
+              cursor: 'pointer',
+              '&:hover': {
+                bgcolor: grey[400], // Change to your desired hover color
+              },
+            }}
+            onClick={handleSignUpButton}
+          >
+            <AddCircleOutlineIcon />
+          </Avatar>
         </>
       );
     }
