@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import {
   Alert,
+  Avatar,
   Button,
   Container,
+  CssBaseline,
   Snackbar,
   TextField,
-  Typography,
 } from '@mui/material';
 import { WalterAPI } from '../../api/WalterAPI';
 import { CreateUserResponse } from '../../api/CreateUser';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Box from '@mui/material/Box';
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -61,71 +64,63 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <Container
-      maxWidth="xs"
-      sx={{
-        marginTop: 5,
-        backgroundColor: '#eeeeee',
-        padding: 3,
-        border: '2px solid #121212',
-        borderRadius: '8px',
-      }}
-    >
-      <Typography
-        variant="h4"
-        align="center"
-        gutterBottom
+    <Container maxWidth="xs">
+      <CssBaseline />
+      <Box
         sx={{
-          fontFamily: 'Raleway, sans-serif',
-          fontWeight: 700,
-          letterSpacing: '.2rem',
+          mt: 20,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
-        Sign Up
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <TextField
-          label="Username"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <TextField
-          label="Confirm Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <Button fullWidth type="submit">
-          Sign Up
-        </Button>
-      </form>
+        <Avatar sx={{ m: 2 }}>
+          <AccountCircleIcon />
+        </Avatar>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="Email"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <TextField
+            label="Username"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <TextField
+            label="Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <TextField
+            label="Confirm Password"
+            type="password"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+          <Button fullWidth type="submit">
+            Sign Up
+          </Button>
+        </form>
+      </Box>
       <Snackbar
         open={openSuccessAlert}
         autoHideDuration={6000}

@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
 import { SendNewsletterResponse } from '../../api/SendNewsletter';
 import { WalterAPI } from '../../api/WalterAPI';
-import { Alert, Button, Container, Snackbar, Typography } from '@mui/material';
+import {
+  Alert,
+  Avatar,
+  Button,
+  Container,
+  CssBaseline,
+  Snackbar,
+} from '@mui/material';
+import Box from '@mui/material/Box';
+import { Email } from '@mui/icons-material';
 
 const Newsletter: React.FC = () => {
   const [success, setSuccess] = useState<string>('');
@@ -34,22 +43,23 @@ const Newsletter: React.FC = () => {
   };
 
   return (
-    <Container
-      maxWidth="xs"
-      sx={{
-        marginTop: 5,
-        backgroundColor: '#eeeeee',
-        padding: 3,
-        border: '2px solid #121212',
-        borderRadius: '8px',
-      }}
-    >
-      <Typography variant="h4" align="center">
-        Send Newsletter
-      </Typography>
-      <Button fullWidth type="submit" onClick={handleSubmit}>
-        Send
-      </Button>
+    <Container maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          mt: 20,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 2 }}>
+          <Email />
+        </Avatar>
+        <Button fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleSubmit}>
+          SEND
+        </Button>
+      </Box>
       <Snackbar
         open={openSuccessAlert}
         autoHideDuration={6000}

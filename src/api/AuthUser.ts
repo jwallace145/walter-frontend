@@ -24,7 +24,7 @@ export class AuthUserResponse {
   }
 
   private parseData(data: any): string {
-    if (data === null) {
+    if (data === null || data === undefined) {
       return '';
     }
     return data['token'];

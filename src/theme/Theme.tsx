@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
@@ -29,7 +30,7 @@ const theme = createTheme({
           color: 'inherit',
           fontWeight: 700,
           '&:hover': {
-            backgroundColor: '#333333',
+            backgroundColor: grey[400],
           },
         },
       },

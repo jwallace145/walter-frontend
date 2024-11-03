@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import {
   Alert,
+  Avatar,
   Button,
   Container,
+  CssBaseline,
   Snackbar,
   TextField,
-  Typography,
 } from '@mui/material';
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/AuthUser';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 import { useNavigate } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import { LockOutlined } from '@mui/icons-material';
 
 export interface LoginProps {
   setAuthenticated: (authenticated: boolean) => void;
@@ -19,15 +22,13 @@ export interface LoginProps {
 
 const Login = (props: LoginProps) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [success, setSuccess] = useState<string>('');
-  const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
     try {
       const response: AuthUserResponse = await WalterAPI.authUser(
@@ -39,82 +40,77 @@ const Login = (props: LoginProps) => {
       if (response.isSuccess()) {
         const token: string = response.getToken();
         setCookie(WALTER_TOKEN_NAME, token);
-        setSuccess(message);
-        setSuccessAlert(true);
         props.setAuthenticated(true);
         navigate('/dashboard');
       } else {
         setError(message);
         setErrorAlert(true);
       }
-    } catch (error) {
-      setError('Unexpected error!');
-      setErrorAlert(true);
+    } catch (e) {
+      console.log(e);
     }
   };
 
   const handleClose = () => {
-    setSuccessAlert(false);
     setErrorAlert(false);
   };
 
   return (
-    <Container
-      maxWidth="xs"
-      sx={{
-        marginTop: 5,
-        backgroundColor: '#eeeeee',
-        padding: 3,
-        border: '2px solid #121212',
-        borderRadius: '8px',
-      }}
-    >
-      <Typography variant="h4" align="center" gutterBottom>
-        Login
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <TextField
-          label="Password"
-          type="password"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <Button fullWidth type="submit">
-          Login
-        </Button>
-      </form>
-      <Snackbar
-        open={openSuccessAlert}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity="success">
-          {success}
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        open={openErrorAlert}
-        autoHideDuration={6000}
-        onClose={handleClose}
-      >
-        <Alert onClose={handleClose} severity="error">
-          {error}
-        </Alert>
-      </Snackbar>
-    </Container>
+    <>
+      <Container maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            mt: 20,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 2 }}>
+            <LockOutlined />
+          </Avatar>
+          <Box sx={{ mt: 2 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+            <Button fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleSubmit}>
+              LOGIN
+            </Button>
+          </Box>
+        </Box>
+        <Snackbar
+          open={openErrorAlert}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="error">
+            {error}
+          </Alert>
+        </Snackbar>
+      </Container>
+    </>
   );
 };
 
