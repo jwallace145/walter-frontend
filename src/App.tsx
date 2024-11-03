@@ -9,14 +9,10 @@ import Dashboard from './components/dashboard/Dashboard';
 import Newsletter from './components/newsletter/Newsletter';
 import { WalterAPI } from './api/WalterAPI';
 import { GetUserResponse } from './api/GetUser';
-import {
-  CircularProgress,
-  Container,
-  ThemeProvider,
-  Typography,
-} from '@mui/material';
+import { CircularProgress, ThemeProvider, Typography } from '@mui/material';
 import theme from './theme/Theme';
 import Box from '@mui/material/Box';
+import LandingPage from './components/landing/LandingPage';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -61,6 +57,7 @@ const App: React.FC = () => {
           <Typography color="error">{error}</Typography>
         ) : (
           <Routes>
+            <Route path="/" element={<LandingPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route
               path="/login"

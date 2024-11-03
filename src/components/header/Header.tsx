@@ -68,6 +68,10 @@ export interface HeaderProps {
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const navigate = useNavigate();
 
+  const handleLandingPageButton = () => {
+    navigate('/');
+  };
+
   const handleLoginButton = () => {
     navigate('/login');
   };
@@ -195,7 +199,9 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              cursor: 'pointer',
             }}
+            onClick={handleLandingPageButton}
           >
             WALTER
           </Typography>
