@@ -11,8 +11,10 @@ import {
 } from '@mui/material';
 import Box from '@mui/material/Box';
 import { Email } from '@mui/icons-material';
+import LoadingButton from '../button/LoadingButton';
 
 const Newsletter: React.FC = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>('');
   const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -21,7 +23,9 @@ const Newsletter: React.FC = () => {
   async function handleSubmit(event: React.FormEvent): Promise<void> {
     event.preventDefault();
     try {
+      setLoading(true);
       const response: SendNewsletterResponse = await WalterAPI.sendNewsletter();
+      setLoading(false);
 
       const message: string = response.getMessage();
       if (response.isSuccess()) {
@@ -59,9 +63,7 @@ const Newsletter: React.FC = () => {
         <Avatar sx={{ m: 2 }}>
           <Email />
         </Avatar>
-        <Button fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleSubmit}>
-          SEND
-        </Button>
+        <LoadingButton loading={loading} onClick={handleSubmit} text={'Send'} />
       </Box>
       <Snackbar
         open={openSuccessAlert}

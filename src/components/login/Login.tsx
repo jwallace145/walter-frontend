@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Alert,
   Avatar,
-  Button,
   Container,
   CssBaseline,
   Snackbar,
@@ -15,12 +14,14 @@ import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { LockOutlined } from '@mui/icons-material';
+import LoadingButton from '../button/LoadingButton';
 
 export interface LoginProps {
   setAuthenticated: (authenticated: boolean) => void;
 }
 
 const Login = (props: LoginProps) => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -31,10 +32,12 @@ const Login = (props: LoginProps) => {
     event.preventDefault();
 
     try {
+      setLoading(true);
       const response: AuthUserResponse = await WalterAPI.authUser(
         email,
         password,
       );
+      setLoading(false);
 
       const message: string = response.getMessage();
       if (response.isSuccess()) {
@@ -47,7 +50,10 @@ const Login = (props: LoginProps) => {
         setErrorAlert(true);
       }
     } catch (e) {
-      console.log(e);
+      setError('Unexpected error occurred!');
+      setErrorAlert(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,9 +104,11 @@ const Login = (props: LoginProps) => {
                 setPassword(e.target.value);
               }}
             />
-            <Button fullWidth sx={{ mt: 3, mb: 2 }} onClick={handleSubmit}>
-              LOGIN
-            </Button>
+            <LoadingButton
+              loading={loading}
+              onClick={handleSubmit}
+              text={'Login'}
+            />
           </Box>
         </Box>
         <Snackbar

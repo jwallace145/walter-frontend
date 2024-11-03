@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Alert,
   Avatar,
-  Button,
   Container,
   CssBaseline,
   Snackbar,
@@ -12,12 +11,14 @@ import { WalterAPI } from '../../api/WalterAPI';
 import { CreateUserResponse } from '../../api/CreateUser';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Box from '@mui/material/Box';
+import LoadingButton from '../button/LoadingButton';
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState<string>('');
   const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -33,11 +34,13 @@ const Signup: React.FC = () => {
     }
 
     try {
+      setLoading(true);
       const response: CreateUserResponse = await WalterAPI.createUser(
         email,
         username,
         password,
       );
+      setLoading(false);
 
       const message: string = response.getMessage();
       if (response.isSuccess()) {
@@ -119,9 +122,11 @@ const Signup: React.FC = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          <Button fullWidth type="submit">
-            Sign Up
-          </Button>
+          <LoadingButton
+            loading={loading}
+            onClick={handleSubmit}
+            text={'Sign Up'}
+          />
         </form>
       </Box>
       <Snackbar
