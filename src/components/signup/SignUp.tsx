@@ -72,6 +72,9 @@ const Signup: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          borderRadius: 2,
+          boxShadow: 3,
+          padding: 2,
         }}
       >
         <Avatar sx={{ m: 2 }}>

@@ -14,7 +14,6 @@ const theme = createTheme({
     MuiGrid2: {
       styleOverrides: {
         root: {
-          border: '2px solid #121212',
           borderRadius: '8px',
           padding: 2,
           backgroundColor: '#eeeeee',
