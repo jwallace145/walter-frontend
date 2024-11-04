@@ -2,63 +2,19 @@ import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Avatar, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import SearchIcon from '@mui/icons-material/Search';
-import { alpha, styled } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
 import { removeCookie } from 'typescript-cookie';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
-import { grey } from '@mui/material/colors';
 import SendIcon from '@mui/icons-material/Send';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import EmailIcon from '@mui/icons-material/Email';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '100%',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}));
+import HeaderButton from './HeaderButton';
+import SearchBar from './SearchBar';
 
 export interface HeaderProps {
   authenticated: boolean;
@@ -98,83 +54,32 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     if (props.authenticated) {
       return (
         <>
-          <Avatar
-            sx={{
-              bgcolor: grey[600],
-              cursor: 'pointer',
-              '&:hover': {
-                bgcolor: grey[400], // Change to your desired hover color
-              },
-            }}
+          <HeaderButton
             onClick={handleDashboardButton}
-          >
-            <ShowChartIcon />
-          </Avatar>
-          <Avatar
-            sx={{
-              bgcolor: grey[600],
-              cursor: 'pointer',
-              '&:hover': {
-                bgcolor: grey[400], // Change to your desired hover color
-              },
-            }}
+            children={<ShowChartIcon />}
+          />
+          <HeaderButton
             onClick={handleSendNewsletterButton}
-          >
-            <SendIcon />
-          </Avatar>
-          <Avatar
-            sx={{
-              bgcolor: grey[600],
-              cursor: 'pointer',
-              '&:hover': {
-                bgcolor: grey[400], // Change to your desired hover color
-              },
-            }}
+            children={<SendIcon />}
+          />
+          <HeaderButton
             onClick={handleDashboardButton}
-          >
-            <EmailIcon />
-          </Avatar>
-          <Avatar
-            sx={{
-              bgcolor: grey[600],
-              cursor: 'pointer',
-              '&:hover': {
-                bgcolor: grey[400], // Change to your desired hover color
-              },
-            }}
+            children={<EmailIcon />}
+          />
+          <HeaderButton
             onClick={handleLogoutButton}
-          >
-            <LogoutIcon />
-          </Avatar>
+            children={<LogoutIcon />}
+          />
         </>
       );
     } else {
       return (
         <>
-          <Avatar
-            sx={{
-              bgcolor: grey[600],
-              cursor: 'pointer',
-              '&:hover': {
-                bgcolor: grey[400], // Change to your desired hover color
-              },
-            }}
-            onClick={handleLoginButton}
-          >
-            <LoginIcon />
-          </Avatar>
-          <Avatar
-            sx={{
-              bgcolor: grey[600],
-              cursor: 'pointer',
-              '&:hover': {
-                bgcolor: grey[400], // Change to your desired hover color
-              },
-            }}
+          <HeaderButton onClick={handleLoginButton} children={<LoginIcon />} />
+          <HeaderButton
             onClick={handleSignUpButton}
-          >
-            <AddCircleOutlineIcon />
-          </Avatar>
+            children={<AddCircleOutlineIcon />}
+          />
         </>
       );
     }
@@ -204,15 +109,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {getButtons()}
           </Box>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          {props.authenticated && <SearchBar />}
         </Toolbar>
       </Container>
     </AppBar>
