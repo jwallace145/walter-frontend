@@ -1,8 +1,55 @@
 import * as React from 'react';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Box, CircularProgress } from '@mui/material';
+import {
+  DataGrid,
+  GridActionsCellItem,
+  GridColDef,
+  GridRowId,
+  GridRowModel,
+  GridRowModes,
+  GridRowModesModel,
+  GridRowsProp,
+  GridSlots,
+  GridToolbarContainer,
+} from '@mui/x-data-grid';
+import { Box, Button, CircularProgress } from '@mui/material';
 import { PortfolioStock } from '../../api/GetPortfolio';
 import { US_DOLLAR } from '../../constants/Constants';
+import SaveIcon from '@mui/icons-material/Save';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import CancelIcon from '@mui/icons-material/Cancel';
+import AddIcon from '@mui/icons-material/Add';
+
+interface EditToolbarProps {
+  setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
+  setRowModesModel: (
+    newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
+  ) => void;
+}
+
+function EditToolbar(props: EditToolbarProps) {
+  const { setRows, setRowModesModel } = props;
+
+  const handleClick = (event: any) => {
+    const id = 'TEST';
+    setRows((oldRows) => [
+      ...oldRows,
+      { id, name: '', age: '', role: '', isNew: true },
+    ]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+    }));
+  };
+
+  return (
+    <GridToolbarContainer>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        Add record
+      </Button>
+    </GridToolbarContainer>
+  );
+}
 
 interface PortfolioDataGridProps {
   loading: boolean;
@@ -19,6 +66,38 @@ interface PortfolioDataGridRow {
 }
 
 const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = (props) => {
+  const [rows, setRows] = React.useState([]);
+  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
+    {},
+  );
+
+  const handleEditClick = (id: GridRowId) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id: GridRowId) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id: GridRowId) => () => {
+    // TODO: Implement delete stock from portfolio
+    return;
+  };
+
+  const handleCancelClick = (id: GridRowId) => () => {
+    // TODO: Implement cancel stock edit
+    return;
+  };
+
+  const processRowUpdate = (newRow: GridRowModel) => {
+    // TODO: Implement process row update
+    return;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
   function getColumns(): GridColDef<PortfolioDataGridRow>[] {
     return [
       {
@@ -84,6 +163,59 @@ const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = (props) => {
           </strong>
         ),
       },
+      {
+        field: 'actions',
+        type: 'actions',
+        headerName: 'Actions',
+        width: 100,
+        cellClassName: 'actions',
+        renderHeader: () => (
+          <strong
+            style={{ fontFamily: 'Raleway, sans-serif', fontSize: '16px' }}
+          >
+            Actions
+          </strong>
+        ),
+        getActions: ({ id }) => {
+          const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+          if (isInEditMode) {
+            return [
+              <GridActionsCellItem
+                icon={<SaveIcon />}
+                label="Save"
+                sx={{
+                  color: 'primary.main',
+                }}
+                onClick={handleSaveClick(id)}
+              />,
+              <GridActionsCellItem
+                icon={<CancelIcon />}
+                label="Cancel"
+                className="textPrimary"
+                onClick={handleCancelClick(id)}
+                color="inherit"
+              />,
+            ];
+          }
+
+          return [
+            <GridActionsCellItem
+              icon={<EditIcon />}
+              label="Edit"
+              className="textPrimary"
+              onClick={handleEditClick(id)}
+              color="inherit"
+            />,
+            <GridActionsCellItem
+              icon={<DeleteIcon />}
+              label="Delete"
+              onClick={handleDeleteClick(id)}
+              color="inherit"
+            />,
+          ];
+        },
+      },
     ];
   }
 
@@ -121,6 +253,15 @@ const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = (props) => {
           <DataGrid
             rows={getRows()}
             columns={getColumns()}
+            editMode="row"
+            rowModesModel={rowModesModel}
+            onRowModesModelChange={handleRowModesModelChange}
+            slots={{
+              toolbar: EditToolbar as GridSlots['toolbar'],
+            }}
+            slotProps={{
+              toolbar: { setRows, setRowModesModel },
+            }}
             initialState={{
               pagination: {
                 paginationModel: {
