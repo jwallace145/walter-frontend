@@ -56,11 +56,11 @@ const PortfolioPieChart: React.FC<PortfolioProps> = (props: PortfolioProps) => {
             },
           ]}
           sx={{
+            fontFamily: 'Raleway, sans-serif',
             [`& .${pieArcLabelClasses.root}`]: {
               fontWeight: 'bold',
             },
           }}
-          width={600}
           height={400}
           colors={colors}
         />

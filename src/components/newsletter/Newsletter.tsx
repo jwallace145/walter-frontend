@@ -52,6 +52,7 @@ const Newsletter: React.FC = () => {
       <Box
         sx={{
           mt: 20,
+          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
