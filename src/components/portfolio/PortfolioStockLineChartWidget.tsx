@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Price } from '../../api/GetPrices';
-import { Container, Pagination } from '@mui/material';
+import { CircularProgress, Container, Pagination } from '@mui/material';
 import PortfolioStockLineChart from './PortfolioStockLineChart';
 import { PortfolioStock } from '../../api/GetPortfolio';
 import { WalterAPI } from '../../api/WalterAPI';
+import Box from '@mui/material/Box';
 
 interface PortfolioStockLineChartWidgetProps {
+  loading: boolean;
   stocks: PortfolioStock[];
 }
 
@@ -15,36 +17,51 @@ const PortfolioStockLineChartWidget: React.FC<
 > = (props) => {
   const [page, setPage] = useState<number>(1);
   const [stock, setStock] = useState<string>('');
-  const [stocks, setStocks] = useState<PortfolioStock[]>([]);
   const [prices, setPrices] = useState<Price[]>([]);
 
   useEffect(() => {
-    setStocks(props.stocks);
-  }, [props.stocks]);
-
-  useEffect(() => {
-    if (stocks !== undefined && stocks.length > 0) {
-      setStock(stocks[page - 1].symbol);
-      WalterAPI.getPrices(stocks[page - 1].symbol).then((response) => {
+    if (props.stocks !== undefined && props.stocks.length > 0) {
+      setStock(props.stocks[page - 1].symbol);
+      WalterAPI.getPrices(props.stocks[page - 1].symbol).then((response) => {
         setPrices(response.getPrices());
       });
     }
-  }, [page]);
+  }, [page, props.stocks]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
   return (
-    <Container>
-      <PortfolioStockLineChart stock={stock} prices={prices} />
-      <Pagination
-        count={stocks.length}
-        color="primary"
-        page={page}
-        onChange={handleChange}
-      />
-    </Container>
+    <>
+      {props.loading ? (
+        <Box
+          width={600}
+          height={400}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Container>
+          <PortfolioStockLineChart
+            loading={props.loading}
+            stock={stock}
+            prices={prices}
+          />
+          <Pagination
+            count={props.stocks.length}
+            color="primary"
+            page={page}
+            onChange={handleChange}
+          />
+        </Container>
+      )}
+    </>
   );
 };
 
