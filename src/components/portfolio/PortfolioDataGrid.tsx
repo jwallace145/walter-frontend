@@ -138,7 +138,6 @@ const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = (props) => {
           />
         </Box>
       )}
-      );
     </>
   );
 };
