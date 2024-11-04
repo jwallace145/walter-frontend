@@ -8,12 +8,16 @@ import PortfolioStockLineChartWidget from '../portfolio/PortfolioStockLineChartW
 import PortfolioDataGrid from '../portfolio/PortfolioDataGrid';
 
 const Dashboard: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const [stocks, setStocks] = useState<PortfolioStock[]>([]);
 
   useEffect(() => {
-    WalterAPI.getPortfolio().then((response: GetPortfolioResponse) => {
-      setStocks(response.getStocks());
-    });
+    setLoading(true);
+    WalterAPI.getPortfolio()
+      .then((response: GetPortfolioResponse) => {
+        setStocks(response.getStocks());
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -35,7 +39,7 @@ const Dashboard: React.FC = () => {
             boxShadow: 3,
           }}
         >
-          <PortfolioPieChart stocks={stocks} />
+          <PortfolioPieChart loading={loading} stocks={stocks} />
         </Grid>
         <Grid
           size={6}
@@ -45,7 +49,7 @@ const Dashboard: React.FC = () => {
             boxShadow: 3,
           }}
         >
-          <PortfolioStockLineChartWidget stocks={stocks} />
+          <PortfolioStockLineChartWidget loading={loading} stocks={stocks} />
         </Grid>
         <Grid
           size={12}
@@ -55,7 +59,7 @@ const Dashboard: React.FC = () => {
             boxShadow: 3,
           }}
         >
-          <PortfolioDataGrid stocks={stocks} />
+          <PortfolioDataGrid loading={loading} stocks={stocks} />
         </Grid>
       </Grid>
     </Box>
