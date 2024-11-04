@@ -80,10 +80,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     navigate('/signup');
   };
 
-  const handleAddStockButton = () => {
-    navigate('/addstock');
-  };
-
   const handleDashboardButton = () => {
     navigate('/dashboard');
   };

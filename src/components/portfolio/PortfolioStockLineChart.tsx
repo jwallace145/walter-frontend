@@ -2,8 +2,7 @@ import * as React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Price } from '../../api/GetPrices';
 import dayjs from 'dayjs';
-import { CircularProgress, Container, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Container, Typography } from '@mui/material';
 
 interface PortfolioStockLineChartProps {
   loading: boolean;
@@ -41,10 +40,11 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
         xAxis={[
           {
             data: getTimestamps(),
-            valueFormatter: (v) => dayjs(v).format('YYYY-MM-DD'),
+            valueFormatter: (v) => dayjs(v).format('MMM D, YYYY'),
             tickLabelStyle: {
               fontSize: 12,
               fontFamily: 'Raleway, sans-serif',
+              fontWeight: 'bold',
             },
           },
         ]}
@@ -54,6 +54,7 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
             tickLabelStyle: {
               fontSize: 12,
               fontFamily: 'Raleway, sans-serif',
+              fontWeight: 'bold',
             },
           },
         ]}
@@ -61,6 +62,8 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
           {
             data: getPrices(),
             valueFormatter: (v) => `${formatCurrency(v)}`,
+            color: '#257180',
+            showMark: false,
           },
         ]}
         height={400}
