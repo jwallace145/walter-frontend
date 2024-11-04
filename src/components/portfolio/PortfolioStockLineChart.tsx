@@ -14,6 +14,18 @@ interface PortfolioStockLineChartProps {
 const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
   props,
 ) => {
+  const USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  const formatCurrency = (value: number | null): string => {
+    if (value === null) {
+      return USDollar.format(0);
+    }
+    return USDollar.format(value);
+  };
+
   function getTimestamps(): number[] {
     return props.prices.map((price) => new Date(price.timestamp).getTime());
   }
@@ -25,42 +37,36 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
   return (
     <Container>
       <Typography variant="h6">{props.stock} Stocks</Typography>
-      {props.loading ? (
-        <Box
-          width={600}
-          height={400}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <LineChart
-          xAxis={[
-            {
-              data: getTimestamps(),
-              valueFormatter: (v) => dayjs(v).format('YYYY-MM-DD'),
+      <LineChart
+        xAxis={[
+          {
+            data: getTimestamps(),
+            valueFormatter: (v) => dayjs(v).format('YYYY-MM-DD'),
+            tickLabelStyle: {
+              fontSize: 12,
+              fontFamily: 'Raleway, sans-serif',
             },
-          ]}
-          yAxis={[
-            {
-              valueFormatter: (value) => `$ ${value.toFixed(2)}`,
+          },
+        ]}
+        yAxis={[
+          {
+            valueFormatter: (value) => `${formatCurrency(value)}`,
+            tickLabelStyle: {
+              fontSize: 12,
+              fontFamily: 'Raleway, sans-serif',
             },
-          ]}
-          series={[
-            {
-              data: getPrices(),
-              valueFormatter: (v) => `$ ${v?.toFixed(2)}`,
-            },
-          ]}
-          width={700}
-          height={400}
-          grid={{ vertical: true, horizontal: true }}
-        />
-      )}
+          },
+        ]}
+        series={[
+          {
+            data: getPrices(),
+            valueFormatter: (v) => `${formatCurrency(v)}`,
+          },
+        ]}
+        height={400}
+        margin={{ left: 60, right: 60, top: 60, bottom: 60 }}
+        grid={{ vertical: true, horizontal: true }}
+      />
     </Container>
   );
 };

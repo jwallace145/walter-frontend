@@ -53,12 +53,21 @@ const PortfolioStockLineChartWidget: React.FC<
             stock={stock}
             prices={prices}
           />
-          <Pagination
-            count={props.stocks.length}
-            color="primary"
-            page={page}
-            onChange={handleChange}
-          />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Pagination
+              count={props.stocks.length}
+              color="primary"
+              page={page}
+              onChange={handleChange}
+              style={{ marginTop: '5px' }}
+            />
+          </Box>
         </Container>
       )}
     </>
