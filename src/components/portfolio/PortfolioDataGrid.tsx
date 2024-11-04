@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Box, CircularProgress } from '@mui/material';
 import { PortfolioStock } from '../../api/GetPortfolio';
+import { US_DOLLAR } from '../../constants/Constants';
 
 interface PortfolioDataGridProps {
   loading: boolean;
@@ -18,11 +19,6 @@ interface PortfolioDataGridRow {
 }
 
 const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = (props) => {
-  const USDollar = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  });
-
   function getColumns(): GridColDef<PortfolioDataGridRow>[] {
     return [
       {
@@ -99,8 +95,8 @@ const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = (props) => {
         symbol: stock.symbol,
         company: stock.company,
         quantity: `${stock.quantity.toLocaleString('en-US', { maximumFractionDigits: 2 })}`,
-        price: `${USDollar.format(stock.price)}`,
-        equity: `${USDollar.format(stock.equity)}`,
+        price: `${US_DOLLAR.format(stock.price)}`,
+        equity: `${US_DOLLAR.format(stock.equity)}`,
       });
     }
     return rows;
@@ -135,6 +131,12 @@ const PortfolioDataGrid: React.FC<PortfolioDataGridProps> = (props) => {
             pageSizeOptions={[5]}
             checkboxSelection
             disableRowSelectionOnClick
+            sx={{
+              '& .MuiDataGrid-row': {
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '14px',
+              },
+            }}
           />
         </Box>
       )}
