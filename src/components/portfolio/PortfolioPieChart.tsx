@@ -3,7 +3,7 @@ import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
 import { CircularProgress, Container, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 
-const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'];
+const colors = ['#257180', '#F2E5BF', '#FD8B51', '#CB6040', '#FF6F61'];
 
 interface PortfolioProps {
   loading: boolean;
@@ -56,8 +56,8 @@ const PortfolioPieChart: React.FC<PortfolioProps> = (props: PortfolioProps) => {
             },
           ]}
           sx={{
-            fontFamily: 'Raleway, sans-serif',
             [`& .${pieArcLabelClasses.root}`]: {
+              fontFamily: 'Raleway, sans-serif',
               fontWeight: 'bold',
             },
           }}

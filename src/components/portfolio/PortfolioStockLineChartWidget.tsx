@@ -62,10 +62,15 @@ const PortfolioStockLineChartWidget: React.FC<
           >
             <Pagination
               count={props.stocks.length}
-              color="primary"
               page={page}
               onChange={handleChange}
               style={{ marginTop: '5px' }}
+              sx={{
+                '& .MuiPaginationItem-root': {
+                  fontFamily: 'Raleway, sans-serif',
+                  fontSize: '16px',
+                },
+              }}
             />
           </Box>
         </Container>
