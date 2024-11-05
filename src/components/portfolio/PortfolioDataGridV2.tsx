@@ -146,6 +146,7 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
         type: 'actions',
         headerName: 'Actions',
         width: 100,
+        renderHeader: () => <ColumnHeader text={'Actions'} />,
         cellClassName: 'actions',
         getActions: ({ id }) => {
           const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
