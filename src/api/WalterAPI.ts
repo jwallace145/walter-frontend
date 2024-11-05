@@ -6,6 +6,7 @@ import { authUser, AuthUserResponse } from './AuthUser';
 import { createUser, CreateUserResponse } from './CreateUser';
 import { sendNewsletter, SendNewsletterResponse } from './SendNewsletter';
 import { getUser, GetUserResponse } from './GetUser';
+import { deleteStock, DeleteStockResponse } from './DeleteStock';
 
 export class WalterAPI {
   private static readonly ENDPOINT: string = process.env
@@ -37,6 +38,11 @@ export class WalterAPI {
   ): Promise<AddStocksResponse> {
     const token: string = getCookie('WalterToken') as string;
     return addStocks(WalterAPI.ENDPOINT, token, stock, quantity);
+  }
+
+  public static async deleteStock(stock: string): Promise<DeleteStockResponse> {
+    const token: string = getCookie('WalterToken') as string;
+    return deleteStock(WalterAPI.ENDPOINT, token, stock);
   }
 
   public static async getPrices(stock: string): Promise<GetPricesResponse> {

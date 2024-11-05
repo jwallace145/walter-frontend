@@ -1,6 +1,6 @@
 import { PortfolioStock } from '../../api/GetPortfolio';
 import React, { useEffect } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, CircularProgress } from '@mui/material';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -224,7 +224,20 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
   };
 
   const handleDeleteClick = (id: GridRowId) => () => {
-    setRows(rows.filter((stock) => stock.id !== id));
+    const deleteRow: PortfolioStockRow = rows.find(
+      (stock) => stock.id === id,
+    ) as PortfolioStockRow;
+    try {
+      WalterAPI.deleteStock(deleteRow.symbol).then((response) => {
+        if (response.isSuccess()) {
+          setRows(rows.filter((stock) => stock.id !== id));
+          props.setRefresh(true);
+        }
+      });
+    } catch (e) {
+      console.log(e);
+      props.setRefresh(true);
+    }
   };
 
   const handleCancelClick = (id: GridRowId) => () => {
@@ -244,11 +257,12 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
     try {
       WalterAPI.addStock(updatedRow.symbol, Number(updatedRow.quantity)).then(
         (response) => {
-          console.log(response);
-          setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-          console.log('yo');
-          console.log(rows);
-          props.setRefresh(true);
+          if (response.isSuccess()) {
+            setRows(
+              rows.map((row) => (row.id === newRow.id ? updatedRow : row)),
+            );
+            props.setRefresh(true);
+          }
         },
       );
       return updatedRow;
@@ -263,37 +277,53 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
   };
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={getPortfolioColumns()}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        editMode="row"
-        rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        slots={{
-          toolbar: EditToolbar as GridSlots['toolbar'],
-        }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
-        }}
-        sx={{
-          '& .MuiDataGrid-row': {
-            fontFamily: 'Raleway, sans-serif',
-            fontSize: '14px',
-          },
-        }}
-      />
-    </Box>
+    <>
+      {props.loading ? (
+        <Box
+          width={'100%'}
+          height={400}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Box sx={{ height: 400, width: '100%' }}>
+          <DataGrid
+            rows={rows}
+            columns={getPortfolioColumns()}
+            initialState={{
+              pagination: {
+                paginationModel: {
+                  pageSize: 5,
+                },
+              },
+            }}
+            pageSizeOptions={[5]}
+            editMode="row"
+            rowModesModel={rowModesModel}
+            onRowModesModelChange={handleRowModesModelChange}
+            onRowEditStop={handleRowEditStop}
+            processRowUpdate={processRowUpdate}
+            slots={{
+              toolbar: EditToolbar as GridSlots['toolbar'],
+            }}
+            slotProps={{
+              toolbar: { setRows, setRowModesModel },
+            }}
+            sx={{
+              '& .MuiDataGrid-row': {
+                fontFamily: 'Raleway, sans-serif',
+                fontSize: '14px',
+              },
+            }}
+          />
+        </Box>
+      )}
+    </>
   );
 };
 
