@@ -5,11 +5,12 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import PortfolioPieChart from '../portfolio/PortfolioPieChart';
 import PortfolioStockLineChartWidget from '../portfolio/PortfolioStockLineChartWidget';
-import PortfolioDataGrid from '../portfolio/PortfolioDataGrid';
+import PortfolioDataGridV2 from '../portfolio/PortfolioDataGridV2';
 
 const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [stocks, setStocks] = useState<PortfolioStock[]>([]);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     setLoading(true);
@@ -17,8 +18,11 @@ const Dashboard: React.FC = () => {
       .then((response: GetPortfolioResponse) => {
         setStocks(response.getStocks());
       })
-      .finally(() => setLoading(false));
-  }, []);
+      .finally(() => {
+        setLoading(false);
+        setRefresh(false);
+      });
+  }, [refresh]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -59,7 +63,11 @@ const Dashboard: React.FC = () => {
             boxShadow: 3,
           }}
         >
-          <PortfolioDataGrid loading={loading} stocks={stocks} />
+          <PortfolioDataGridV2
+            loading={loading}
+            stocks={stocks}
+            setRefresh={setRefresh}
+          />
         </Grid>
       </Grid>
     </Box>
