@@ -28,15 +28,11 @@ const PortfolioStockLineChartWidget: React.FC<
     }
   }, [page, props.stocks]);
 
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
-
   return (
     <>
       {props.loading ? (
         <Box
-          width={600}
+          width={'100%'}
           height={400}
           sx={{
             display: 'flex',
@@ -63,7 +59,7 @@ const PortfolioStockLineChartWidget: React.FC<
             <Pagination
               count={props.stocks.length}
               page={page}
-              onChange={handleChange}
+              onChange={(event, value) => setPage(value)}
               style={{ marginTop: '5px' }}
               sx={{
                 '& .MuiPaginationItem-root': {
