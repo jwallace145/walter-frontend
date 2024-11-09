@@ -1,6 +1,6 @@
-import { PortfolioStock } from '../../api/GetPortfolio';
+import { PortfolioStock } from '../../../api/GetPortfolio';
 import React, { useEffect } from 'react';
-import { Box, Button, CircularProgress } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -8,19 +8,14 @@ import {
   GridEventListener,
   GridRowEditStopReasons,
   GridRowId,
-  GridRowModes,
   GridRowModesModel,
   GridSlots,
-  GridToolbarContainer,
 } from '@mui/x-data-grid';
-import AddIcon from '@mui/icons-material/Add';
 import { randomId } from '@mui/x-data-grid-generator';
-import { US_DOLLAR } from '../../constants/Constants';
-import SaveIcon from '@mui/icons-material/Save';
+import { US_DOLLAR } from '../../../constants/Constants';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CancelIcon from '@mui/icons-material/Cancel';
-import EditIcon from '@mui/icons-material/Edit';
-import { WalterAPI } from '../../api/WalterAPI';
+import { WalterAPI } from '../../../api/WalterAPI';
+import AddStockToolbar from './AddStockToolBar';
 
 interface ColumnHeaderProps {
   text: string;
@@ -41,46 +36,6 @@ interface PortfolioStockRow {
   quantity: string;
   price: string;
   equity: string;
-  isNew: boolean;
-}
-
-interface EditToolbarProps {
-  setRows: (
-    newRows: (oldRows: PortfolioStockRow[]) => PortfolioStockRow[],
-  ) => void;
-  setRowModesModel: (
-    newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
-  ) => void;
-}
-
-function EditToolbar(props: EditToolbarProps) {
-  const handleClick = () => {
-    const id = randomId();
-    props.setRows((oldRows) => [
-      ...oldRows,
-      {
-        id,
-        symbol: '',
-        company: '',
-        quantity: '',
-        price: '',
-        equity: '',
-        isNew: true,
-      },
-    ]);
-    props.setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'symbol' },
-    }));
-  };
-
-  return (
-    <GridToolbarContainer>
-      <Button startIcon={<AddIcon />} onClick={handleClick}>
-        Add Stock
-      </Button>
-    </GridToolbarContainer>
-  );
 }
 
 interface PortfolioDataGridProps {
@@ -146,39 +101,10 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
         type: 'actions',
         headerName: 'Actions',
         width: 100,
-        renderHeader: () => <ColumnHeader text={'Actions'} />,
+        renderHeader: () => <ColumnHeader text={'Delete'} />,
         cellClassName: 'actions',
         getActions: ({ id }) => {
-          const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-          if (isInEditMode) {
-            return [
-              <GridActionsCellItem
-                icon={<SaveIcon />}
-                label="Save"
-                sx={{
-                  color: 'primary.main',
-                }}
-                onClick={handleSaveClick(id)}
-              />,
-              <GridActionsCellItem
-                icon={<CancelIcon />}
-                label="Cancel"
-                className="textPrimary"
-                onClick={handleCancelClick(id)}
-                color="inherit"
-              />,
-            ];
-          }
-
           return [
-            <GridActionsCellItem
-              icon={<EditIcon />}
-              label="Edit"
-              className="textPrimary"
-              onClick={handleEditClick(id)}
-              color="inherit"
-            />,
             <GridActionsCellItem
               icon={<DeleteIcon />}
               label="Delete"
@@ -216,14 +142,6 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
     }
   };
 
-  const handleEditClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
-
-  const handleSaveClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
-
   const handleDeleteClick = (id: GridRowId) => () => {
     const deleteRow: PortfolioStockRow = rows.find(
       (stock) => stock.id === id,
@@ -239,42 +157,6 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
       console.log(e);
       props.setRefresh(true);
     }
-  };
-
-  const handleCancelClick = (id: GridRowId) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((stock) => stock.id === id);
-    if (editedRow!.isNew) {
-      setRows(rows.filter((stock) => stock.id !== id));
-    }
-  };
-
-  const processRowUpdate = (newRow: PortfolioStockRow) => {
-    const updatedRow = { ...newRow, isNew: false };
-    try {
-      WalterAPI.addStock(updatedRow.symbol, Number(updatedRow.quantity)).then(
-        (response) => {
-          if (response.isSuccess()) {
-            setRows(
-              rows.map((row) => (row.id === newRow.id ? updatedRow : row)),
-            );
-            props.setRefresh(true);
-          }
-        },
-      );
-      return updatedRow;
-    } catch (e) {
-      console.log(e);
-      return newRow;
-    }
-  };
-
-  const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
-    setRowModesModel(newRowModesModel);
   };
 
   return (
@@ -304,16 +186,15 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
               },
             }}
             pageSizeOptions={[5]}
-            editMode="row"
-            rowModesModel={rowModesModel}
-            onRowModesModelChange={handleRowModesModelChange}
-            onRowEditStop={handleRowEditStop}
-            processRowUpdate={processRowUpdate}
             slots={{
-              toolbar: EditToolbar as GridSlots['toolbar'],
+              toolbar: AddStockToolbar as GridSlots['toolbar'],
             }}
             slotProps={{
-              toolbar: { setRows, setRowModesModel },
+              toolbar: {
+                setRows,
+                setRowModesModel,
+                setRefresh: props.setRefresh,
+              },
             }}
             sx={{
               '& .MuiDataGrid-row': {
