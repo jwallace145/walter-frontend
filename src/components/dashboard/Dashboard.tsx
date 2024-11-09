@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import PortfolioPieChart from '../portfolio/PortfolioPieChart';
 import PortfolioStockLineChartWidget from '../portfolio/PortfolioStockLineChartWidget';
-import PortfolioDataGridV2 from '../portfolio/PortfolioDataGridV2';
+import PortfolioDataGridV2 from '../portfolio/datagrid/PortfolioDataGridV2';
 
 const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(false);
