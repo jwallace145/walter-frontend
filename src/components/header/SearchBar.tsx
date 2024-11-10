@@ -45,6 +45,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+/**
+ * SearchBar
+ *
+ * The search bar component in the AppBar header to search the news and latest
+ * prices for stocks.
+ *
+ * @constructor
+ */
 const SearchBar: React.FC = () => {
   return (
     <Search>

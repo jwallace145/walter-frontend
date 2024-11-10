@@ -6,7 +6,14 @@ import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { removeCookie } from 'typescript-cookie';
-import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import {
+  DASHBOARD_PAGE,
+  LANDING_PAGE,
+  LOGIN_PAGE,
+  NEWSLETTER_PAGE,
+  REGISTER_PAGE,
+  WALTER_TOKEN_NAME,
+} from '../../constants/Constants';
 import SendIcon from '@mui/icons-material/Send';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import EmailIcon from '@mui/icons-material/Email';
@@ -16,54 +23,52 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HeaderButton from './HeaderButton';
 import SearchBar from './SearchBar';
 
+/**
+ * HeaderProps
+ *
+ * The props to pass to the Walter AppBar header. Users use the header
+ * to navigate throughout Walter so the authentication status of the user
+ * determines which header buttons are available.
+ */
 export interface HeaderProps {
   authenticated: boolean;
   setAuthenticated: (authenticated: boolean) => void;
 }
 
+/**
+ * Header
+ *
+ * The AppBar header for Walter. The AppBar helps users navigate throughout
+ * the site. The header buttons available for navigation are determined by
+ * the authentication status of the user.
+ *
+ * @param props
+ * @constructor
+ */
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const navigate = useNavigate();
 
-  const handleLandingPageButton = () => {
-    navigate('/');
-  };
-
-  const handleLoginButton = () => {
-    navigate('/login');
-  };
-
-  const handleSignUpButton = () => {
-    navigate('/signup');
-  };
-
-  const handleDashboardButton = () => {
-    navigate('/dashboard');
-  };
-
-  const handleSendNewsletterButton = () => {
-    navigate('/newsletter');
-  };
-
-  const handleLogoutButton = () => {
-    removeCookie(WALTER_TOKEN_NAME);
-    navigate('/login');
-    props.setAuthenticated(false);
-  };
-
+  /**
+   * Get the buttons for the AppBar
+   *
+   * If the user is authenticated, get the restricted header buttons for
+   * sending a newsletter, seeing the portfolio dashboard, etc. If the user is
+   * not authenticated, return the login and register header buttons.
+   */
   const getButtons = () => {
     if (props.authenticated) {
       return (
         <>
           <HeaderButton
-            onClick={handleDashboardButton}
+            onClick={() => navigate(DASHBOARD_PAGE)}
             children={<ShowChartIcon />}
           />
           <HeaderButton
-            onClick={handleSendNewsletterButton}
+            onClick={() => navigate(NEWSLETTER_PAGE)}
             children={<SendIcon />}
           />
           <HeaderButton
-            onClick={handleDashboardButton}
+            onClick={() => navigate(DASHBOARD_PAGE)}
             children={<EmailIcon />}
           />
           <HeaderButton
@@ -75,14 +80,26 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     } else {
       return (
         <>
-          <HeaderButton onClick={handleLoginButton} children={<LoginIcon />} />
           <HeaderButton
-            onClick={handleSignUpButton}
+            onClick={() => navigate(LOGIN_PAGE)}
+            children={<LoginIcon />}
+          />
+          <HeaderButton
+            onClick={() => navigate(REGISTER_PAGE)}
             children={<AddCircleOutlineIcon />}
           />
         </>
       );
     }
+  };
+
+  /**
+   * Handle logout button and unset user token and redirect to login page.
+   */
+  const handleLogoutButton = () => {
+    removeCookie(WALTER_TOKEN_NAME);
+    navigate(LOGIN_PAGE);
+    props.setAuthenticated(false);
   };
 
   return (
@@ -102,7 +119,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
               textDecoration: 'none',
               cursor: 'pointer',
             }}
-            onClick={handleLandingPageButton}
+            onClick={() => navigate(LANDING_PAGE)}
           >
             WALTER
           </Typography>

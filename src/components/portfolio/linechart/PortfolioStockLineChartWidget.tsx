@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Price } from '../../api/GetPrices';
-import { CircularProgress, Container, Pagination } from '@mui/material';
+import { Price } from '../../../api/GetPrices';
+import { Container, Pagination } from '@mui/material';
 import PortfolioStockLineChart from './PortfolioStockLineChart';
-import { PortfolioStock } from '../../api/GetPortfolio';
-import { WalterAPI } from '../../api/WalterAPI';
+import { PortfolioStock } from '../../../api/GetPortfolio';
+import { WalterAPI } from '../../../api/WalterAPI';
 import Box from '@mui/material/Box';
+import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
 
 interface PortfolioStockLineChartWidgetProps {
   loading: boolean;
@@ -31,17 +32,7 @@ const PortfolioStockLineChartWidget: React.FC<
   return (
     <>
       {props.loading ? (
-        <Box
-          width={'100%'}
-          height={400}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <CircularProgress />
-        </Box>
+        <LoadingCircularProgress />
       ) : (
         <Container>
           <PortfolioStockLineChart

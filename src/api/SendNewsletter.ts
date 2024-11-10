@@ -1,23 +1,20 @@
 import axios, { AxiosResponse } from 'axios';
+import { WalterAPIResponseBase } from './Response';
+import { SEND_NEWSLETTER_METHOD } from '../constants/Constants';
 
-export class SendNewsletterResponse {
-  private readonly status: string;
-  private readonly message: string;
+/**
+ * SendNewsletterResponse
+ *
+ * The response object for the SendNewsletter API.
+ */
+export class SendNewsletterResponse extends WalterAPIResponseBase {}
 
-  constructor(status: string, message: string) {
-    this.status = status;
-    this.message = message;
-  }
-
-  public isSuccess(): boolean {
-    return this.status === 'Success';
-  }
-
-  public getMessage(): string {
-    return this.message;
-  }
-}
-
+/**
+ * Send a newsletter to the user via the SendNewsletter API.
+ *
+ * @param endpoint
+ * @param token
+ */
 export async function sendNewsletter(
   endpoint: string,
   token: string,
@@ -30,6 +27,7 @@ export async function sendNewsletter(
     },
   });
   return new SendNewsletterResponse(
+    SEND_NEWSLETTER_METHOD,
     response.data['Status'],
     response.data['Message'],
   );

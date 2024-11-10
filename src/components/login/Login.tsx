@@ -10,55 +10,60 @@ import {
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/AuthUser';
-import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import { DASHBOARD_PAGE, WALTER_TOKEN_NAME } from '../../constants/Constants';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { LockOutlined } from '@mui/icons-material';
 import LoadingButton from '../button/LoadingButton';
 
+/**
+ * LoginProps
+ *
+ * The props to pass into the Login component which is responsible for
+ * authenticating users.
+ */
 export interface LoginProps {
   setAuthenticated: (authenticated: boolean) => void;
 }
 
+/**
+ * Login
+ *
+ * The login component that users will interact with to authenticate themselves
+ * and get access to restricted pages.
+ *
+ * @param props
+ * @constructor
+ */
 const Login = (props: LoginProps) => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    try {
-      setLoading(true);
-      const response: AuthUserResponse = await WalterAPI.authUser(
-        email,
-        password,
-      );
-      setLoading(false);
-
-      const message: string = response.getMessage();
-      if (response.isSuccess()) {
-        const token: string = response.getToken();
-        setCookie(WALTER_TOKEN_NAME, token);
-        props.setAuthenticated(true);
-        navigate('/dashboard');
-      } else {
-        setError(message);
+    setLoading(true);
+    WalterAPI.authUser(email, password)
+      .then((response: AuthUserResponse) => {
+        const message: string = response.getMessage();
+        if (response.isSuccess()) {
+          const token: string = response.getToken();
+          setCookie(WALTER_TOKEN_NAME, token);
+          props.setAuthenticated(true);
+          navigate(DASHBOARD_PAGE);
+        } else {
+          setError(message);
+          setErrorAlert(true);
+        }
+      })
+      .catch((error: any) => {
+        setError('Unexpected error occurred!');
         setErrorAlert(true);
-      }
-    } catch (e) {
-      setError('Unexpected error occurred!');
-      setErrorAlert(true);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleClose = () => {
-    setErrorAlert(false);
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -106,7 +111,7 @@ const Login = (props: LoginProps) => {
             />
             <LoadingButton
               loading={loading}
-              onClick={handleSubmit}
+              onClick={handleLogin}
               text={'Login'}
             />
           </Box>
@@ -114,9 +119,9 @@ const Login = (props: LoginProps) => {
         <Snackbar
           open={openErrorAlert}
           autoHideDuration={6000}
-          onClose={handleClose}
+          onClose={(e) => setErrorAlert(false)}
         >
-          <Alert onClose={handleClose} severity="error">
+          <Alert onClose={(e) => setErrorAlert(false)} severity="error">
             {error}
           </Alert>
         </Snackbar>

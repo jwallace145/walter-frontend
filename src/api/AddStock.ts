@@ -1,28 +1,30 @@
 import axios, { AxiosResponse } from 'axios';
 import { WalterAPIResponseBase } from './Response';
-import { DELETE_STOCK_METHOD } from '../constants/Constants';
+import { ADD_STOCK_METHOD } from '../constants/Constants';
 
 /**
- * DeleteStockResponse
+ * AddStockResponse
  *
- * The response object from the DeleteStock API.
+ * The response object for the AddStock API.
  */
-export class DeleteStockResponse extends WalterAPIResponseBase {}
+export class AddStockResponse extends WalterAPIResponseBase {}
 
 /**
- * Delete a stock from a user portfolio via the DeleteStock API.
+ * Add a stock and quantity to the user portfolio via the AddStock API.
  *
  * @param endpoint
  * @param token
  * @param stock
+ * @param quantity
  */
-export async function deleteStock(
+export async function addStock(
   endpoint: string,
   token: string,
   stock: string,
-): Promise<DeleteStockResponse> {
+  quantity: number,
+): Promise<AddStockResponse> {
   const response: AxiosResponse = await axios({
-    method: 'DELETE',
+    method: 'POST',
     url: `${endpoint}/stocks`,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -30,10 +32,11 @@ export async function deleteStock(
     },
     data: {
       stock: stock,
+      quantity: quantity,
     },
   });
-  return new DeleteStockResponse(
-    DELETE_STOCK_METHOD,
+  return new AddStockResponse(
+    ADD_STOCK_METHOD,
     response.data['Status'],
     response.data['Message'],
   );
