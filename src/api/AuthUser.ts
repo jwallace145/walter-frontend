@@ -1,22 +1,19 @@
 import axios, { AxiosResponse } from 'axios';
+import { WalterAPIResponseBase } from './Response';
+import { AUTH_USER_METHOD } from '../constants/Constants';
 
-export class AuthUserResponse {
-  private readonly status: string;
-  private readonly message: string;
+/**
+ * AuthUserResponse
+ *
+ * The response object from the AuthUser API which grants users tokens
+ * on successful authentication requests to the backend.
+ */
+export class AuthUserResponse extends WalterAPIResponseBase {
   private readonly token: string;
 
   constructor(status: string, message: string, data?: any) {
-    this.status = status;
-    this.message = message;
+    super(AUTH_USER_METHOD, status, message);
     this.token = this.parseData(data);
-  }
-
-  public isSuccess(): boolean {
-    return this.status === 'Success';
-  }
-
-  public getMessage(): string {
-    return this.message;
   }
 
   public getToken(): string {
@@ -31,6 +28,13 @@ export class AuthUserResponse {
   }
 }
 
+/**
+ * Authenticate the user via the AuthUser API.
+ *
+ * @param endpoint
+ * @param email
+ * @param password
+ */
 export async function authUser(
   endpoint: string,
   email: string,

@@ -1,34 +1,45 @@
 import axios, { AxiosResponse } from 'axios';
+import { WalterAPIResponseBase } from './Response';
+import { GET_PORTFOLIO_METHOD } from '../constants/Constants';
 
-export class GetPortfolioResponse {
-  private readonly status: string;
-  private readonly message: string;
+/**
+ * Portfolio
+ */
+export interface Portfolio {
+  totalEquity: number;
+  stocks: PortfolioStock[];
+}
+
+/**
+ * PortfolioStock
+ */
+export interface PortfolioStock {
+  symbol: string;
+  company: string;
+  quantity: number;
+  price: number;
+  equity: number;
+}
+
+/**
+ * GetPortfolioResponse
+ *
+ * The response object for the GetPortfolio API.
+ */
+export class GetPortfolioResponse extends WalterAPIResponseBase {
   private readonly portfolio: Portfolio;
 
   constructor(status: string, message: string, data?: any) {
-    this.status = status;
-    this.message = message;
+    super(GET_PORTFOLIO_METHOD, status, message);
     this.portfolio = this.setPortfolio(data);
-  }
-
-  public isSuccess(): boolean {
-    return this.status === 'Success';
-  }
-
-  public getMessage(): string {
-    return this.message;
-  }
-
-  public getPortfolio(): Portfolio {
-    return this.portfolio;
-  }
-
-  public getTotalEquity(): number {
-    return this.portfolio.totalEquity;
   }
 
   public getStocks(): PortfolioStock[] {
     return this.portfolio.stocks;
+  }
+
+  public getTotalEquity(): number {
+    return this.portfolio.totalEquity;
   }
 
   private setPortfolio(data: any): Portfolio {
@@ -45,19 +56,12 @@ export class GetPortfolioResponse {
   }
 }
 
-export interface Portfolio {
-  totalEquity: number;
-  stocks: PortfolioStock[];
-}
-
-export interface PortfolioStock {
-  symbol: string;
-  company: string;
-  quantity: number;
-  price: number;
-  equity: number;
-}
-
+/**
+ * Get the user's portfolio via the GetPortfolio API.
+ *
+ * @param endpoint
+ * @param token
+ */
 export async function getPortfolio(
   endpoint: string,
   token: string,

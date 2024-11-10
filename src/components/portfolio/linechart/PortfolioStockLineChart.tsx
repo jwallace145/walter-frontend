@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { Price } from '../../api/GetPrices';
+import { Price } from '../../../api/GetPrices';
 import dayjs from 'dayjs';
 import { Container, Typography } from '@mui/material';
 

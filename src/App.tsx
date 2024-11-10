@@ -3,37 +3,55 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/login/Login';
 import SignUp from './components/signup/SignUp';
-import AddStock from './components/addstock/AddStock';
 import Header from './components/header/Header';
 import Dashboard from './components/dashboard/Dashboard';
 import Newsletter from './components/newsletter/Newsletter';
 import { WalterAPI } from './api/WalterAPI';
-import { GetUserResponse } from './api/GetUser';
-import { CircularProgress, ThemeProvider, Typography } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import theme from './theme/Theme';
-import Box from '@mui/material/Box';
 import LandingPage from './components/landing/LandingPage';
+import LoadingCircularProgress from './components/progress/LoadingCircularProgress';
+import {
+  DASHBOARD_PAGE,
+  LANDING_PAGE,
+  LOGIN_PAGE,
+  NEWSLETTER_PAGE,
+  REGISTER_PAGE,
+} from './constants/Constants';
+import { GetUserResponse } from './api/GetUser';
 
+/**
+ * Walter App
+ *
+ * The web application for Walter, the market know-it-all that uses AI and the
+ * latest market data to provide subscribed users with a daily newsletter about
+ * their portfolio's performance.
+ *
+ * @constructor
+ */
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
 
-  const isUserAuthenticated = async () => {
-    setLoading(true);
-    try {
-      const response: GetUserResponse = await WalterAPI.getUser();
-      setAuthenticated(response.isAuthenticated());
-    } catch (error) {
-      setError((error as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  /**
+   * On component mount, check to see if the current user is authenticated or not.
+   */
   useEffect(() => {
     isUserAuthenticated();
   }, [authenticated]);
+
+  /**
+   * Call Walter API and determine if the current user is authenticated or not.
+   */
+  const isUserAuthenticated = async () => {
+    setLoading(true);
+    WalterAPI.getUser()
+      .then((response: GetUserResponse) =>
+        setAuthenticated(response.isAuthenticated()),
+      )
+      .catch((error: any) => setAuthenticated(false))
+      .finally(() => setLoading(false));
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -43,29 +61,17 @@ const App: React.FC = () => {
           setAuthenticated={setAuthenticated}
         />
         {loading ? (
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-            minHeight="100vh"
-            textAlign="center"
-          >
-            <CircularProgress />
-          </Box>
-        ) : error ? (
-          <Typography color="error">{error}</Typography>
+          <LoadingCircularProgress />
         ) : (
           <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path={LANDING_PAGE} element={<LandingPage />} />
+            <Route path={REGISTER_PAGE} element={<SignUp />} />
             <Route
-              path="/login"
+              path={LOGIN_PAGE}
               element={<Login setAuthenticated={setAuthenticated} />}
             />
-            <Route path="/addstock" element={<AddStock />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/newsletter" element={<Newsletter />} />
+            <Route path={DASHBOARD_PAGE} element={<Dashboard />} />
+            <Route path={NEWSLETTER_PAGE} element={<Newsletter />} />
           </Routes>
         )}
       </Router>

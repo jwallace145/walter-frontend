@@ -26,35 +26,33 @@ const AddStockToolbar: React.FC<AddStockToolBarProps> = (props) => {
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleOpenAddStockModal = () => setOpenAddStockModal(true);
-
-  const handleCloseAddStockModal = () => setOpenAddStockModal(false);
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    try {
-      setLoading(true);
-      WalterAPI.addStock(symbol, parseFloat(quantity))
-        .then((response) => {
-          if (response.isSuccess()) {
-            props.setRefresh(true);
-          } else {
-            setError(true);
-            setErrorMessage(response.getMessage());
-          }
-        })
-        .finally(() => setLoading(false));
-    } catch (error) {
-      console.log(error);
-    }
+    setLoading(true);
+    WalterAPI.addStock(symbol, parseFloat(quantity))
+      .then((response) => {
+        if (response.isSuccess()) {
+          props.setRefresh(true);
+        } else {
+          setError(true);
+          setErrorMessage(response.getMessage());
+        }
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
     <GridToolbarContainer>
-      <Button startIcon={<AddIcon />} onClick={handleOpenAddStockModal}>
+      <Button
+        startIcon={<AddIcon />}
+        onClick={() => setOpenAddStockModal(true)}
+      >
         Add Stock
       </Button>
-      <Modal open={openAddStockModal} onClose={handleCloseAddStockModal}>
+      <Modal
+        open={openAddStockModal}
+        onClose={() => setOpenAddStockModal(false)}
+      >
         <Container maxWidth="xs">
           <Box
             sx={{

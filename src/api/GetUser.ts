@@ -1,26 +1,37 @@
 import axios, { AxiosResponse } from 'axios';
+import { WalterAPIResponseBase } from './Response';
+import { GET_USER_METHOD } from '../constants/Constants';
 
-export class GetUserResponse {
-  private readonly status: string;
-  private readonly message: string;
+/**
+ * User
+ *
+ * The model object for a user.
+ */
+export interface User {
+  email: string;
+  username: string;
+}
+
+/**
+ * GetUserResponse
+ *
+ * The response object for the GetUser API to get the current user via the
+ * given Walter token.
+ */
+export class GetUserResponse extends WalterAPIResponseBase {
   private readonly user: User;
 
   constructor(status: string, message: string, data?: any) {
-    this.status = status;
-    this.message = message;
+    super(GET_USER_METHOD, status, message);
     this.user = this.initUser(data);
   }
 
   public isAuthenticated(): boolean {
-    return this.status === 'Success';
+    return this.isSuccess();
   }
 
   public getMessage(): string {
     return this.message;
-  }
-
-  public getUser(): User {
-    return this.user;
   }
 
   private initUser(data?: any): User {
@@ -37,11 +48,12 @@ export class GetUserResponse {
   }
 }
 
-export interface User {
-  email: string;
-  username: string;
-}
-
+/**
+ * Get the current user via the GetUser API.
+ *
+ * @param endpoint
+ * @param token
+ */
 export async function getUser(
   endpoint: string,
   token: string,

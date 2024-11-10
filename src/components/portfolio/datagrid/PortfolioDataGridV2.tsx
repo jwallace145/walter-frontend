@@ -16,6 +16,7 @@ import { US_DOLLAR } from '../../../constants/Constants';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { WalterAPI } from '../../../api/WalterAPI';
 import AddStockToolbar from './AddStockToolBar';
+import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
 
 interface ColumnHeaderProps {
   text: string;
@@ -133,15 +134,6 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
     });
   };
 
-  const handleRowEditStop: GridEventListener<'rowEditStop'> = (
-    params,
-    event,
-  ) => {
-    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
-      event.defaultMuiPrevented = true;
-    }
-  };
-
   const handleDeleteClick = (id: GridRowId) => () => {
     const deleteRow: PortfolioStockRow = rows.find(
       (stock) => stock.id === id,
@@ -162,17 +154,7 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
   return (
     <>
       {props.loading ? (
-        <Box
-          width={'100%'}
-          height={400}
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <CircularProgress />
-        </Box>
+        <LoadingCircularProgress />
       ) : (
         <Box sx={{ height: 400, width: '100%' }}>
           <DataGrid
