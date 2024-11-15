@@ -17,13 +17,13 @@ const PortfolioStockLineChartWidget: React.FC<
   PortfolioStockLineChartWidgetProps
 > = (props) => {
   const [page, setPage] = useState<number>(1);
-  const [stock, setStock] = useState<string>('');
+  const [stock, setStock] = useState<PortfolioStock>();
   const [prices, setPrices] = useState<Price[]>([]);
   const [stockLoading, setStockLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (props.stocks !== undefined && props.stocks.length > 0) {
-      setStock(props.stocks[page - 1].symbol);
+      setStock(props.stocks[page - 1]);
       setStockLoading(true);
       WalterAPI.getPrices(props.stocks[page - 1].symbol)
         .then((response: GetPricesResponse) => setPrices(response.getPrices()))
@@ -34,13 +34,13 @@ const PortfolioStockLineChartWidget: React.FC<
 
   return (
     <>
-      { (props.loading || stockLoading) ? (
+      {props.loading || stockLoading ? (
         <LoadingCircularProgress />
       ) : (
         <Container>
           <PortfolioStockLineChart
             loading={props.loading}
-            stock={stock}
+            stock={stock as PortfolioStock}
             prices={prices}
           />
           <Box
