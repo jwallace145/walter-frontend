@@ -40,12 +40,23 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
   };
 
   return (
-    <Container>
-      <Typography variant="h6">Portfolio</Typography>
+    <>
       {props.loading ? (
         <LoadingCircularProgress />
       ) : (
-        <>
+        <Container>
+          <Container
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant="h6">Portfolio</Typography>
+            <Typography variant="h6">
+              {US_DOLLAR.format(props.equity)}
+            </Typography>
+          </Container>
           <PieChart
             series={[
               {
@@ -66,10 +77,9 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
             height={400}
             colors={colors}
           />
-          <Typography variant="h6">{US_DOLLAR.format(props.equity)}</Typography>
-        </>
+        </Container>
       )}
-    </Container>
+    </>
   );
 };
 
