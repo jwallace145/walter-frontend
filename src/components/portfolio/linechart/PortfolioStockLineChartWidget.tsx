@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { GetPricesResponse, Price } from '../../../api/GetPrices';
-import { Container, Pagination } from '@mui/material';
+import { Container, Pagination, useMediaQuery } from '@mui/material';
 import PortfolioStockLineChart from './PortfolioStockLineChart';
 import { PortfolioStock } from '../../../api/GetPortfolio';
 import { WalterAPI } from '../../../api/WalterAPI';
 import Box from '@mui/material/Box';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
+import theme from '../../../theme/Theme';
 
 interface PortfolioStockLineChartWidgetProps {
   loading: boolean;
@@ -20,6 +21,7 @@ const PortfolioStockLineChartWidget: React.FC<
   const [stock, setStock] = useState<PortfolioStock>();
   const [prices, setPrices] = useState<Price[]>([]);
   const [stockLoading, setStockLoading] = useState<boolean>(true);
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     if (props.stocks !== undefined && props.stocks.length > 0) {
@@ -52,6 +54,7 @@ const PortfolioStockLineChartWidget: React.FC<
           >
             <Pagination
               count={props.stocks.length}
+              size={'small'}
               page={page}
               onChange={(event, value) => setPage(value)}
               style={{ marginTop: '5px' }}
