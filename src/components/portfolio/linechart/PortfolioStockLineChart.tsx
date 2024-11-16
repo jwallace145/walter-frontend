@@ -46,13 +46,13 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
     const delta_percentage_string: string = `${delta_percentage.toFixed(2)} %`;
     if (delta_percentage > 0.0) {
       return (
-        <Typography variant="h6" style={{ color: 'green' }}>
+        <Typography variant="subtitle1" style={{ color: 'green' }}>
           ({delta_percentage_string})
         </Typography>
       );
     } else {
       return (
-        <Typography variant="h6" style={{ color: 'red' }}>
+        <Typography variant="subtitle1" style={{ color: 'red' }}>
           ({delta_percentage_string})
         </Typography>
       );
@@ -68,7 +68,7 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
           alignItems: 'center',
         }}
       >
-        <Typography variant="h6">
+        <Typography variant="subtitle1">
           {props.stock.company} ({props.stock.symbol})
         </Typography>
         {getDelta()}
