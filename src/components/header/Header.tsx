@@ -101,37 +101,43 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const getHeaderButtons = () => {
     if (props.authenticated) {
       return (
-        <>
+        <Box display="flex" gap={1}>
           <HeaderButton
+            title={'Dashboard'}
             onClick={() => navigate(DASHBOARD_PAGE)}
             children={<ShowChartIcon />}
           />
           <HeaderButton
+            title={'Newsletter'}
             onClick={() => navigate(NEWSLETTER_PAGE)}
             children={<SendIcon />}
           />
           <HeaderButton
+            title={'Email'}
             onClick={() => navigate(DASHBOARD_PAGE)}
             children={<EmailIcon />}
           />
           <HeaderButton
+            title={'Logout'}
             onClick={handleLogoutButton}
             children={<LogoutIcon />}
           />
-        </>
+        </Box>
       );
     } else {
       return (
-        <>
+        <Box display="flex" gap={1}>
           <HeaderButton
+            title={'Login'}
             onClick={() => navigate(LOGIN_PAGE)}
             children={<LoginIcon />}
           />
           <HeaderButton
+            title={'Sign Up'}
             onClick={() => navigate(REGISTER_PAGE)}
             children={<AddCircleOutlineIcon />}
           />
-        </>
+        </Box>
       );
     }
   };
