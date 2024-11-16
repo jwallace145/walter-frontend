@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, useMediaQuery } from '@mui/material';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/GetPortfolio';
+import theme from '../../../theme/Theme';
 
 /**
  * The colors utilized for the pie chart.
@@ -31,6 +32,8 @@ interface PortfolioPieChartProps {
  * @constructor
  */
 const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const graphStocks = () => {
     return props.stocks.map((stock) => ({
       id: stock.symbol,
@@ -52,8 +55,8 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
               alignItems: 'center',
             }}
           >
-            <Typography variant="h6">Portfolio</Typography>
-            <Typography variant="h6">
+            <Typography variant="subtitle1">Portfolio</Typography>
+            <Typography variant="subtitle1">
               {US_DOLLAR.format(props.equity)}
             </Typography>
           </Container>
@@ -74,6 +77,7 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
                 fontWeight: 'bold',
               },
             }}
+            slotProps={{ legend: { hidden: isMobile } }}
             height={400}
             colors={colors}
           />
