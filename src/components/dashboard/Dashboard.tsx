@@ -42,9 +42,10 @@ const Dashboard: React.FC = () => {
   }, [refresh]);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ width: '100%' }}>
       <Grid
         container
+        size={12}
         spacing={2}
         sx={{
           padding: 2,
@@ -53,7 +54,7 @@ const Dashboard: React.FC = () => {
         }}
       >
         <Grid
-          size={6}
+          size={{ xs: 12, md: 6 }}
           sx={{
             padding: 2,
             borderRadius: 2,
@@ -67,7 +68,7 @@ const Dashboard: React.FC = () => {
           />
         </Grid>
         <Grid
-          size={6}
+          size={{ xs: 12, md: 6 }}
           sx={{
             padding: 2,
             borderRadius: 2,

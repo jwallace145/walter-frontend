@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { FC, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Container } from '@mui/material';
+import { Button, Container, Drawer, List, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { removeCookie } from 'typescript-cookie';
@@ -22,6 +22,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HeaderButton from './HeaderButton';
 import SearchBar from './SearchBar';
+import theme from '../../theme/Theme';
+import MenuIcon from '@mui/icons-material/Menu';
+import DrawerButton from './DrawerButton';
 
 /**
  * HeaderProps
@@ -40,13 +43,53 @@ export interface HeaderProps {
  *
  * The AppBar header for Walter. The AppBar helps users navigate throughout
  * the site. The header buttons available for navigation are determined by
- * the authentication status of the user.
+ * the authentication status of the user. The header is responsive and adapts
+ * its structure according to the screen width of the client device. This
+ * ensures that mobile users with small screen sizes are still able to use
+ * the header and navigate throughout Walter.
  *
  * @param props
  * @constructor
  */
-const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
+const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [open, setOpen] = useState<boolean>(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
+  const getDrawerButtons = () => {
+    if (props.authenticated) {
+      return (
+        <>
+          <DrawerButton
+            onClick={() => navigate(DASHBOARD_PAGE)}
+            buttonName={'Portfolio'}
+          />
+          <DrawerButton
+            onClick={() => navigate(NEWSLETTER_PAGE)}
+            buttonName={'Newsletter'}
+          />
+          <DrawerButton onClick={handleLogoutButton} buttonName={'Exit'} />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <DrawerButton
+            onClick={() => navigate(LOGIN_PAGE)}
+            buttonName={'Login'}
+          />
+          <DrawerButton
+            onClick={() => navigate(REGISTER_PAGE)}
+            buttonName={'Register'}
+          />
+        </>
+      );
+    }
+  };
 
   /**
    * Get the buttons for the AppBar
@@ -55,7 +98,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
    * sending a newsletter, seeing the portfolio dashboard, etc. If the user is
    * not authenticated, return the login and register header buttons.
    */
-  const getButtons = () => {
+  const getHeaderButtons = () => {
     if (props.authenticated) {
       return (
         <>
@@ -98,6 +141,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
    */
   const handleLogoutButton = () => {
     removeCookie(WALTER_TOKEN_NAME);
+    setOpen(false);
     navigate(LOGIN_PAGE);
     props.setAuthenticated(false);
   };
@@ -111,7 +155,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             noWrap
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: { md: 'flex' },
               fontFamily: 'Raleway, sans-serif',
               fontWeight: 700,
               letterSpacing: '.3rem',
@@ -123,10 +167,27 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
           >
             WALTER
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {getButtons()}
-          </Box>
-          {props.authenticated && <SearchBar />}
+          {!isMobile ? (
+            <>
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                {getHeaderButtons()}
+              </Box>
+              {props.authenticated && <SearchBar />}
+            </>
+          ) : (
+            <>
+              <Button onClick={toggleDrawer(true)}>
+                <MenuIcon />
+              </Button>
+              <Drawer
+                anchor={'right'}
+                open={open}
+                onClose={toggleDrawer(false)}
+              >
+                <List>{getDrawerButtons()}</List>
+              </Drawer>
+            </>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
