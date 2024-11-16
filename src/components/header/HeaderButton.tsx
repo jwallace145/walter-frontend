@@ -1,5 +1,5 @@
-import React from 'react';
-import { Avatar } from '@mui/material';
+import { FC, ReactNode } from 'react';
+import { IconButton, Tooltip } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 /**
@@ -8,8 +8,9 @@ import { grey } from '@mui/material/colors';
  * The props of a header button included in the AppBar.
  */
 export interface HeaderButtonProps {
+  title: string;
   onClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 /**
@@ -21,21 +22,23 @@ export interface HeaderButtonProps {
  * @param props
  * @constructor
  */
-const HeaderButton: React.FC<HeaderButtonProps> = (props) => {
+const HeaderButton: FC<HeaderButtonProps> = (props) => {
   return (
     <>
-      <Avatar
-        sx={{
-          bgcolor: grey[600],
-          cursor: 'pointer',
-          '&:hover': {
-            bgcolor: grey[400],
-          },
-        }}
-        onClick={props.onClick}
-      >
-        {props.children}
-      </Avatar>
+      <Tooltip title={props.title}>
+        <IconButton
+          sx={{
+            bgcolor: grey[500],
+            cursor: 'pointer',
+            '&:hover': {
+              bgcolor: grey[200],
+            },
+          }}
+          onClick={props.onClick}
+        >
+          {props.children}
+        </IconButton>
+      </Tooltip>
     </>
   );
 };
