@@ -2,9 +2,11 @@ import * as React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Price } from '../../../api/GetPrices';
 import dayjs from 'dayjs';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, useMediaQuery } from '@mui/material';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/GetPortfolio';
+import theme from '../../../theme/Theme';
+import { FC } from 'react';
 
 /**
  * PortfolioStockLineChartProps
@@ -25,9 +27,11 @@ interface PortfolioStockLineChartProps {
  * @param props
  * @constructor
  */
-const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
+const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
   props: PortfolioStockLineChartProps,
 ) => {
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const getTimestamps = () => {
     return props.prices.map((price: Price) =>
       new Date(price.timestamp).getTime(),
@@ -36,6 +40,18 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
 
   const getPrices = () => {
     return props.prices.map((price: Price) => price.price);
+  };
+
+  const getStock = () => {
+    if (isMobile) {
+      return <Typography variant="subtitle1">{props.stock.symbol}</Typography>;
+    } else {
+      return (
+        <Typography variant="subtitle1">
+          {props.stock.company} ({props.stock.symbol})
+        </Typography>
+      );
+    }
   };
 
   const getDelta = () => {
@@ -68,9 +84,7 @@ const PortfolioStockLineChart: React.FC<PortfolioStockLineChartProps> = (
           alignItems: 'center',
         }}
       >
-        <Typography variant="subtitle1">
-          {props.stock.company} ({props.stock.symbol})
-        </Typography>
+        {getStock()}
         {getDelta()}
       </Container>
       <LineChart
