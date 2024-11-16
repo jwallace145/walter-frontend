@@ -17,8 +17,10 @@ import {
   LOGIN_PAGE,
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
+  VERIFY_EMAIL_PAGE,
 } from './constants/Constants';
 import { GetUserResponse } from './api/GetUser';
+import VerifyEmail from './components/verify/VerifyEmail';
 
 /**
  * Walter App
@@ -72,6 +74,7 @@ const App: React.FC = () => {
             />
             <Route path={DASHBOARD_PAGE} element={<Dashboard />} />
             <Route path={NEWSLETTER_PAGE} element={<Newsletter />} />
+            <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
           </Routes>
         )}
       </Router>

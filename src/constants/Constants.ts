@@ -22,6 +22,7 @@ export const LOGIN_PAGE = '/login';
 export const REGISTER_PAGE = '/register';
 export const DASHBOARD_PAGE = '/portfolio';
 export const NEWSLETTER_PAGE = '/newsletter';
+export const VERIFY_EMAIL_PAGE = '/verify';
 
 /**
  * Walter API Methods
@@ -34,3 +35,4 @@ export const DELETE_STOCK_METHOD: string = 'DeleteStock';
 export const GET_PORTFOLIO_METHOD: string = 'GetPortfolio';
 export const GET_PRICES_METHOD: string = 'GetPrices';
 export const SEND_NEWSLETTER_METHOD: string = 'SendNewsletter';
+export const VERIFY_EMAIL_METHOD: string = 'VerifyEmail';

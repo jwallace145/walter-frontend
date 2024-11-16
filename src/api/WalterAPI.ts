@@ -7,6 +7,7 @@ import { createUser, CreateUserResponse } from './CreateUser';
 import { sendNewsletter, SendNewsletterResponse } from './SendNewsletter';
 import { getUser, GetUserResponse } from './GetUser';
 import { deleteStock, DeleteStockResponse } from './DeleteStock';
+import { verifyEmail, VerifyEmailResponse } from './VerifyEmail';
 
 /**
  * Walter API
@@ -100,5 +101,12 @@ export class WalterAPI {
   public static async sendNewsletter(): Promise<SendNewsletterResponse> {
     const token: string = getCookie('WalterToken') as string;
     return sendNewsletter(WalterAPI.ENDPOINT, token);
+  }
+
+  /**
+   * Verify user ownership of email address.
+   */
+  public static async verifyEmail(token: string): Promise<VerifyEmailResponse> {
+    return verifyEmail(WalterAPI.ENDPOINT, token);
   }
 }
