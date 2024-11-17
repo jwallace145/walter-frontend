@@ -18,11 +18,13 @@ import {
   LOGIN_PAGE,
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
+  RESET_PASSWORD_PAGE,
   VERIFY_EMAIL_PAGE,
 } from './constants/Constants';
 import { GetUserResponse } from './api/GetUser';
 import VerifyEmail from './components/verify/VerifyEmail';
-import ChangePassword from './components/changepassword/ChangePassword';
+import ChangePassword from './components/password/ChangePassword';
+import SendChangePasswordEmail from './components/password/SendChangePasswordEmail';
 
 /**
  * Walter App
@@ -78,6 +80,10 @@ const App: React.FC = () => {
             <Route path={NEWSLETTER_PAGE} element={<Newsletter />} />
             <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
             <Route path={CHANGE_PASSWORD_PAGE} element={<ChangePassword />} />
+            <Route
+              path={RESET_PASSWORD_PAGE}
+              element={<SendChangePasswordEmail />}
+            />
           </Routes>
         )}
       </Router>

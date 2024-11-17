@@ -12,6 +12,7 @@ import {
   LOGIN_PAGE,
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
+  RESET_PASSWORD_PAGE,
   WALTER_TOKEN_NAME,
 } from '../../constants/Constants';
 import SendIcon from '@mui/icons-material/Send';
@@ -25,6 +26,7 @@ import SearchBar from './SearchBar';
 import theme from '../../theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
 import DrawerButton from './DrawerButton';
+import KeyOffIcon from '@mui/icons-material/KeyOff';
 
 /**
  * HeaderProps
@@ -86,6 +88,10 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             onClick={() => navigate(REGISTER_PAGE)}
             buttonName={'Register'}
           />
+          <DrawerButton
+            onClick={() => navigate(RESET_PASSWORD_PAGE)}
+            buttonName={'Reset Password'}
+          />
         </>
       );
     }
@@ -136,6 +142,11 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             title={'Sign Up'}
             onClick={() => navigate(REGISTER_PAGE)}
             children={<AddCircleOutlineIcon />}
+          />
+          <HeaderButton
+            title={'Reset Password'}
+            onClick={() => navigate(RESET_PASSWORD_PAGE)}
+            children={<KeyOffIcon />}
           />
         </Box>
       );

@@ -9,6 +9,10 @@ import { getUser, GetUserResponse } from './GetUser';
 import { deleteStock, DeleteStockResponse } from './DeleteStock';
 import { verifyEmail, VerifyEmailResponse } from './VerifyEmail';
 import { changePassword, ChangePasswordResponse } from './ChangePassword';
+import {
+  SendChangePasswordEmailResponse,
+  sendChangePasswordEmail,
+} from './SendChangePasswordEmail';
 
 /**
  * Walter API
@@ -112,13 +116,26 @@ export class WalterAPI {
   }
 
   /**
+   * Reset the user's password.
    *
    * @param token
+   * @param newPassword
    */
   public static async changePassword(
     token: string,
     newPassword: string,
   ): Promise<ChangePasswordResponse> {
     return changePassword(WalterAPI.ENDPOINT, token, newPassword);
+  }
+
+  /**
+   * Send a reset password email to the user.
+   *
+   * @param email
+   */
+  public static async sendChangePasswordEmail(
+    email: string,
+  ): Promise<SendChangePasswordEmailResponse> {
+    return sendChangePasswordEmail(WalterAPI.ENDPOINT, email);
   }
 }
