@@ -8,6 +8,7 @@ import { sendNewsletter, SendNewsletterResponse } from './SendNewsletter';
 import { getUser, GetUserResponse } from './GetUser';
 import { deleteStock, DeleteStockResponse } from './DeleteStock';
 import { verifyEmail, VerifyEmailResponse } from './VerifyEmail';
+import { changePassword, ChangePasswordResponse } from './ChangePassword';
 
 /**
  * Walter API
@@ -108,5 +109,16 @@ export class WalterAPI {
    */
   public static async verifyEmail(token: string): Promise<VerifyEmailResponse> {
     return verifyEmail(WalterAPI.ENDPOINT, token);
+  }
+
+  /**
+   *
+   * @param token
+   */
+  public static async changePassword(
+    token: string,
+    newPassword: string,
+  ): Promise<ChangePasswordResponse> {
+    return changePassword(WalterAPI.ENDPOINT, token, newPassword);
   }
 }

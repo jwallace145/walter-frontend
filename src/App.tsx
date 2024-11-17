@@ -12,6 +12,7 @@ import theme from './theme/Theme';
 import LandingPage from './components/landing/LandingPage';
 import LoadingCircularProgress from './components/progress/LoadingCircularProgress';
 import {
+  CHANGE_PASSWORD_PAGE,
   DASHBOARD_PAGE,
   LANDING_PAGE,
   LOGIN_PAGE,
@@ -21,6 +22,7 @@ import {
 } from './constants/Constants';
 import { GetUserResponse } from './api/GetUser';
 import VerifyEmail from './components/verify/VerifyEmail';
+import ChangePassword from './components/changepassword/ChangePassword';
 
 /**
  * Walter App
@@ -75,6 +77,7 @@ const App: React.FC = () => {
             <Route path={DASHBOARD_PAGE} element={<Dashboard />} />
             <Route path={NEWSLETTER_PAGE} element={<Newsletter />} />
             <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
+            <Route path={CHANGE_PASSWORD_PAGE} element={<ChangePassword />} />
           </Routes>
         )}
       </Router>
