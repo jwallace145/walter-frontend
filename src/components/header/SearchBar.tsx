@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { alpha, styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,7 +54,20 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
  *
  * @constructor
  */
-const SearchBar: React.FC = () => {
+const SearchBar: FC = () => {
+  const navigate = useNavigate();
+  const [search, setSearch] = useState<string>('');
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      navigate(`/${search.toLowerCase()}`);
+    }
+  };
+
   return (
     <Search>
       <SearchIconWrapper>
@@ -62,6 +76,9 @@ const SearchBar: React.FC = () => {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ 'Raleway, aria-label': 'search' }}
+        value={search}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
     </Search>
   );

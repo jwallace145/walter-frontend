@@ -13,6 +13,7 @@ import {
   SendChangePasswordEmailResponse,
   sendChangePasswordEmail,
 } from './SendChangePasswordEmail';
+import { getStock, GetStockResponse } from './GetStock';
 
 /**
  * Walter API
@@ -57,6 +58,15 @@ export class WalterAPI {
   public static async getUser(): Promise<GetUserResponse> {
     const token: string = getCookie('WalterToken') as string;
     return getUser(WalterAPI.ENDPOINT, token);
+  }
+
+  /**
+   * Get a stock and its details from WalterDB.
+   *
+   * @param symbol The symbol of the stock to query.
+   */
+  public static async getStock(symbol: string): Promise<GetStockResponse> {
+    return getStock(WalterAPI.ENDPOINT, symbol);
   }
 
   /**
