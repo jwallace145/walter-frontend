@@ -24,6 +24,13 @@ const Dashboard: React.FC = () => {
   const [refresh, setRefresh] = useState<boolean>(false);
 
   /**
+   * On component mount, check to see if the user is verified and Walter can
+   * send emails to the given email. If the user has not verified their email,
+   * alert them.
+   */
+  useEffect(() => {}, []);
+
+  /**
    * On refresh update, check if refresh is true and if so call Walter API to get
    * the latest portfolio for the user to display as one of the child components
    * most likely updated the portfolio and triggered a refresh operation.

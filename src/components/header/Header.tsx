@@ -13,6 +13,8 @@ import {
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
   RESET_PASSWORD_PAGE,
+  SEND_VERIFY_EMAIL_PAGE,
+  VERIFY_EMAIL_PAGE,
   WALTER_TOKEN_NAME,
 } from '../../constants/Constants';
 import SendIcon from '@mui/icons-material/Send';
@@ -27,6 +29,7 @@ import theme from '../../theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
 import DrawerButton from './DrawerButton';
 import KeyOffIcon from '@mui/icons-material/KeyOff';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
 
 /**
  * HeaderProps
@@ -73,6 +76,10 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
           <DrawerButton
             onClick={() => navigate(NEWSLETTER_PAGE)}
             buttonName={'Newsletter'}
+          />
+          <DrawerButton
+            onClick={() => navigate(SEND_VERIFY_EMAIL_PAGE)}
+            buttonName={'Verify'}
           />
           <DrawerButton onClick={handleLogoutButton} buttonName={'Exit'} />
         </>
@@ -122,6 +129,11 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             title={'Email'}
             onClick={() => navigate(DASHBOARD_PAGE)}
             children={<EmailIcon />}
+          />
+          <HeaderButton
+            title={'Verify'}
+            onClick={() => navigate(SEND_VERIFY_EMAIL_PAGE)}
+            children={<HowToRegIcon />}
           />
           <HeaderButton
             title={'Logout'}

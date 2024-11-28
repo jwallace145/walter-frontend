@@ -10,6 +10,7 @@ import { GET_USER_METHOD } from '../constants/Constants';
 export interface User {
   email: string;
   username: string;
+  verified: boolean;
 }
 
 /**
@@ -30,6 +31,16 @@ export class GetUserResponse extends WalterAPIResponseBase {
     return this.isSuccess();
   }
 
+  /**
+   * If the user exists (i.e. is authenticated) and the user's provided
+   * email address has not been verified, then the user is not verified.
+   * This impl ensures if the user simply does not exist this method
+   * doesn't return true.
+   */
+  public isNotVerified(): boolean {
+    return !this.user.verified && this.isAuthenticated();
+  }
+
   public getMessage(): string {
     return this.message;
   }
@@ -39,11 +50,13 @@ export class GetUserResponse extends WalterAPIResponseBase {
       return {
         email: '',
         username: '',
+        verified: false,
       };
     }
     return {
       email: data.email,
       username: data.username,
+      verified: data.verified,
     };
   }
 }

@@ -14,6 +14,7 @@ import {
   sendChangePasswordEmail,
 } from './SendChangePasswordEmail';
 import { getStock, GetStockResponse } from './GetStock';
+import { SendVerifyEmailResponse, sendVerifyEmail } from './SendVerifyEmail';
 
 /**
  * Walter API
@@ -116,6 +117,14 @@ export class WalterAPI {
   public static async sendNewsletter(): Promise<SendNewsletterResponse> {
     const token: string = getCookie('WalterToken') as string;
     return sendNewsletter(WalterAPI.ENDPOINT, token);
+  }
+
+  /**
+   * Send verify user email to user's email address.
+   */
+  public static async sendVerifyEmail(): Promise<SendVerifyEmailResponse> {
+    const token: string = getCookie('WalterToken') as string;
+    return sendVerifyEmail(WalterAPI.ENDPOINT, token);
   }
 
   /**

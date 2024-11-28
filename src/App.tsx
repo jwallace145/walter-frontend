@@ -19,12 +19,15 @@ import {
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
   RESET_PASSWORD_PAGE,
+  SEND_VERIFY_EMAIL_PAGE,
   VERIFY_EMAIL_PAGE,
 } from './constants/Constants';
 import { GetUserResponse } from './api/GetUser';
 import VerifyEmail from './components/verify/VerifyEmail';
 import ChangePassword from './components/password/ChangePassword';
 import SendChangePasswordEmail from './components/password/SendChangePasswordEmail';
+import UserNotVerifiedAlert from './components/alerts/UserNotVerifiedAlert';
+import SendVerifyEmail from './components/verify/SendVerifyEmail';
 
 /**
  * Walter App
@@ -38,6 +41,8 @@ import SendChangePasswordEmail from './components/password/SendChangePasswordEma
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [userNotVerifiedAlert, setUserNotVerifiedAlert] =
+    useState<boolean>(false);
 
   /**
    * On component mount, check to see if the current user is authenticated or not.
@@ -52,9 +57,10 @@ const App: React.FC = () => {
   const isUserAuthenticated = async () => {
     setLoading(true);
     WalterAPI.getUser()
-      .then((response: GetUserResponse) =>
-        setAuthenticated(response.isAuthenticated()),
-      )
+      .then((response: GetUserResponse) => {
+        setAuthenticated(response.isAuthenticated());
+        setUserNotVerifiedAlert(response.isNotVerified());
+      })
       .catch((error: any) => setAuthenticated(false))
       .finally(() => setLoading(false));
   };
@@ -69,22 +75,32 @@ const App: React.FC = () => {
         {loading ? (
           <LoadingCircularProgress />
         ) : (
-          <Routes>
-            <Route path={LANDING_PAGE} element={<LandingPage />} />
-            <Route path={REGISTER_PAGE} element={<SignUp />} />
-            <Route
-              path={LOGIN_PAGE}
-              element={<Login setAuthenticated={setAuthenticated} />}
+          <>
+            <Routes>
+              <Route path={LANDING_PAGE} element={<LandingPage />} />
+              <Route path={REGISTER_PAGE} element={<SignUp />} />
+              <Route
+                path={LOGIN_PAGE}
+                element={<Login setAuthenticated={setAuthenticated} />}
+              />
+              <Route path={DASHBOARD_PAGE} element={<Dashboard />} />
+              <Route path={NEWSLETTER_PAGE} element={<Newsletter />} />
+              <Route
+                path={SEND_VERIFY_EMAIL_PAGE}
+                element={<SendVerifyEmail />}
+              />
+              <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
+              <Route path={CHANGE_PASSWORD_PAGE} element={<ChangePassword />} />
+              <Route
+                path={RESET_PASSWORD_PAGE}
+                element={<SendChangePasswordEmail />}
+              />
+            </Routes>
+            <UserNotVerifiedAlert
+              userNotVerified={userNotVerifiedAlert}
+              setUserNotVerifiedAlert={setUserNotVerifiedAlert}
             />
-            <Route path={DASHBOARD_PAGE} element={<Dashboard />} />
-            <Route path={NEWSLETTER_PAGE} element={<Newsletter />} />
-            <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
-            <Route path={CHANGE_PASSWORD_PAGE} element={<ChangePassword />} />
-            <Route
-              path={RESET_PASSWORD_PAGE}
-              element={<SendChangePasswordEmail />}
-            />
-          </Routes>
+          </>
         )}
       </Router>
     </ThemeProvider>
