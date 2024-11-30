@@ -3,7 +3,7 @@ import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
 import { Container, Typography, useMediaQuery } from '@mui/material';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
 import { US_DOLLAR } from '../../../constants/Constants';
-import { PortfolioStock } from '../../../api/GetPortfolio';
+import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import theme from '../../../theme/Theme';
 
 /**

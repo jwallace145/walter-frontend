@@ -1,9 +1,9 @@
-import { WalterAPIResponseBase } from './Response';
+import { WalterAPIResponseBase } from '../common/Response';
 import axios, { AxiosResponse } from 'axios';
 import {
   SEND_VERIFY_EMAIL_METHOD,
   VERIFY_EMAIL_METHOD,
-} from '../constants/Constants';
+} from '../../constants/Constants';
 import { VerifyEmailResponse } from './VerifyEmail';
 
 /**

@@ -22,7 +22,7 @@ import {
   SEND_VERIFY_EMAIL_PAGE,
   VERIFY_EMAIL_PAGE,
 } from './constants/Constants';
-import { GetUserResponse } from './api/GetUser';
+import { GetUserResponse } from './api/methods/GetUser';
 import VerifyEmail from './components/verify/VerifyEmail';
 import ChangePassword from './components/password/ChangePassword';
 import SendChangePasswordEmail from './components/password/SendChangePasswordEmail';

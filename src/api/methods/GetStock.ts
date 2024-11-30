@@ -1,6 +1,6 @@
-import { WalterAPIResponseBase } from './Response';
+import { WalterAPIResponseBase } from '../common/Response';
 import axios, { AxiosResponse } from 'axios';
-import { GET_STOCK_METHOD } from '../constants/Constants';
+import { GET_STOCK_METHOD } from '../../constants/Constants';
 
 /**
  * Stock

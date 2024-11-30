@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
-import { AuthUserResponse } from '../../api/AuthUser';
+import { AuthUserResponse } from '../../api/methods/AuthUser';
 import { DASHBOARD_PAGE, WALTER_TOKEN_NAME } from '../../constants/Constants';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';

@@ -4,7 +4,7 @@ import LoadingButton from '../button/LoadingButton';
 import React, { FormEvent, useState } from 'react';
 import { HowToReg } from '@mui/icons-material';
 import { WalterAPI } from '../../api/WalterAPI';
-import { SendVerifyEmailResponse } from '../../api/SendVerifyEmail';
+import { SendVerifyEmailResponse } from '../../api/methods/SendVerifyEmail';
 
 const SendVerifyEmail: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);

@@ -11,7 +11,7 @@ import {
 import Box from '@mui/material/Box';
 import KeyIcon from '@mui/icons-material/Key';
 import LoadingButton from '../button/LoadingButton';
-import { ChangePasswordResponse } from '../../api/ChangePassword';
+import { ChangePasswordResponse } from '../../api/methods/ChangePassword';
 import { WalterAPI } from '../../api/WalterAPI';
 
 const ChangePassword: FC = () => {

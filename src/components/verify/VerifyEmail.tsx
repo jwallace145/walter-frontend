@@ -5,7 +5,7 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import LoadingButton from '../button/LoadingButton';
 import { useLocation } from 'react-router-dom';
 import { WalterAPI } from '../../api/WalterAPI';
-import { VerifyEmailResponse } from '../../api/VerifyEmail';
+import { VerifyEmailResponse } from '../../api/methods/VerifyEmail';
 
 const VerifyEmail: FC = () => {
   const location = useLocation();

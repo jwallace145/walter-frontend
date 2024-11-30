@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { WalterAPIResponseBase } from './Response';
-import { DELETE_STOCK_METHOD } from '../constants/Constants';
+import { WalterAPIResponseBase } from '../common/Response';
+import { DELETE_STOCK_METHOD } from '../../constants/Constants';
 
 /**
  * DeleteStockResponse

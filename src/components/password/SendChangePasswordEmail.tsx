@@ -1,6 +1,6 @@
 import React, { FC, FormEvent, useState } from 'react';
 import { WalterAPI } from '../../api/WalterAPI';
-import { SendChangePasswordEmailResponse } from '../../api/SendChangePasswordEmail';
+import { SendChangePasswordEmailResponse } from '../../api/methods/SendChangePasswordEmail';
 import {
   Alert,
   Avatar,

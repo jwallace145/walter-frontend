@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SendNewsletterResponse } from '../../api/SendNewsletter';
+import { SendNewsletterResponse } from '../../api/methods/SendNewsletter';
 import { WalterAPI } from '../../api/WalterAPI';
 import { Alert, Avatar, Container, CssBaseline, Snackbar } from '@mui/material';
 import Box from '@mui/material/Box';
