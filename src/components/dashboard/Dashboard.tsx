@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { WalterAPI } from '../../api/WalterAPI';
-import { GetPortfolioResponse, PortfolioStock } from '../../api/GetPortfolio';
+import {
+  GetPortfolioResponse,
+  PortfolioStock,
+} from '../../api/methods/GetPortfolio';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import PortfolioPieChart from '../portfolio/piechart/PortfolioPieChart';

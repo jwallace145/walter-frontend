@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { WalterAPIResponseBase } from './Response';
-import { GET_PRICES_METHOD } from '../constants/Constants';
+import { WalterAPIResponseBase } from '../common/Response';
+import { GET_PRICES_METHOD } from '../../constants/Constants';
 
 /**
  * Price

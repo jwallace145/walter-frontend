@@ -8,7 +8,7 @@ import {
   TextField,
 } from '@mui/material';
 import { WalterAPI } from '../../api/WalterAPI';
-import { CreateUserResponse } from '../../api/CreateUser';
+import { CreateUserResponse } from '../../api/methods/CreateUser';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Box from '@mui/material/Box';
 import LoadingButton from '../button/LoadingButton';

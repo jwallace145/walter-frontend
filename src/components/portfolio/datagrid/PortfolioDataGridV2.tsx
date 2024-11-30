@@ -1,4 +1,4 @@
-import { PortfolioStock } from '../../../api/GetPortfolio';
+import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import React, { useEffect } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 import {

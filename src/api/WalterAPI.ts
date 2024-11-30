@@ -1,20 +1,31 @@
 import { getCookie } from 'typescript-cookie';
-import { getPortfolio, GetPortfolioResponse } from './GetPortfolio';
-import { getPrices, GetPricesResponse } from './GetPrices';
-import { addStock, AddStockResponse } from './AddStock';
-import { authUser, AuthUserResponse } from './AuthUser';
-import { createUser, CreateUserResponse } from './CreateUser';
-import { sendNewsletter, SendNewsletterResponse } from './SendNewsletter';
-import { getUser, GetUserResponse } from './GetUser';
-import { deleteStock, DeleteStockResponse } from './DeleteStock';
-import { verifyEmail, VerifyEmailResponse } from './VerifyEmail';
-import { changePassword, ChangePasswordResponse } from './ChangePassword';
+import { getPortfolio, GetPortfolioResponse } from './methods/GetPortfolio';
+import { getPrices, GetPricesResponse } from './methods/GetPrices';
+import { addStock, AddStockResponse } from './methods/AddStock';
+import { authUser, AuthUserResponse } from './methods/AuthUser';
+import { createUser, CreateUserResponse } from './methods/CreateUser';
 import {
-  SendChangePasswordEmailResponse,
+  sendNewsletter,
+  SendNewsletterResponse,
+} from './methods/SendNewsletter';
+import { getUser, GetUserResponse } from './methods/GetUser';
+import { deleteStock, DeleteStockResponse } from './methods/DeleteStock';
+import { verifyEmail, VerifyEmailResponse } from './methods/VerifyEmail';
+import {
+  changePassword,
+  ChangePasswordResponse,
+} from './methods/ChangePassword';
+import {
   sendChangePasswordEmail,
-} from './SendChangePasswordEmail';
-import { getStock, GetStockResponse } from './GetStock';
-import { SendVerifyEmailResponse, sendVerifyEmail } from './SendVerifyEmail';
+  SendChangePasswordEmailResponse,
+} from './methods/SendChangePasswordEmail';
+import { getStock, GetStockResponse } from './methods/GetStock';
+import {
+  sendVerifyEmail,
+  SendVerifyEmailResponse,
+} from './methods/SendVerifyEmail';
+import { subscribe, SubscribeResponse } from './methods/Subscribe';
+import { unsubscribe, UnsubscribeResponse } from './methods/Unsubscribe';
 
 /**
  * Walter API
@@ -156,5 +167,21 @@ export class WalterAPI {
     email: string,
   ): Promise<SendChangePasswordEmailResponse> {
     return sendChangePasswordEmail(WalterAPI.ENDPOINT, email);
+  }
+
+  /**
+   * Subscribe the authenticated user to Walter's newsletter.
+   */
+  public static async subscribe(): Promise<SubscribeResponse> {
+    const token: string = getCookie('WalterToken') as string;
+    return subscribe(WalterAPI.ENDPOINT, token);
+  }
+
+  /**
+   * Unsubscribe the authenticated user from Walter's newsletter.
+   */
+  public static async unsubscribe(): Promise<UnsubscribeResponse> {
+    const token: string = getCookie('WalterToken') as string;
+    return unsubscribe(WalterAPI.ENDPOINT, token);
   }
 }

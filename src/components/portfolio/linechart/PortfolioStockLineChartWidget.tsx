@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { GetPricesResponse, Price } from '../../../api/GetPrices';
+import { GetPricesResponse, Price } from '../../../api/methods/GetPrices';
 import { Container, Pagination, useMediaQuery } from '@mui/material';
 import PortfolioStockLineChart from './PortfolioStockLineChart';
-import { PortfolioStock } from '../../../api/GetPortfolio';
+import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import { WalterAPI } from '../../../api/WalterAPI';
 import Box from '@mui/material/Box';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
-import { Price } from '../../../api/GetPrices';
+import { Price } from '../../../api/methods/GetPrices';
 import dayjs from 'dayjs';
 import { Container, Typography, useMediaQuery } from '@mui/material';
 import { US_DOLLAR } from '../../../constants/Constants';
-import { PortfolioStock } from '../../../api/GetPortfolio';
+import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import theme from '../../../theme/Theme';
 import { FC } from 'react';
 
