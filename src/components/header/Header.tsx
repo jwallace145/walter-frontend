@@ -14,7 +14,6 @@ import {
   REGISTER_PAGE,
   RESET_PASSWORD_PAGE,
   SEND_VERIFY_EMAIL_PAGE,
-  VERIFY_EMAIL_PAGE,
   WALTER_TOKEN_NAME,
 } from '../../constants/Constants';
 import SendIcon from '@mui/icons-material/Send';
@@ -124,11 +123,6 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             title={'Newsletter'}
             onClick={() => navigate(NEWSLETTER_PAGE)}
             children={<SendIcon />}
-          />
-          <HeaderButton
-            title={'Email'}
-            onClick={() => navigate(DASHBOARD_PAGE)}
-            children={<EmailIcon />}
           />
           <HeaderButton
             title={'Verify'}

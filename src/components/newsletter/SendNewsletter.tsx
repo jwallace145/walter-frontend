@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { Email } from '@mui/icons-material';
 import LoadingButton from '../button/LoadingButton';
 
-const Newsletter: React.FC = () => {
+const SendNewsletter: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>('');
   const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
@@ -15,23 +15,20 @@ const Newsletter: React.FC = () => {
 
   async function handleSubmit(event: React.FormEvent): Promise<void> {
     event.preventDefault();
-    try {
-      setLoading(true);
-      const response: SendNewsletterResponse = await WalterAPI.sendNewsletter();
-      setLoading(false);
 
-      const message: string = response.getMessage();
-      if (response.isSuccess()) {
-        setSuccess(message);
-        setSuccessAlert(true);
-      } else {
-        setError(message);
-        setErrorAlert(true);
-      }
-    } catch (error) {
-      setError('Unexpected error!');
-      setErrorAlert(true);
-    }
+    setLoading(true);
+    WalterAPI.sendNewsletter()
+      .then((response: SendNewsletterResponse) => {
+        if (response.isSuccess()) {
+          setSuccess(response.getMessage());
+          setSuccessAlert(true);
+        } else {
+          setError(response.getMessage());
+          setErrorAlert(true);
+        }
+      })
+      .catch((error: any) => console.log(error))
+      .finally(() => setLoading(false));
   }
 
   const handleClose = () => {
@@ -81,4 +78,4 @@ const Newsletter: React.FC = () => {
   );
 };
 
-export default Newsletter;
+export default SendNewsletter;
