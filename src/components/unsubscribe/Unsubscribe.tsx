@@ -86,6 +86,6 @@ const Unsubscribe: React.FC = () => {
       </Snackbar>
     </Container>
   );
-}
+};
 
 export default Unsubscribe;

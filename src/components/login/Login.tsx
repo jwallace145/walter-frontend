@@ -4,17 +4,25 @@ import {
   Avatar,
   Container,
   CssBaseline,
+  Link,
   Snackbar,
   TextField,
 } from '@mui/material';
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/methods/AuthUser';
-import { DASHBOARD_PAGE, WALTER_TOKEN_NAME } from '../../constants/Constants';
+import {
+  CHANGE_PASSWORD_PAGE,
+  DASHBOARD_PAGE,
+  RESET_PASSWORD_PAGE,
+  SEND_CHANGE_PASSWORD_EMAIL_METHOD,
+  WALTER_TOKEN_NAME,
+} from '../../constants/Constants';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { LockOutlined } from '@mui/icons-material';
 import LoadingButton from '../button/LoadingButton';
+import Typography from '@mui/material/Typography';
 
 /**
  * LoginProps
@@ -109,6 +117,21 @@ const Login = (props: LoginProps) => {
                 setPassword(e.target.value);
               }}
             />
+            <Link
+              href={RESET_PASSWORD_PAGE}
+              variant="body2"
+              sx={{
+                display: 'inline-block', // Ensure the link is inline and not block
+                fontSize: '0.875rem', // Smaller font size for subtlety
+                color: 'text.secondary', // Use secondary color to make it less prominent
+                textDecoration: 'none', // Remove underline
+                '&:hover': {
+                  color: 'primary.main', // Optionally change color on hover to give feedback
+                },
+              }}
+            >
+              Forgot password?
+            </Link>
             <LoadingButton
               loading={loading}
               onClick={handleLogin}

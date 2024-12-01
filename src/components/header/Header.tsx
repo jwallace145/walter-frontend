@@ -94,10 +94,6 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             onClick={() => navigate(REGISTER_PAGE)}
             buttonName={'Register'}
           />
-          <DrawerButton
-            onClick={() => navigate(RESET_PASSWORD_PAGE)}
-            buttonName={'Reset Password'}
-          />
         </>
       );
     }
@@ -148,11 +144,6 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             title={'Sign Up'}
             onClick={() => navigate(REGISTER_PAGE)}
             children={<AddCircleOutlineIcon />}
-          />
-          <HeaderButton
-            title={'Reset Password'}
-            onClick={() => navigate(RESET_PASSWORD_PAGE)}
-            children={<KeyOffIcon />}
           />
         </Box>
       );
