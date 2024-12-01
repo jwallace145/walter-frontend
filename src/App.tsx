@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/login/Login';
 import SignUp from './components/signup/SignUp';
 import Header from './components/header/Header';
-import Dashboard from './components/dashboard/Dashboard';
 import { WalterAPI } from './api/WalterAPI';
 import { ThemeProvider } from '@mui/material';
 import theme from './theme/Theme';
@@ -28,6 +27,7 @@ import SendChangePasswordEmail from './components/password/SendChangePasswordEma
 import UserNotVerifiedAlert from './components/alerts/UserNotVerifiedAlert';
 import SendVerifyEmail from './components/verify/SendVerifyEmail';
 import NewslettersPage from './pages/NewslettersPage';
+import PortfolioDashboardPage from './pages/PortfolioDashboardPage';
 
 /**
  * Walter App
@@ -83,7 +83,10 @@ const App: React.FC = () => {
                 path={LOGIN_PAGE}
                 element={<Login setAuthenticated={setAuthenticated} />}
               />
-              <Route path={DASHBOARD_PAGE} element={<Dashboard />} />
+              <Route
+                path={DASHBOARD_PAGE}
+                element={<PortfolioDashboardPage />}
+              />
               <Route path={NEWSLETTER_PAGE} element={<NewslettersPage />} />
               <Route
                 path={SEND_VERIFY_EMAIL_PAGE}
