@@ -22,7 +22,8 @@ interface PortfolioStockDeltaProps {
  * @constructor
  */
 const PortfolioStockDelta: React.FC<PortfolioStockDeltaProps> = (props) => {
-  const [isDeltaPercentage, setIsDeltaPercentage] = React.useState<boolean>(true);
+  const [isDeltaPercentage, setIsDeltaPercentage] =
+    React.useState<boolean>(true);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -73,11 +74,7 @@ const PortfolioStockDelta: React.FC<PortfolioStockDeltaProps> = (props) => {
     }
   };
 
-  return (
-    <>
-      {isDeltaPercentage ? getDeltaPercentage() : getDeltaEquity()}
-    </>
-  );
+  return <>{isDeltaPercentage ? getDeltaPercentage() : getDeltaEquity()}</>;
 };
 
 export default PortfolioStockDelta;
