@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FC, useEffect } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Price } from '../../../api/methods/GetPrices';
 import dayjs from 'dayjs';
@@ -6,7 +7,8 @@ import { Container, Typography, useMediaQuery } from '@mui/material';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import theme from '../../../theme/Theme';
-import { FC } from 'react';
+import StringRotator from '../../utils/StringRotator';
+import PortfolioStockDelta from './PortfolioStockDelta';
 
 /**
  * PortfolioStockLineChartProps
@@ -31,17 +33,59 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
   props: PortfolioStockLineChartProps,
 ) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [delta, setDelta] = React.useState<number>(0);
 
+  /**
+   * On update of the stock prices passed into this child component, set the
+   * delta to feed into the title.
+   */
+  useEffect(() => {
+    setDelta(getDelta());
+  }, [props.prices]);
+
+  /**
+   * Get the timestamps from the prices in the given props.
+   */
   const getTimestamps = () => {
     return props.prices.map((price: Price) =>
       new Date(price.timestamp).getTime(),
     );
   };
 
+  /**
+   * Get the prices from the prices in the given props.
+   */
   const getPrices = () => {
     return props.prices.map((price: Price) => price.price);
   };
 
+  /**
+   * Get the start price of the stock at the start of the time period.
+   */
+  const getStartPrice = () => {
+    return props.prices[0].price;
+  };
+
+  /**
+   * Get the end price of the stock at the end of the time period.
+   */
+  const getEndPrice = () => {
+    return props.prices[props.prices.length - 1].price;
+  };
+
+  /**
+   * Get the delta of the stock over the given time period.
+   */
+  const getDelta = (): number => {
+    return (getEndPrice() - getStartPrice()) / getStartPrice();
+  };
+
+  /**
+   * Get the stock identifier for the stock line chart title.
+   *
+   * For mobile, utilize a shorter name such as the ticker symbol to use
+   * less characters and improve UX.
+   */
   const getStock = () => {
     if (isMobile) {
       return <Typography variant="subtitle1">{props.stock.symbol}</Typography>;
@@ -49,27 +93,6 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
       return (
         <Typography variant="subtitle1">
           {props.stock.company} ({props.stock.symbol})
-        </Typography>
-      );
-    }
-  };
-
-  const getDelta = () => {
-    const start_price: number = props.prices[0].price;
-    const end_price: number = props.prices[props.prices.length - 1].price;
-    const delta_percentage: number =
-      ((end_price - start_price) / start_price) * 100;
-    const delta_percentage_string: string = `${delta_percentage.toFixed(2)} %`;
-    if (delta_percentage > 0.0) {
-      return (
-        <Typography variant="subtitle1" style={{ color: 'green' }}>
-          ({delta_percentage_string})
-        </Typography>
-      );
-    } else {
-      return (
-        <Typography variant="subtitle1" style={{ color: 'red' }}>
-          ({delta_percentage_string})
         </Typography>
       );
     }
@@ -85,7 +108,7 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
         }}
       >
         {getStock()}
-        {getDelta()}
+        <PortfolioStockDelta delta={delta} equity={props.stock.equity} />
       </Container>
       <LineChart
         xAxis={[
