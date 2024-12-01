@@ -1,17 +1,17 @@
 import { WalterAPIResponseBase } from '../common/Response';
 import axios, { AxiosResponse } from 'axios';
-import { SUBSCRIBE_METHOD } from '../../constants/Constants';
+import { SUBSCRIBE_METHOD } from '../common/Methods';
 
 /**
  * SubscribeResponse
  *
- * The response object for the Subscribe API to subscribe users to Walter's
+ * The response object for the SubscribeButton API to subscribe users to Walter's
  * newsletter.
  */
 export class SubscribeResponse extends WalterAPIResponseBase {}
 
 /**
- * Subscribe API
+ * SubscribeButton API
  *
  * This method subscribes the user to Walter's newsletter.
  *

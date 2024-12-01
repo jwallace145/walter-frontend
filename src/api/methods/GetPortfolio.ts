@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { WalterAPIResponseBase } from '../common/Response';
-import { GET_PORTFOLIO_METHOD } from '../../constants/Constants';
+import { GET_PORTFOLIO_METHOD } from '../common/Methods';
 
 /**
  * Portfolio
