@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid2';
 import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import ScheduleSendIcon from '@mui/icons-material/ScheduleSend';
-import { RESET_PASSWORD_PAGE, VERIFY_EMAIL_PAGE } from './common/Pages';
+import { SEND_VERIFY_EMAIL_PAGE } from './common/Pages';
 
 /**
  * Newsletters Page
@@ -137,7 +137,7 @@ const NewslettersPage: React.FC = () => {
             text={'Send Newsletter'}
           />
           <Link
-            href={VERIFY_EMAIL_PAGE}
+            href={SEND_VERIFY_EMAIL_PAGE}
             variant="body2"
             sx={{
               display: 'inline-block',
