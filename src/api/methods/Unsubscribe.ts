@@ -1,17 +1,17 @@
 import { WalterAPIResponseBase } from '../common/Response';
 import axios, { AxiosResponse } from 'axios';
-import { UNSUBSCRIBE_METHOD } from '../../constants/Constants';
+import { UNSUBSCRIBE_METHOD } from '../common/Methods';
 
 /**
  * UnsubscribeResponse
  *
- * The unsubscribe response object for the Unsubscribe API to unsubscribe
+ * The unsubscribe response object for the UnsubscribeButton API to unsubscribe
  * users from Walter's newsletter.
  */
 export class UnsubscribeResponse extends WalterAPIResponseBase {}
 
 /**
- * Unsubscribe API
+ * UnsubscribeButton API
  *
  * This method unsubscribes the user from Walter's newsletter.
  *

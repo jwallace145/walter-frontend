@@ -170,7 +170,7 @@ export class WalterAPI {
   }
 
   /**
-   * Subscribe the authenticated user to Walter's newsletter.
+   * SubscribeButton the authenticated user to Walter's newsletter.
    */
   public static async subscribe(): Promise<SubscribeResponse> {
     const token: string = getCookie('WalterToken') as string;
@@ -178,7 +178,7 @@ export class WalterAPI {
   }
 
   /**
-   * Unsubscribe the authenticated user from Walter's newsletter.
+   * UnsubscribeButton the authenticated user from Walter's newsletter.
    */
   public static async unsubscribe(): Promise<UnsubscribeResponse> {
     const token: string = getCookie('WalterToken') as string;

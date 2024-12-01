@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { WalterAPIResponseBase } from '../common/Response';
-import { SEND_NEWSLETTER_METHOD } from '../../constants/Constants';
+import { SEND_NEWSLETTER_METHOD } from '../common/Methods';
 
 /**
  * SendNewsletterResponse

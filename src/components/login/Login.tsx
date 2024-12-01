@@ -11,18 +11,12 @@ import {
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/methods/AuthUser';
-import {
-  CHANGE_PASSWORD_PAGE,
-  DASHBOARD_PAGE,
-  RESET_PASSWORD_PAGE,
-  SEND_CHANGE_PASSWORD_EMAIL_METHOD,
-  WALTER_TOKEN_NAME,
-} from '../../constants/Constants';
+import { DASHBOARD_PAGE, RESET_PASSWORD_PAGE } from '../../pages/common/Pages';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { LockOutlined } from '@mui/icons-material';
 import LoadingButton from '../button/LoadingButton';
-import Typography from '@mui/material/Typography';
+import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 
 /**
  * LoginProps

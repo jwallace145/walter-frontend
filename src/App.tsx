@@ -19,7 +19,7 @@ import {
   RESET_PASSWORD_PAGE,
   SEND_VERIFY_EMAIL_PAGE,
   VERIFY_EMAIL_PAGE,
-} from './constants/Constants';
+} from './pages/common/Pages';
 import { GetUserResponse } from './api/methods/GetUser';
 import VerifyEmail from './components/verify/VerifyEmail';
 import ChangePassword from './components/password/ChangePassword';

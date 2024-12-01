@@ -1,6 +1,6 @@
 import { WalterAPIResponseBase } from '../common/Response';
 import axios, { AxiosResponse } from 'axios';
-import { SEND_CHANGE_PASSWORD_EMAIL_METHOD } from '../../constants/Constants';
+import { SEND_CHANGE_PASSWORD_EMAIL_METHOD } from '../common/Methods';
 import { ChangePasswordResponse } from './ChangePassword';
 
 /**
