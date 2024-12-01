@@ -12,4 +12,4 @@ Sign up for [Walter's](https://walterai.dev) free newsletter today!
 
 The frontend makes requests to the backend hosted by [API Gateway](https://aws.amazon.com/api-gateway/) proxies the requests to different lambda functions to serve the respective API.
 
-![Walter](https://github.com/user-attachments/assets/d56310be-c453-4183-b52c-a8c64416bc3e)
+![walter-architecture](https://github.com/user-attachments/assets/6b71ba25-4163-4c09-93c7-3b7c549edf67)
