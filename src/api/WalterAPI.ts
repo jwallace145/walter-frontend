@@ -178,7 +178,16 @@ export class WalterAPI {
   }
 
   /**
-   * UnsubscribeButton the authenticated user from Walter's newsletter.
+   * Unsubscribe the user with the given token from Walter's newsletter.
+   */
+  public static async unsubscribeUser(
+    token: string,
+  ): Promise<UnsubscribeResponse> {
+    return unsubscribe(WalterAPI.ENDPOINT, token);
+  }
+
+  /**
+   * Unsubscribe the current authenticated user from Walter's newsletter.
    */
   public static async unsubscribe(): Promise<UnsubscribeResponse> {
     const token: string = getCookie('WalterToken') as string;
