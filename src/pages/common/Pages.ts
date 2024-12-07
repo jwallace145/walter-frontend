@@ -10,3 +10,4 @@ export const SEND_VERIFY_EMAIL_PAGE = '/send-verify-email';
 export const VERIFY_EMAIL_PAGE = '/verify';
 export const CHANGE_PASSWORD_PAGE = '/password';
 export const RESET_PASSWORD_PAGE = '/reset-password';
+export const UNSUBSCRIBE_PAGE = '/unsubscribe';
