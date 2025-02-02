@@ -1,37 +1,64 @@
-import LoadingCircularProgress from '../progress/LoadingCircularProgress';
 import React from 'react';
-import { Container, CssBaseline } from '@mui/material';
-import Box from '@mui/material/Box';
+import {
+  Container,
+  CssBaseline,
+  Typography,
+  Card,
+  CardContent,
+  Box,
+  Skeleton,
+} from '@mui/material';
+import LoadingCircularProgress from '../progress/LoadingCircularProgress';
 
+/**
+ * StockNewsSummaryProps
+ *
+ * The props used to display a brief summary of recent stock news articles.
+ */
 interface StockNewsSummaryProps {
   loading: boolean;
   summary: string | undefined;
 }
 
+/**
+ * StockNewsSummary
+ *
+ * This component displays a brief summary of recent news articles related to the stock.
+ * It is visually designed to be engaging but not distracting.
+ *
+ * @param props
+ * @constructor
+ */
 const StockNewsSummary: React.FC<StockNewsSummaryProps> = (props) => {
+  if (props.loading || props.summary === undefined) {
+    return <LoadingCircularProgress />;
+  }
+
   return (
-    <>
-      {props.loading || props.summary === undefined ? (
-        <LoadingCircularProgress />
-      ) : (
-        <Container maxWidth="md">
-          <CssBaseline />
-          <Box
-            sx={{
-              mt: 20,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              borderRadius: 2,
-              boxShadow: 3,
-              padding: 2,
-            }}
+    <Container maxWidth="md" sx={{ mt: 4 }}>
+      <CssBaseline />
+      <Card
+        sx={{
+          borderRadius: 2,
+          boxShadow: 2,
+          padding: 2,
+          backgroundColor: 'background.paper',
+        }}
+      >
+        <CardContent>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ mb: 2, fontWeight: 'bold' }}
           >
-            <p>{props.summary}</p>
-          </Box>
-        </Container>
-      )}
-    </>
+            Recent Stock News
+          </Typography>
+          <Typography variant="body1" color="text.secondary">
+            {props.summary}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Container>
   );
 };
 
