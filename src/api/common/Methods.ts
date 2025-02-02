@@ -17,3 +17,4 @@ export const VERIFY_EMAIL_METHOD: string = 'VerifyEmail';
 export const CHANGE_PASSWORD_METHOD: string = 'ChangePassword';
 export const SEND_CHANGE_PASSWORD_EMAIL_METHOD: string =
   'SendChangePasswordEmail';
+export const GET_NEWS_SUMMARY_METHOD: string = 'GetNewsSummary';
