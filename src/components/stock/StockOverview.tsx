@@ -1,8 +1,23 @@
-import LoadingCircularProgress from '../progress/LoadingCircularProgress';
-import { Stock } from '../../api/methods/GetStock';
 import React from 'react';
-import { Container, CssBaseline, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Stock } from '../../api/methods/GetStock';
+import LoadingCircularProgress from '../progress/LoadingCircularProgress';
+import {
+  Container,
+  CssBaseline,
+  Typography,
+  Card,
+  CardContent,
+  Box,
+  Link,
+  Divider,
+} from '@mui/material';
+import {
+  Business,
+  Info,
+  ShowChart,
+  LocationCity,
+  Web,
+} from '@mui/icons-material';
 
 /**
  * StockOverviewProps
@@ -26,52 +41,102 @@ interface StockOverviewProps {
  * @constructor
  */
 const StockOverview: React.FC<StockOverviewProps> = (props) => {
+  if (props.loading || props.stock === undefined) {
+    return <LoadingCircularProgress />;
+  }
+
+  const { stock } = props;
+
   return (
-    <>
-      {props.loading || props.stock === undefined ? (
-        <LoadingCircularProgress />
-      ) : (
-        <Container maxWidth="md">
-          <CssBaseline />
-          <Box
-            sx={{
-              mt: 20,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              borderRadius: 2,
-              boxShadow: 3,
-              padding: 2,
-            }}
+    <Container maxWidth="md" sx={{ mt: 4 }}>
+      <CssBaseline />
+      <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
+        <CardContent>
+          <Typography
+            variant="h5"
+            component="div"
+            sx={{ fontWeight: 'bold', mb: 2 }}
           >
-            <Typography variant="subtitle1">
-              Symbol: {props.stock.symbol}
-            </Typography>
-            <Typography variant="subtitle1">
-              Company: {props.stock.company}
-            </Typography>
-            <Typography variant="subtitle1">
-              Description: {props.stock.description}
-            </Typography>
-            <Typography variant="subtitle1">
-              Exchange: {props.stock.exchange}
-            </Typography>
-            <Typography variant="subtitle1">
-              Sector: {props.stock.sector}
-            </Typography>
-            <Typography variant="subtitle1">
-              Industry: {props.stock.industry}
-            </Typography>
-            <Typography variant="subtitle1">
-              Official Site: {props.stock.official_site}
-            </Typography>
-            <Typography variant="subtitle1">
-              Address: {props.stock.address}
+            Stock Overview
+          </Typography>
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Business sx={{ mr: 1, color: 'primary.main' }} />
+              <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+                Symbol:
+              </Typography>
+              <Typography variant="body1" sx={{ ml: 1 }}>
+                {stock.symbol}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Info sx={{ mr: 1, color: 'secondary.main' }} />
+              <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+                Company:
+              </Typography>
+              <Typography variant="body1" sx={{ ml: 1 }}>
+                {stock.company}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <ShowChart sx={{ mr: 1, color: 'success.main' }} />
+              <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+                Sector:
+              </Typography>
+              <Typography variant="body1" sx={{ ml: 1 }}>
+                {stock.sector}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <ShowChart sx={{ mr: 1, color: 'info.main' }} />
+              <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+                Industry:
+              </Typography>
+              <Typography variant="body1" sx={{ ml: 1 }}>
+                {stock.industry}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <LocationCity sx={{ mr: 1, color: 'warning.main' }} />
+              <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+                Address:
+              </Typography>
+              <Typography variant="body1" sx={{ ml: 1 }}>
+                {stock.address}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Web sx={{ mr: 1, color: 'primary.main' }} />
+              <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+                Official Site:
+              </Typography>
+              <Link
+                href={stock.official_site}
+                target="_blank"
+                sx={{ ml: 1 }}
+                variant="body1"
+              >
+                {stock.official_site}
+              </Link>
+            </Box>
+          </Box>
+
+          <Divider sx={{ my: 2 }} />
+
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant="body2" color="text.secondary">
+              Exchange: {stock.exchange}
             </Typography>
           </Box>
-        </Container>
-      )}
-    </>
+        </CardContent>
+      </Card>
+    </Container>
   );
 };
 

@@ -5,6 +5,7 @@ import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import theme from '../../../theme/Theme';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * The colors utilized for the pie chart.
@@ -33,6 +34,7 @@ interface PortfolioPieChartProps {
  */
 const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
 
   const graphStocks = () => {
     return props.stocks.map((stock) => ({
@@ -40,6 +42,11 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
       value: stock.equity,
       label: stock.symbol,
     }));
+  };
+
+  const handleItemClick = (event: any, params: any) => {
+    const stock = props.stocks[params.dataIndex].symbol.toLowerCase();
+    navigate(`/stocks/${stock}`);
   };
 
   return (
@@ -80,6 +87,7 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
             slotProps={{ legend: { hidden: isMobile } }}
             height={400}
             colors={colors}
+            onItemClick={handleItemClick}
           />
         </Container>
       )}

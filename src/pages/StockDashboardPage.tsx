@@ -6,6 +6,7 @@ import StockOverview from '../components/stock/StockOverview';
 import { GetNewsSummaryResponse } from '../api/methods/GetNewsSummary';
 import StockNewsSummary from '../components/stock/StockNewsSummary';
 import { GetPricesResponse, Price } from '../api/methods/GetPrices';
+import StockLineGraph from '../components/stock/StockLineGraph';
 
 const StockDashboardPage: React.FC = (props) => {
   const params: Readonly<Params> = useParams();
@@ -58,6 +59,11 @@ const StockDashboardPage: React.FC = (props) => {
   return (
     <>
       <StockOverview loading={stockLoading} stock={stock} />
+      <StockLineGraph
+        loading={pricesLoading && stockLoading}
+        stock={stock}
+        prices={prices}
+      />
       <StockNewsSummary loading={summaryLoading} summary={summary} />
     </>
   );

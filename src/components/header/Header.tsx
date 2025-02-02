@@ -12,7 +12,6 @@ import {
   LOGIN_PAGE,
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
-  SEND_VERIFY_EMAIL_PAGE,
 } from '../../pages/common/Pages';
 import SendIcon from '@mui/icons-material/Send';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
@@ -24,7 +23,6 @@ import SearchBar from './SearchBar';
 import theme from '../../theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
 import DrawerButton from './DrawerButton';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 
 /**
