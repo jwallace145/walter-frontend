@@ -64,7 +64,7 @@ const SearchBar: FC = () => {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      navigate(`/${search.toLowerCase()}`);
+      navigate(`/stocks/search/${search.toLowerCase()}`);
     }
   };
 
