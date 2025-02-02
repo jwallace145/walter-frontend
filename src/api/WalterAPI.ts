@@ -30,6 +30,7 @@ import {
   getNewsSummary,
   GetNewsSummaryResponse,
 } from './methods/GetNewsSummary';
+import { searchStocks, SearchStocksResponse } from './methods/SearchStocks';
 
 /**
  * Walter API
@@ -207,5 +208,14 @@ export class WalterAPI {
   public static async unsubscribe(): Promise<UnsubscribeResponse> {
     const token: string = getCookie('WalterToken') as string;
     return unsubscribe(WalterAPI.ENDPOINT, token);
+  }
+
+  /**
+   * Search for stocks similar to the given symbol.
+   */
+  public static async searchStocks(
+    symbol: string,
+  ): Promise<SearchStocksResponse> {
+    return searchStocks(WalterAPI.ENDPOINT, symbol);
   }
 }

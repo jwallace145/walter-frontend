@@ -93,11 +93,13 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
       return (
         <Typography
           variant="subtitle1"
-          onClick={() => navigate(`/stocks/${props.stock.symbol.toLowerCase()}`)}
+          onClick={() =>
+            navigate(`/stocks/${props.stock.symbol.toLowerCase()}`)
+          }
           sx={{
             cursor: 'pointer',
             textDecoration: 'none',
-            color: 'inherit'
+            color: 'inherit',
           }}
         >
           <Link>{props.stock.symbol}</Link>
@@ -107,11 +109,13 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
       return (
         <Typography variant="subtitle1">
           <Link
-            onClick={() => navigate(`/stocks/${props.stock.symbol.toLowerCase()}`)}
+            onClick={() =>
+              navigate(`/stocks/${props.stock.symbol.toLowerCase()}`)
+            }
             sx={{
               cursor: 'pointer',
               textDecoration: 'none',
-              color: 'inherit'
+              color: 'inherit',
             }}
           >
             {props.stock.company} ({props.stock.symbol})

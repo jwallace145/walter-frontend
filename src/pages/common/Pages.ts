@@ -12,3 +12,4 @@ export const CHANGE_PASSWORD_PAGE = '/password';
 export const RESET_PASSWORD_PAGE = '/reset-password';
 export const UNSUBSCRIBE_PAGE = '/unsubscribe';
 export const STOCK_DASHBOARD_PAGE = '/stocks/:symbol';
+export const SEARCH_STOCKS_PAGE = 'stocks/search/:symbol';

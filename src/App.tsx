@@ -17,6 +17,7 @@ import {
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
   RESET_PASSWORD_PAGE,
+  SEARCH_STOCKS_PAGE,
   SEND_VERIFY_EMAIL_PAGE,
   STOCK_DASHBOARD_PAGE,
   UNSUBSCRIBE_PAGE,
@@ -34,6 +35,7 @@ import UnsubscribePage from './pages/UnsubscribePage';
 import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
 import userNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
 import StockDashboardPage from './pages/StockDashboardPage';
+import SearchStocksPage from './pages/SearchStocksPage';
 
 /**
  * Walter App
@@ -112,6 +114,7 @@ const App: React.FC = () => {
                 path={STOCK_DASHBOARD_PAGE}
                 element={<StockDashboardPage />}
               />
+              <Route path={SEARCH_STOCKS_PAGE} element={<SearchStocksPage />} />
             </Routes>
             <UserNotVerifiedAlert
               userNotVerified={userNotVerifiedAlert}
