@@ -3,12 +3,13 @@ import { FC, useEffect } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Price } from '../../../api/methods/GetPrices';
 import dayjs from 'dayjs';
-import { Container, Typography, useMediaQuery } from '@mui/material';
+import { Container, Link, Typography, useMediaQuery } from '@mui/material';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import theme from '../../../theme/Theme';
 import StringRotator from '../../utils/StringRotator';
 import PortfolioStockDelta from './PortfolioStockDelta';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 /**
  * PortfolioStockLineChartProps
@@ -32,7 +33,8 @@ interface PortfolioStockLineChartProps {
 const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
   props: PortfolioStockLineChartProps,
 ) => {
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile: boolean = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate: NavigateFunction = useNavigate();
   const [delta, setDelta] = React.useState<number>(0);
 
   /**
@@ -88,11 +90,32 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
    */
   const getStock = () => {
     if (isMobile) {
-      return <Typography variant="subtitle1">{props.stock.symbol}</Typography>;
+      return (
+        <Typography
+          variant="subtitle1"
+          onClick={() => navigate(`/stocks/${props.stock.symbol.toLowerCase()}`)}
+          sx={{
+            cursor: 'pointer',
+            textDecoration: 'none',
+            color: 'inherit'
+          }}
+        >
+          <Link>{props.stock.symbol}</Link>
+        </Typography>
+      );
     } else {
       return (
         <Typography variant="subtitle1">
-          {props.stock.company} ({props.stock.symbol})
+          <Link
+            onClick={() => navigate(`/stocks/${props.stock.symbol.toLowerCase()}`)}
+            sx={{
+              cursor: 'pointer',
+              textDecoration: 'none',
+              color: 'inherit'
+            }}
+          >
+            {props.stock.company} ({props.stock.symbol})
+          </Link>
         </Typography>
       );
     }
