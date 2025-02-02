@@ -30,6 +30,8 @@ import SendVerifyEmail from './components/verify/SendVerifyEmail';
 import NewslettersPage from './pages/NewslettersPage';
 import PortfolioDashboardPage from './pages/PortfolioDashboardPage';
 import UnsubscribePage from './pages/UnsubscribePage';
+import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
+import userNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
 
 /**
  * Walter App
@@ -44,6 +46,8 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [userNotVerifiedAlert, setUserNotVerifiedAlert] =
+    useState<boolean>(false);
+  const [userNotSubscribedAlert, setUserNotSubscribeAlert] =
     useState<boolean>(false);
 
   /**
@@ -62,6 +66,7 @@ const App: React.FC = () => {
       .then((response: GetUserResponse) => {
         setAuthenticated(response.isAuthenticated());
         setUserNotVerifiedAlert(response.isNotVerified());
+        setUserNotSubscribeAlert(response.isNotSubscribed());
       })
       .catch((error: any) => setAuthenticated(false))
       .finally(() => setLoading(false));
@@ -105,6 +110,10 @@ const App: React.FC = () => {
             <UserNotVerifiedAlert
               userNotVerified={userNotVerifiedAlert}
               setUserNotVerifiedAlert={setUserNotVerifiedAlert}
+            />
+            <UserNotSubscribedAlert
+              userNotSubscribed={userNotSubscribedAlert}
+              setUserNotSubscribedAlert={setUserNotSubscribeAlert}
             />
           </>
         )}

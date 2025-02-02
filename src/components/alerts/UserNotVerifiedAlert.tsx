@@ -20,6 +20,7 @@ interface UserNotVerifiedAlertProps {
  * email address has not been successfully verified. This ensures
  * that users are aware if Walter can send their daily newsletter.
  *
+ * @param props
  * @constructor
  */
 const UserNotVerifiedAlert: React.FC<UserNotVerifiedAlertProps> = (props) => {
