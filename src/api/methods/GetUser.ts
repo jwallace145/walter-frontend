@@ -11,6 +11,7 @@ export interface User {
   email: string;
   username: string;
   verified: boolean;
+  subscribed: boolean;
 }
 
 /**
@@ -41,22 +42,30 @@ export class GetUserResponse extends WalterAPIResponseBase {
     return !this.user.verified && this.isAuthenticated();
   }
 
+  public isNotSubscribed(): boolean {
+    console.log(this.user);
+    return !this.user.subscribed && this.isAuthenticated();
+  }
+
   public getMessage(): string {
     return this.message;
   }
 
   private initUser(data?: any): User {
+    console.log(data);
     if (data === null || data === undefined) {
       return {
         email: '',
         username: '',
         verified: false,
+        subscribed: false,
       };
     }
     return {
       email: data.email,
       username: data.username,
       verified: data.verified,
+      subscribed: data.subscribed,
     };
   }
 }
