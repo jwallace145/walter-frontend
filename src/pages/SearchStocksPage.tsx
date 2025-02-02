@@ -10,6 +10,7 @@ import { SearchStocksResponse, StockSearch } from '../api/methods/SearchStocks';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import { Box, Card, CardContent, Link, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import StockSearchResult from '../components/stock/StockSearchResult';
 
 const SearchStocksPage: React.FC = () => {
   const params: Readonly<Params> = useParams();
@@ -37,36 +38,21 @@ const SearchStocksPage: React.FC = () => {
   return (
     <Box sx={{ flexGrow: 1, padding: 2 }}>
       <Typography variant="h4" gutterBottom>
-        Search Results ({stocks.length} Stocks)
+        Search Results ({stocks.length})
       </Typography>
-      <Grid container direction="column" spacing={2}>
+      <Grid
+        container
+        direction="column"
+        size={12}
+        spacing={2}
+        sx={{
+          padding: 2,
+          borderRadius: 2,
+          boxShadow: 3,
+        }}
+      >
         {stocks.map((stock) => (
-          <Grid>
-            <Link
-              onClick={() => navigate(`/stocks/${stock.symbol.toLowerCase()}`)}
-              style={{ textDecoration: 'none', cursor: 'pointer' }}
-            >
-              <Card
-                variant="outlined"
-                sx={{ width: '100%', maxWidth: 800, margin: 'auto' }}
-              >
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    {stock.name}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Symbol: {stock.symbol}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Type: {stock.type}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Region: {stock.region}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Link>
-          </Grid>
+          <StockSearchResult stock={stock} />
         ))}
       </Grid>
     </Box>
