@@ -1,13 +1,12 @@
 import React from 'react';
 import {
+  Card,
+  CardContent,
   Container,
   CssBaseline,
   Typography,
-  Card,
-  CardContent,
-  Box,
-  Skeleton,
 } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
 import LoadingCircularProgress from '../progress/LoadingCircularProgress';
 
 /**
@@ -54,7 +53,7 @@ const StockNewsSummary: React.FC<StockNewsSummaryProps> = (props) => {
             Recent Stock News
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            {props.summary}
+            <ReactMarkdown children={props.summary} />
           </Typography>
         </CardContent>
       </Card>
