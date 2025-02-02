@@ -26,6 +26,10 @@ import {
 } from './methods/SendVerifyEmail';
 import { subscribe, SubscribeResponse } from './methods/Subscribe';
 import { unsubscribe, UnsubscribeResponse } from './methods/Unsubscribe';
+import {
+  getNewsSummary,
+  GetNewsSummaryResponse,
+} from './methods/GetNewsSummary';
 
 /**
  * Walter API
@@ -79,6 +83,17 @@ export class WalterAPI {
    */
   public static async getStock(symbol: string): Promise<GetStockResponse> {
     return getStock(WalterAPI.ENDPOINT, symbol);
+  }
+
+  /**
+   * Get AI news summary of articles related to the given stock
+   *
+   * @param symbol The symbol of the stock.
+   */
+  public static async getNewsSummary(
+    symbol: string,
+  ): Promise<GetNewsSummaryResponse> {
+    return getNewsSummary(WalterAPI.ENDPOINT, symbol);
   }
 
   /**

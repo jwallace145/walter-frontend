@@ -11,6 +11,12 @@ import { GET_STOCK_METHOD } from '../common/Methods';
 export interface Stock {
   symbol: string;
   company: string;
+  description: string;
+  exchange: string;
+  sector: string;
+  industry: string;
+  official_site: string;
+  address: string;
 }
 
 /**
@@ -20,14 +26,14 @@ export interface Stock {
  * stored in WalterDB for a given stock symbol.
  */
 export class GetStockResponse extends WalterAPIResponseBase {
-  private readonly stock: Stock | null;
+  private readonly stock: Stock | undefined;
 
   constructor(status: string, message: string, data?: any) {
     super(GET_STOCK_METHOD, status, message);
     this.stock = this.parseData(data)!;
   }
 
-  public getStock(): Stock | null {
+  public getStock(): Stock | undefined {
     return this.stock;
   }
 

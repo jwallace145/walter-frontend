@@ -18,6 +18,7 @@ import {
   REGISTER_PAGE,
   RESET_PASSWORD_PAGE,
   SEND_VERIFY_EMAIL_PAGE,
+  STOCK_DASHBOARD_PAGE,
   UNSUBSCRIBE_PAGE,
   VERIFY_EMAIL_PAGE,
 } from './pages/common/Pages';
@@ -32,6 +33,7 @@ import PortfolioDashboardPage from './pages/PortfolioDashboardPage';
 import UnsubscribePage from './pages/UnsubscribePage';
 import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
 import userNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
+import StockDashboardPage from './pages/StockDashboardPage';
 
 /**
  * Walter App
@@ -106,6 +108,10 @@ const App: React.FC = () => {
                 element={<SendChangePasswordEmail />}
               />
               <Route path={UNSUBSCRIBE_PAGE} element={<UnsubscribePage />} />
+              <Route
+                path={STOCK_DASHBOARD_PAGE}
+                element={<StockDashboardPage />}
+              />
             </Routes>
             <UserNotVerifiedAlert
               userNotVerified={userNotVerifiedAlert}
