@@ -1,7 +1,6 @@
 import { WalterAPIResponseBase } from '../common/Response';
 import { GET_NEWS_SUMMARY_METHOD } from '../common/Methods';
 import axios, { AxiosResponse } from 'axios';
-import { GetStockResponse } from './GetStock';
 
 /**
  * GetNewsSummaryResponse

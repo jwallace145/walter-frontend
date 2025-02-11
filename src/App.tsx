@@ -33,7 +33,6 @@ import NewslettersPage from './pages/NewslettersPage';
 import PortfolioDashboardPage from './pages/PortfolioDashboardPage';
 import UnsubscribePage from './pages/UnsubscribePage';
 import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
-import userNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
 import StockDashboardPage from './pages/StockDashboardPage';
 import SearchStocksPage from './pages/SearchStocksPage';
 

@@ -1,12 +1,10 @@
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import React, { useEffect } from 'react';
-import { Box, CircularProgress } from '@mui/material';
+import { Box } from '@mui/material';
 import {
   DataGrid,
   GridActionsCellItem,
   GridColDef,
-  GridEventListener,
-  GridRowEditStopReasons,
   GridRowId,
   GridRowModesModel,
   GridSlots,

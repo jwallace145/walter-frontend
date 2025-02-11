@@ -12,7 +12,6 @@ import {
 import Box from '@mui/material/Box';
 import KeyIcon from '@mui/icons-material/Key';
 import LoadingButton from '../button/LoadingButton';
-import Typography from '@mui/material/Typography';
 
 /**
  * The send change password email component.
