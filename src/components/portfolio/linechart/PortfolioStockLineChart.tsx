@@ -7,7 +7,6 @@ import { Container, Link, Typography, useMediaQuery } from '@mui/material';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import theme from '../../../theme/Theme';
-import StringRotator from '../../utils/StringRotator';
 import PortfolioStockDelta from './PortfolioStockDelta';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
@@ -65,6 +64,9 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
    * Get the start price of the stock at the start of the time period.
    */
   const getStartPrice = () => {
+    if (props.prices.length === 0) {
+      return 0;
+    }
     return props.prices[0].price;
   };
 
@@ -72,6 +74,9 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
    * Get the end price of the stock at the end of the time period.
    */
   const getEndPrice = () => {
+    if (props.prices.length === 0) {
+      return 0;
+    }
     return props.prices[props.prices.length - 1].price;
   };
 
@@ -79,8 +84,21 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
    * Get the delta of the stock over the given time period.
    */
   const getDelta = (): number => {
+    if (props.prices.length === 0) {
+      return 0;
+    }
     return (getEndPrice() - getStartPrice()) / getStartPrice();
   };
+
+  if (props.prices.length === 0) {
+    return (
+      <Container>
+        <Typography variant="subtitle1">
+          No stock prices available for this stock.
+        </Typography>
+      </Container>
+    );
+  }
 
   /**
    * Get the stock identifier for the stock line chart title.

@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {
-  NavigateFunction,
-  Params,
-  useNavigate,
-  useParams,
-} from 'react-router-dom';
+import { Params, useParams } from 'react-router-dom';
 import { WalterAPI } from '../api/WalterAPI';
 import { SearchStocksResponse, StockSearch } from '../api/methods/SearchStocks';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
-import { Box, Card, CardContent, Link, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import StockSearchResult from '../components/stock/StockSearchResult';
 
 const SearchStocksPage: React.FC = () => {
   const params: Readonly<Params> = useParams();
-  const navigate: NavigateFunction = useNavigate();
   const [stocksLoading, setStocksLoading] = useState(false);
   const [stocks, setStocks] = useState<StockSearch[]>([]);
 
