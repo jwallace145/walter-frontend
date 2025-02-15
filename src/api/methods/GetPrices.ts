@@ -49,8 +49,9 @@ export async function getPrices(
   endpoint: string,
   stock: string,
 ): Promise<GetPricesResponse> {
-  const response: AxiosResponse = await axios.post(`${endpoint}/prices`, {
-    stock: stock,
+  const response: AxiosResponse = await axios({
+    method: 'GET',
+    url: `${endpoint}/prices?stock=${stock}`
   });
   return new GetPricesResponse(
     response.data['Status'],
