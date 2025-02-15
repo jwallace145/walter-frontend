@@ -67,7 +67,7 @@ export async function getPortfolio(
   token: string,
 ): Promise<GetPortfolioResponse> {
   const response: AxiosResponse = await axios({
-    method: 'POST',
+    method: 'GET',
     url: `${endpoint}/portfolios`,
     headers: {
       Authorization: `Bearer ${token}`,
