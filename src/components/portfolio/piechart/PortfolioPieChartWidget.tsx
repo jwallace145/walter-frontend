@@ -36,7 +36,7 @@ const PortfolioPieChartWidget: React.FC<PortfolioPieChartWidgetProps> = (
       return (
         <>
           <PortfolioSectorPieChart
-            loading={props.loading}g
+            loading={props.loading}
             equity={props.equity}
             stocks={props.stocks}
           />
