@@ -21,7 +21,6 @@ const PortfolioStockLineChartWidget: React.FC<
   const [stock, setStock] = useState<PortfolioStock>();
   const [prices, setPrices] = useState<Price[]>([]);
   const [pricesLoading, setPricesLoading] = useState<boolean>(true);
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
     setPricesLoading(true);

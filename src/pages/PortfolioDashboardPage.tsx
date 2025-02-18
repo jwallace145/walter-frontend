@@ -6,9 +6,9 @@ import {
 import { WalterAPI } from '../api/WalterAPI';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
-import PortfolioPieChart from '../components/portfolio/piechart/PortfolioPieChart';
 import PortfolioStockLineChartWidget from '../components/portfolio/linechart/PortfolioStockLineChartWidget';
 import PortfolioDataGridV2 from '../components/portfolio/datagrid/PortfolioDataGridV2';
+import PortfolioPieChartWidget from '../components/portfolio/piechart/PortfolioPieChartWidget';
 
 /**
  * Portfolio Dashboard Page
@@ -64,7 +64,7 @@ const PortfolioDashboardPage: React.FC = () => {
             boxShadow: 3,
           }}
         >
-          <PortfolioPieChart
+          <PortfolioPieChartWidget
             loading={loading}
             equity={totalEquity}
             stocks={stocks}

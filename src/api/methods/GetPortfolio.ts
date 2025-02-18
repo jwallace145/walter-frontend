@@ -16,6 +16,7 @@ export interface Portfolio {
 export interface PortfolioStock {
   symbol: string;
   company: string;
+  sector: string;
   quantity: number;
   price: number;
   equity: number;
