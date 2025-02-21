@@ -43,11 +43,8 @@ export async function getNewsSummary(
 ): Promise<GetNewsSummaryResponse> {
   // TODO: This should be a GET method with a URL query param
   const response: AxiosResponse = await axios({
-    method: 'POST',
-    url: `${endpoint}/news`,
-    data: {
-      stock: symbol,
-    },
+    method: 'GET',
+    url: `${endpoint}/news?symbol=${symbol}`,
   });
   return new GetNewsSummaryResponse(
     response.data['Status'],
