@@ -2,6 +2,15 @@ import { WalterAPIResponseBase } from '../common/Response';
 import { GET_NEWS_SUMMARY_METHOD } from '../common/Methods';
 import axios, { AxiosResponse } from 'axios';
 
+export interface NewsSource {
+  title: string;
+  url: string;
+  published_timestamp: string;
+  authors: string[];
+  source: string;
+  summary: string;
+}
+
 /**
  * GetNewsSummaryResponse
  *
@@ -12,14 +21,23 @@ import axios, { AxiosResponse } from 'axios';
  */
 export class GetNewsSummaryResponse extends WalterAPIResponseBase {
   private readonly summary: string | undefined;
+  private readonly sources: NewsSource[] | undefined;
 
   constructor(status: string, message: string, data?: any) {
     super(GET_NEWS_SUMMARY_METHOD, status, message);
-    this.summary = this.parseData(data);
+    this.summary = this.getSummaryFromData(data);
+    this.sources = this.getSourcesFromData(data);
   }
 
   getSummary(): string | undefined {
     return this.summary;
+  }
+
+  getSources(): NewsSource[] {
+    if (this.sources === undefined) {
+      return [];
+    }
+    return this.sources;
   }
 
   private parseData(data: any): string | undefined {
@@ -27,6 +45,20 @@ export class GetNewsSummaryResponse extends WalterAPIResponseBase {
       return data;
     }
     return data.summary;
+  }
+
+  private getSummaryFromData(data: any): string | undefined {
+    if (data === undefined) {
+      return data;
+    }
+    return data.summary;
+  }
+
+  private getSourcesFromData(data: any): NewsSource[] | undefined {
+    if (data === undefined) {
+      return data;
+    }
+    return data.articles;
   }
 }
 

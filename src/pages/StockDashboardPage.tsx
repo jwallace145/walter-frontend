@@ -3,10 +3,11 @@ import { Params, useParams } from 'react-router-dom';
 import { WalterAPI } from '../api/WalterAPI';
 import { GetStockResponse, Stock } from '../api/methods/GetStock';
 import StockOverview from '../components/stock/StockOverview';
-import { GetNewsSummaryResponse } from '../api/methods/GetNewsSummary';
+import { GetNewsSummaryResponse, NewsSource } from '../api/methods/GetNewsSummary';
 import StockNewsSummary from '../components/stock/StockNewsSummary';
 import { GetPricesResponse, Price } from '../api/methods/GetPrices';
 import StockLineGraph from '../components/stock/StockLineGraph';
+import StockNewsSource from '../components/stock/StockNewsSource';
 
 const StockDashboardPage: React.FC = (props) => {
   const params: Readonly<Params> = useParams();
@@ -15,6 +16,7 @@ const StockDashboardPage: React.FC = (props) => {
   const [summaryLoading, setSummaryLoading] = useState(false);
   const [stock, setStock] = useState<Stock>();
   const [prices, setPrices] = useState<Price[]>([]);
+  const [sources, setSources] = useState<NewsSource[]>([]);
   const [summary, setSummary] = useState<string>();
 
   useEffect(() => {
@@ -50,6 +52,7 @@ const StockDashboardPage: React.FC = (props) => {
     WalterAPI.getNewsSummary(params.symbol as string)
       .then((response: GetNewsSummaryResponse) => {
         setSummary(response.getSummary());
+        setSources(response.getSources());
       })
       .finally(() => {
         setSummaryLoading(false);
@@ -65,6 +68,7 @@ const StockDashboardPage: React.FC = (props) => {
         prices={prices}
       />
       <StockNewsSummary loading={summaryLoading} summary={summary} />
+      <StockNewsSource loading={summaryLoading} sources={sources} />
     </>
   );
 };
