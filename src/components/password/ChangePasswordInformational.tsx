@@ -1,10 +1,18 @@
 import React from 'react';
-import { Container, Divider, Link } from '@mui/material';
+import { Container, Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { REGISTER_PAGE } from '../../pages/common/Pages';
+import LoadingButton from '../button/LoadingButton';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { LOGIN_PAGE } from '../../pages/common/Pages';
 
-const LoginInformational: React.FC = () => {
+const ChangePasswordInformational: React.FC = () => {
+  const navigate: NavigateFunction = useNavigate();
+
+  const handleLoginRedirect: () => void = (): void => {
+    navigate(LOGIN_PAGE);
+  };
+
   return (
     <Container
       sx={{
@@ -34,7 +42,7 @@ const LoginInformational: React.FC = () => {
             fontSize: '72px',
           }}
         >
-          Login
+          Forgot Password?
         </Typography>
         <Typography
           variant="body1"
@@ -47,8 +55,8 @@ const LoginInformational: React.FC = () => {
             fontSize: '18px',
           }}
         >
-          Welcome back! Get the latest insights on your portfolio with Walter's
-          AI-powered updates - quick, smart, and tailored just for you.
+          Forgot you password? No worries - just enter your new password and
+          we'll help you get back on track!
         </Typography>
         <Divider
           sx={{
@@ -72,34 +80,11 @@ const LoginInformational: React.FC = () => {
             width: '100%',
           }}
         >
-          Don't have an account?
-          <Link
-            href={REGISTER_PAGE}
-            variant="body2"
-            sx={{
-              marginLeft: '5px',
-              marginTop: '20px',
-              color: 'black',
-              fontFamily: 'Raleway',
-              fontWeight: 'bold',
-              textAlign: 'left',
-              width: '100%',
-              textDecoration: 'none',
-              '&:hover': {
-                color: '#FFD213',
-                textDecoration: 'underline',
-              },
-              fontSize: '28px',
-              transition: 'color 0.3s ease, text-decoration 0.3s ease',
-              cursor: 'pointer',
-            }}
-          >
-            Sign Up
-          </Link>
+          Change password to continue
         </Typography>
       </Box>
     </Container>
   );
 };
 
-export default LoginInformational;
+export default ChangePasswordInformational;
