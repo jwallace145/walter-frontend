@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Button, Container, Drawer, List, useMediaQuery } from '@mui/material';
+import { Button, Container, Drawer, List } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { removeCookie } from 'typescript-cookie';
@@ -23,6 +23,7 @@ import SearchBar from './SearchBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import DrawerButton from './DrawerButton';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import WalterLogo from '../logo/walter-logo.png';
 
 /**
  * HeaderProps
@@ -98,7 +99,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const getHeaderButtons = () => {
     if (props.authenticated) {
       return (
-        <Box display="flex" gap={1}>
+        <Box display="flex" gap={1} sx={{ marginLeft: 'auto' }}>
           <HeaderButton
             title={'Dashboard'}
             onClick={() => navigate(DASHBOARD_PAGE)}
@@ -145,47 +146,51 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#121212' }}>
+    <AppBar position="static" sx={{ background: 'linear-gradient(to left, #B5E0F7, white)', height: '120px'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              mr: 2,
-              display: { md: 'flex' },
-              fontFamily: 'Raleway, sans-serif',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              cursor: 'pointer',
-            }}
-            onClick={() => navigate(LANDING_PAGE)}
-          >
-            WALTER
-          </Typography>
-          {false ? (
-            <>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                {getHeaderButtons()}
-              </Box>
-              {props.authenticated && <SearchBar />}
-            </>
-          ) : (
-            <>
-              <Button onClick={toggleDrawer(true)}>
-                <MenuIcon />
-              </Button>
-              <Drawer
-                anchor={'right'}
-                open={open}
-                onClose={toggleDrawer(false)}
-              >
-                <List>{getDrawerButtons()}</List>
-              </Drawer>
-            </>
-          )}
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 8,
+                display: { md: 'flex' },
+                fontFamily: 'Raleway',
+                fontWeight: 'bold',
+                letterSpacing: '.3rem',
+                color: 'black',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
+              onClick={() => navigate(LANDING_PAGE)}
+            >
+              <img
+                src={WalterLogo}
+                alt="Walter Logo"
+                style={{ width: 40, height: 'auto', marginRight: 24 }}
+              />
+              WALTER
+            </Typography>
+            <Typography
+              sx={{
+                mt: 2,
+                ml: 4,
+                mr: 4,
+                display: { md: 'flex' },
+                fontFamily: 'Raleway',
+                color: 'black',
+                textDecoration: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              Your Portfolio. Simplified.
+            </Typography>
+          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: 'auto'}}>
+            {getHeaderButtons()}
+          </Box>
+          {props.authenticated && <SearchBar />}
         </Toolbar>
       </Container>
     </AppBar>
