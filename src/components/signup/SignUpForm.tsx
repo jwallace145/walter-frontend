@@ -54,7 +54,7 @@ const SignUpForm: React.FC = () => {
       if (response.isSuccess()) {
         setSuccess(message);
         setSuccessAlert(true);
-        navigate('/login')
+        navigate('/login');
       } else {
         setError(message);
         setErrorAlert(true);
