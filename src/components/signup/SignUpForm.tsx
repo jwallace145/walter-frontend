@@ -173,7 +173,7 @@ const SignUpForm: React.FC = () => {
                 borderRadius: '16px',
               },
             }}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <Typography
             variant="body1"
