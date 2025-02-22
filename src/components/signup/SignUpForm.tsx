@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import {
   Alert,
-  Avatar,
   Container,
-  CssBaseline,
   FormControl,
   IconButton,
   InputAdornment,
@@ -14,13 +12,14 @@ import {
 } from '@mui/material';
 import { WalterAPI } from '../../api/WalterAPI';
 import { CreateUserResponse } from '../../api/methods/CreateUser';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Box from '@mui/material/Box';
 import LoadingButton from '../button/LoadingButton';
 import Typography from '@mui/material/Typography';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 const SignUpForm: React.FC = () => {
+  const navigate: NavigateFunction = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -55,6 +54,7 @@ const SignUpForm: React.FC = () => {
       if (response.isSuccess()) {
         setSuccess(message);
         setSuccessAlert(true);
+        navigate('/login')
       } else {
         setError(message);
         setErrorAlert(true);
@@ -89,7 +89,7 @@ const SignUpForm: React.FC = () => {
         sx={{
           backgroundColor: '#cccccc',
           borderRadius: '40px',
-          marginTop: '120px',
+          marginTop: '80px',
           marginRight: '120px',
           padding: '40px',
           width: '80%',
