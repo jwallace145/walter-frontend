@@ -4,7 +4,6 @@ import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
 import { Container, Typography, useMediaQuery } from '@mui/material';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
-import theme from '../../../theme/Theme';
 
 const colors = ['#257180', '#F2E5BF', '#FD8B51', '#CB6040', '#FF6F61'];
 
@@ -15,8 +14,6 @@ interface PortfolioPieChartProps {
 }
 
 const PortfolioSectorPieChart: React.FC<PortfolioPieChartProps> = (props) => {
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
   const getSectors: () => { [key: string]: number } = () => {
     let sectors: { [key: string]: number } = {};
     props.stocks.forEach((stock) => {
@@ -89,7 +86,7 @@ const PortfolioSectorPieChart: React.FC<PortfolioPieChartProps> = (props) => {
               fontWeight: 'bold',
             },
           }}
-          slotProps={{ legend: { hidden: isMobile } }}
+          slotProps={{ legend: { hidden: false } }}
           height={400}
           colors={colors}
         />

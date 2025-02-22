@@ -20,7 +20,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HeaderButton from './HeaderButton';
 import SearchBar from './SearchBar';
-import theme from '../../theme/Theme';
 import MenuIcon from '@mui/icons-material/Menu';
 import DrawerButton from './DrawerButton';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
@@ -52,7 +51,6 @@ export interface HeaderProps {
  */
 const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const navigate = useNavigate();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [open, setOpen] = useState<boolean>(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -79,7 +77,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
         <>
           <DrawerButton
             onClick={() => navigate(LOGIN_PAGE)}
-            buttonName={'Login'}
+            buttonName={'login'}
           />
           <DrawerButton
             onClick={() => navigate(REGISTER_PAGE)}
@@ -122,7 +120,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
       return (
         <Box display="flex" gap={1}>
           <HeaderButton
-            title={'Login'}
+            title={'login'}
             onClick={() => navigate(LOGIN_PAGE)}
             children={<LoginIcon />}
           />
@@ -167,7 +165,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
           >
             WALTER
           </Typography>
-          {!isMobile ? (
+          {false ? (
             <>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 {getHeaderButtons()}

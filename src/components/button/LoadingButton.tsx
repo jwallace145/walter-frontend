@@ -4,32 +4,40 @@ import Box from '@mui/material/Box';
 import { grey } from '@mui/material/colors';
 
 export interface LoadingButtonProps {
+  sx?: object;
   loading: boolean;
   onClick: (event: React.FormEvent) => void;
   text: string;
 }
 
-const LoadingButton: React.FC<LoadingButtonProps> = (props) => {
+const LoadingButton: React.FC<LoadingButtonProps> = (
+  props: LoadingButtonProps,
+) => {
   return (
-    <Box sx={{ m: 1, position: 'relative' }}>
+    <Box sx={{ m: 1, position: 'relative', ...props.sx }}>
       <Button
         fullWidth
-        sx={{ mt: 2, mb: 2 }}
         disabled={props.loading}
         onClick={props.onClick}
+        sx={{
+          fontFamily: 'Raleway, sans-serif',
+          fontWeight: 'bold',
+          color: 'black',
+          visibility: props.loading ? 'hidden' : 'visible',
+        }}
       >
         {props.text}
       </Button>
       {props.loading && (
         <CircularProgress
-          size={24}
+          size={18}
           sx={{
             color: grey[400],
             position: 'absolute',
             top: '50%',
             left: '50%',
-            marginTop: '-12px',
-            marginLeft: '-12px',
+            transform: 'translate(-50%, -50%)',
+            visibility: 'visible',
           }}
         />
       )}

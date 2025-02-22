@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './components/login/Login';
-import SignUp from './components/signup/SignUp';
+import SignUp from './components/signup/SignUpForm';
 import Header from './components/header/Header';
 import { WalterAPI } from './api/WalterAPI';
 import { ThemeProvider } from '@mui/material';
-import theme from './theme/Theme';
 import LandingPage from './components/landing/LandingPage';
 import LoadingCircularProgress from './components/progress/LoadingCircularProgress';
 import {
@@ -35,6 +33,8 @@ import UnsubscribePage from './pages/UnsubscribePage';
 import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
 import StockDashboardPage from './pages/StockDashboardPage';
 import SearchStocksPage from './pages/SearchStocksPage';
+import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 
 /**
  * Walter App
@@ -76,57 +76,52 @@ const App: React.FC = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Header
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        />
-        {loading ? (
-          <LoadingCircularProgress />
-        ) : (
-          <>
-            <Routes>
-              <Route path={LANDING_PAGE} element={<LandingPage />} />
-              <Route path={REGISTER_PAGE} element={<SignUp />} />
-              <Route
-                path={LOGIN_PAGE}
-                element={<Login setAuthenticated={setAuthenticated} />}
-              />
-              <Route
-                path={DASHBOARD_PAGE}
-                element={<PortfolioDashboardPage />}
-              />
-              <Route path={NEWSLETTER_PAGE} element={<NewslettersPage />} />
-              <Route
-                path={SEND_VERIFY_EMAIL_PAGE}
-                element={<SendVerifyEmail />}
-              />
-              <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
-              <Route path={CHANGE_PASSWORD_PAGE} element={<ChangePassword />} />
-              <Route
-                path={RESET_PASSWORD_PAGE}
-                element={<SendChangePasswordEmail />}
-              />
-              <Route path={UNSUBSCRIBE_PAGE} element={<UnsubscribePage />} />
-              <Route
-                path={STOCK_DASHBOARD_PAGE}
-                element={<StockDashboardPage />}
-              />
-              <Route path={SEARCH_STOCKS_PAGE} element={<SearchStocksPage />} />
-            </Routes>
-            <UserNotVerifiedAlert
-              userNotVerified={userNotVerifiedAlert}
-              setUserNotVerifiedAlert={setUserNotVerifiedAlert}
+    <Router>
+      <Header
+        authenticated={authenticated}
+        setAuthenticated={setAuthenticated}
+      />
+      {loading ? (
+        <LoadingCircularProgress />
+      ) : (
+        <>
+          <Routes>
+            <Route path={LANDING_PAGE} element={<LandingPage />} />
+            <Route path={REGISTER_PAGE} element={<SignUpPage />} />
+            <Route
+              path={LOGIN_PAGE}
+              element={<LoginPage setAuthenticated={setAuthenticated} />}
             />
-            <UserNotSubscribedAlert
-              userNotSubscribed={userNotSubscribedAlert}
-              setUserNotSubscribedAlert={setUserNotSubscribeAlert}
+            <Route path={DASHBOARD_PAGE} element={<PortfolioDashboardPage />} />
+            <Route path={NEWSLETTER_PAGE} element={<NewslettersPage />} />
+            <Route
+              path={SEND_VERIFY_EMAIL_PAGE}
+              element={<SendVerifyEmail />}
             />
-          </>
-        )}
-      </Router>
-    </ThemeProvider>
+            <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
+            <Route path={CHANGE_PASSWORD_PAGE} element={<ChangePassword />} />
+            <Route
+              path={RESET_PASSWORD_PAGE}
+              element={<SendChangePasswordEmail />}
+            />
+            <Route path={UNSUBSCRIBE_PAGE} element={<UnsubscribePage />} />
+            <Route
+              path={STOCK_DASHBOARD_PAGE}
+              element={<StockDashboardPage />}
+            />
+            <Route path={SEARCH_STOCKS_PAGE} element={<SearchStocksPage />} />
+          </Routes>
+          <UserNotVerifiedAlert
+            userNotVerified={userNotVerifiedAlert}
+            setUserNotVerifiedAlert={setUserNotVerifiedAlert}
+          />
+          <UserNotSubscribedAlert
+            userNotSubscribed={userNotSubscribedAlert}
+            setUserNotSubscribedAlert={setUserNotSubscribeAlert}
+          />
+        </>
+      )}
+    </Router>
   );
 };
 

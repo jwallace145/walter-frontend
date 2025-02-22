@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { GetPricesResponse, Price } from '../../../api/methods/GetPrices';
-import { Container, Pagination, useMediaQuery } from '@mui/material';
+import { Container, Pagination } from '@mui/material';
 import PortfolioStockLineChart from './PortfolioStockLineChart';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import { WalterAPI } from '../../../api/WalterAPI';
 import Box from '@mui/material/Box';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
-import theme from '../../../theme/Theme';
 
 interface PortfolioStockLineChartWidgetProps {
   loading: boolean; // the loading boolean state for parent component GetPortfolio API call
