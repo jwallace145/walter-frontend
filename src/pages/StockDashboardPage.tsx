@@ -3,7 +3,10 @@ import { Params, useParams } from 'react-router-dom';
 import { WalterAPI } from '../api/WalterAPI';
 import { GetStockResponse, Stock } from '../api/methods/GetStock';
 import StockOverview from '../components/stock/StockOverview';
-import { GetNewsSummaryResponse, NewsSource } from '../api/methods/GetNewsSummary';
+import {
+  GetNewsSummaryResponse,
+  NewsSource,
+} from '../api/methods/GetNewsSummary';
 import StockNewsSummary from '../components/stock/StockNewsSummary';
 import { GetPricesResponse, Price } from '../api/methods/GetPrices';
 import StockLineGraph from '../components/stock/StockLineGraph';

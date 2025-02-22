@@ -4,7 +4,6 @@ import { Container, Typography, useMediaQuery } from '@mui/material';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
-import theme from '../../../theme/Theme';
 import { useNavigate } from 'react-router-dom';
 
 /**
@@ -33,7 +32,6 @@ interface PortfolioPieChartProps {
  * @constructor
  */
 const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
 
   const graphStocks = () => {
@@ -49,48 +47,48 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
     navigate(`/stocks/${stock}`);
   };
 
+  if (props.loading) {
+    return <LoadingCircularProgress />;
+  }
+
   return (
     <>
-      {props.loading ? (
-        <LoadingCircularProgress />
-      ) : (
-        <Container>
-          <Container
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Typography variant="subtitle1">Portfolio</Typography>
-            <Typography variant="subtitle1">
-              {US_DOLLAR.format(props.equity)}
-            </Typography>
-          </Container>
-          <PieChart
-            series={[
-              {
-                data: graphStocks(),
-                innerRadius: 10,
-                paddingAngle: 2,
-                arcLabel: (value) => `${US_DOLLAR.format(value.value)}`,
-                arcLabelMinAngle: 35,
-                valueFormatter: (value) => `${US_DOLLAR.format(value.value)}`,
-              },
-            ]}
-            sx={{
-              [`& .${pieArcLabelClasses.root}`]: {
-                fontFamily: 'Raleway, sans-serif',
-                fontWeight: 'bold',
-              },
-            }}
-            slotProps={{ legend: { hidden: isMobile } }}
-            height={400}
-            colors={colors}
-            onItemClick={handleItemClick}
-          />
+      <Container>
+        <Container
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant="subtitle1">Portfolio</Typography>
+          <Typography variant="subtitle1">
+            {US_DOLLAR.format(props.equity)}
+          </Typography>
         </Container>
-      )}
+        <PieChart
+          series={[
+            {
+              data: graphStocks(),
+              innerRadius: 10,
+              paddingAngle: 2,
+              arcLabel: (value) => `${US_DOLLAR.format(value.value)}`,
+              arcLabelMinAngle: 35,
+              valueFormatter: (value) => `${US_DOLLAR.format(value.value)}`,
+            },
+          ]}
+          sx={{
+            [`& .${pieArcLabelClasses.root}`]: {
+              fontFamily: 'Raleway, sans-serif',
+              fontWeight: 'bold',
+            },
+          }}
+          slotProps={{ legend: { hidden: false } }}
+          height={400}
+          colors={colors}
+          onItemClick={handleItemClick}
+        />
+      </Container>
     </>
   );
 };

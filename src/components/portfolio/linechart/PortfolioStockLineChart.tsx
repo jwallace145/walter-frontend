@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 import { Container, Link, Typography, useMediaQuery } from '@mui/material';
 import { US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
-import theme from '../../../theme/Theme';
 import PortfolioStockDelta from './PortfolioStockDelta';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 
@@ -32,7 +31,6 @@ interface PortfolioStockLineChartProps {
 const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
   props: PortfolioStockLineChartProps,
 ) => {
-  const isMobile: boolean = useMediaQuery(theme.breakpoints.down('md'));
   const navigate: NavigateFunction = useNavigate();
   const [delta, setDelta] = React.useState<number>(0);
 
@@ -107,7 +105,7 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
    * less characters and improve UX.
    */
   const getStock = () => {
-    if (isMobile) {
+    if (false) {
       return (
         <Typography
           variant="subtitle1"
