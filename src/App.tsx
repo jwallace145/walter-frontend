@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SignUp from './components/signup/SignUpForm';
 import Header from './components/header/Header';
 import { WalterAPI } from './api/WalterAPI';
-import { ThemeProvider } from '@mui/material';
 import LandingPage from './components/landing/LandingPage';
 import LoadingCircularProgress from './components/progress/LoadingCircularProgress';
 import {
@@ -14,8 +12,8 @@ import {
   LOGIN_PAGE,
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
-  RESET_PASSWORD_PAGE,
   SEARCH_STOCKS_PAGE,
+  SEND_CHANGE_PASSWORD_EMAIL_PAGE,
   SEND_VERIFY_EMAIL_PAGE,
   STOCK_DASHBOARD_PAGE,
   UNSUBSCRIBE_PAGE,
@@ -23,8 +21,6 @@ import {
 } from './pages/common/Pages';
 import { GetUserResponse } from './api/methods/GetUser';
 import VerifyEmail from './components/verify/VerifyEmail';
-import ChangePassword from './components/password/ChangePassword';
-import SendChangePasswordEmail from './components/password/SendChangePasswordEmail';
 import UserNotVerifiedAlert from './components/alerts/UserNotVerifiedAlert';
 import SendVerifyEmail from './components/verify/SendVerifyEmail';
 import NewslettersPage from './pages/NewslettersPage';
@@ -35,6 +31,8 @@ import StockDashboardPage from './pages/StockDashboardPage';
 import SearchStocksPage from './pages/SearchStocksPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import ChangePasswordPage from './pages/ChangePasswordPage';
+import SendChangePasswordEmailPage from './pages/SendChangePasswordEmailPage';
 
 /**
  * Walter App
@@ -99,10 +97,13 @@ const App: React.FC = () => {
               element={<SendVerifyEmail />}
             />
             <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
-            <Route path={CHANGE_PASSWORD_PAGE} element={<ChangePassword />} />
             <Route
-              path={RESET_PASSWORD_PAGE}
-              element={<SendChangePasswordEmail />}
+              path={CHANGE_PASSWORD_PAGE}
+              element={<ChangePasswordPage />}
+            />
+            <Route
+              path={SEND_CHANGE_PASSWORD_EMAIL_PAGE}
+              element={<SendChangePasswordEmailPage />}
             />
             <Route path={UNSUBSCRIBE_PAGE} element={<UnsubscribePage />} />
             <Route

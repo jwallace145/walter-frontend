@@ -12,6 +12,8 @@ import {
 import Box from '@mui/material/Box';
 import KeyIcon from '@mui/icons-material/Key';
 import LoadingButton from '../button/LoadingButton';
+import Typography from '@mui/material/Typography';
+import { isValidEmail } from '../../constants/Constants';
 
 /**
  * The send change password email component.
@@ -22,7 +24,7 @@ import LoadingButton from '../button/LoadingButton';
  *
  * @constructor
  */
-const SendChangePasswordEmail: FC = () => {
+const SendChangePasswordEmailForm: FC = () => {
   const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>('');
@@ -37,6 +39,12 @@ const SendChangePasswordEmail: FC = () => {
    */
   const handleSendChangePasswordEmail = (event: FormEvent): void => {
     event.preventDefault();
+
+    if (!isValidEmail(email)) {
+      setError('Invalid email address!');
+      setErrorAlert(true);
+      return;
+    }
 
     // call SendChangePasswordEmail API
     setLoading(true);
@@ -64,45 +72,84 @@ const SendChangePasswordEmail: FC = () => {
   };
 
   return (
-    <Container maxWidth="xs">
-      <CssBaseline />
+    <Container
+      sx={{
+        backgroundColor: '#cccccc',
+        borderRadius: '40px',
+        marginTop: '120px',
+        marginRight: '120px',
+        padding: '40px',
+        width: '80%',
+      }}
+    >
       <Box
         sx={{
-          mt: 20,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          borderRadius: 2,
-          boxShadow: 3,
-          padding: 2,
+          justifyContent: 'center',
         }}
       >
-        <Avatar sx={{ m: 2 }}>
-          <KeyIcon />
-        </Avatar>
-        <Box sx={{ mt: 2 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            name="email"
-            label="Email"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <LoadingButton
-            loading={loading}
-            onClick={handleSendChangePasswordEmail}
-            text={'Send'}
-          />
-        </Box>
+        <Typography
+          variant="h4"
+          sx={{ fontFamily: 'Raleway', fontWeight: '700' }}
+        >
+          Reset Password
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            marginLeft: '20px',
+            marginTop: '20px',
+            fontFamily: 'Raleway',
+            fontWeight: 600,
+            textAlign: 'left',
+            width: '100%',
+          }}
+        >
+          Email
+        </Typography>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email Address"
+          name="email"
+          autoFocus
+          value={email}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              borderRadius: '16px',
+              backgroundColor: '#EFEFEF',
+            },
+            '& .MuiInputLabel-root': {
+              borderRadius: '16px',
+            },
+          }}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <LoadingButton
+          sx={{
+            backgroundColor: '#FFD213',
+            borderRadius: '40px',
+            marginTop: '40px',
+            marginBottom: '20px',
+            padding: '10px',
+            '&:hover': {
+              backgroundColor: '#F1B800',
+            },
+            transition: 'background-color 0.3s ease',
+            width: '40%',
+          }}
+          loading={loading}
+          onClick={handleSendChangePasswordEmail}
+          text={'Send'}
+        />
       </Box>
       <Snackbar
         open={openSuccessAlert}
-        autoHideDuration={6000}
+        autoHideDuration={10000}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="success">
@@ -111,7 +158,7 @@ const SendChangePasswordEmail: FC = () => {
       </Snackbar>
       <Snackbar
         open={openErrorAlert}
-        autoHideDuration={6000}
+        autoHideDuration={10000}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="error">
@@ -119,7 +166,8 @@ const SendChangePasswordEmail: FC = () => {
         </Alert>
       </Snackbar>
     </Container>
+
   );
 };
 
-export default SendChangePasswordEmail;
+export default SendChangePasswordEmailForm;

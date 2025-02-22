@@ -14,15 +14,11 @@ import {
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/methods/AuthUser';
-import {
-  DASHBOARD_PAGE,
-  REGISTER_PAGE,
-  RESET_PASSWORD_PAGE,
-} from '../../pages/common/Pages';
+import { DASHBOARD_PAGE, REGISTER_PAGE, SEND_CHANGE_PASSWORD_EMAIL_PAGE } from '../../pages/common/Pages';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LoadingButton from '../button/LoadingButton';
-import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import { isValidEmail, WALTER_TOKEN_NAME } from '../../constants/Constants';
 import Typography from '@mui/material/Typography';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -58,6 +54,13 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    if (!isValidEmail(email)) {
+      setError('Invalid email address!');
+      setErrorAlert(true);
+      return;
+    }
+
     setLoading(true);
     WalterAPI.authUser(email, password)
       .then((response: AuthUserResponse) => {
@@ -196,7 +199,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
             />
           </FormControl>
           <Link
-            href={RESET_PASSWORD_PAGE}
+            href={SEND_CHANGE_PASSWORD_EMAIL_PAGE}
             variant="body2"
             sx={{
               marginLeft: '20px',
@@ -211,7 +214,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
                 color: '#444444',
                 textDecoration: 'underline',
               },
-              transition: 'color 0.3s ease, text-decoration 0.3s ease', // Smooth transition for hover effects
+              transition: 'color 0.3s ease, text-decoration 0.3s ease',
               cursor: 'pointer',
             }}
           >
@@ -234,28 +237,6 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
             onClick={handleLogin}
             text={'login'}
           />
-          <Link
-            href={REGISTER_PAGE}
-            variant="body2"
-            sx={{
-              marginLeft: '20px',
-              marginTop: '20px',
-              color: 'black',
-              fontFamily: 'Raleway',
-              fontWeight: 'bold',
-              textAlign: 'left',
-              width: '100%',
-              textDecoration: 'none',
-              '&:hover': {
-                color: '#444444',
-                textDecoration: 'underline',
-              },
-              transition: 'color 0.3s ease, text-decoration 0.3s ease',
-              cursor: 'pointer',
-            }}
-          >
-            Need an account?
-          </Link>
         </Box>
         <Snackbar
           open={openErrorAlert}

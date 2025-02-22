@@ -1,10 +1,9 @@
 import React from 'react';
-import { Container, Divider, Link } from '@mui/material';
+import { Container, Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { REGISTER_PAGE } from '../../pages/common/Pages';
 
-const LoginInformational: React.FC = () => {
+const SendChangePasswordEmailInformational: React.FC = () => {
   return (
     <Container
       sx={{
@@ -34,7 +33,7 @@ const LoginInformational: React.FC = () => {
             fontSize: '72px',
           }}
         >
-          Login
+          Reset Password
         </Typography>
         <Typography
           variant="body1"
@@ -47,8 +46,7 @@ const LoginInformational: React.FC = () => {
             fontSize: '18px',
           }}
         >
-          Welcome back! Get the latest insights on your portfolio with Walter's
-          AI-powered updates - quick, smart, and tailored just for you.
+          Enter your email and we'll send you a link to reset your password.
         </Typography>
         <Divider
           sx={{
@@ -61,45 +59,9 @@ const LoginInformational: React.FC = () => {
             borderRadius: '8px',
           }}
         ></Divider>
-        <Typography
-          sx={{
-            marginLeft: '100px',
-            marginTop: '40px',
-            fontFamily: 'Raleway',
-            fontWeight: 'bold',
-            fontSize: '28px',
-            textAlign: 'left',
-            width: '100%',
-          }}
-        >
-          Don't have an account?
-          <Link
-            href={REGISTER_PAGE}
-            variant="body2"
-            sx={{
-              marginLeft: '5px',
-              marginTop: '20px',
-              color: 'black',
-              fontFamily: 'Raleway',
-              fontWeight: 'bold',
-              textAlign: 'left',
-              width: '100%',
-              textDecoration: 'none',
-              '&:hover': {
-                color: '#FFD213',
-                textDecoration: 'underline',
-              },
-              fontSize: '28px',
-              transition: 'color 0.3s ease, text-decoration 0.3s ease',
-              cursor: 'pointer',
-            }}
-          >
-            Sign Up
-          </Link>
-        </Typography>
       </Box>
     </Container>
   );
 };
 
-export default LoginInformational;
+export default SendChangePasswordEmailInformational;
