@@ -146,10 +146,23 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
   };
 
   return (
-    <AppBar position="static" sx={{ background: 'linear-gradient(to left, #B5E0F7, white)', height: '120px'}}>
+    <AppBar
+      position="static"
+      sx={{
+        background: 'linear-gradient(to left, #B5E0F7, white)',
+        height: '120px',
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '20px' }}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginTop: '20px',
+            }}
+          >
             <Typography
               variant="h6"
               noWrap
@@ -187,7 +200,13 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
               Your Portfolio. Simplified.
             </Typography>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, marginLeft: 'auto'}}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              marginLeft: 'auto',
+            }}
+          >
             {getHeaderButtons()}
           </Box>
           {props.authenticated && <SearchBar />}

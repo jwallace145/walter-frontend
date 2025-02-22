@@ -14,7 +14,11 @@ import {
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/methods/AuthUser';
-import { DASHBOARD_PAGE, REGISTER_PAGE, RESET_PASSWORD_PAGE } from '../../pages/common/Pages';
+import {
+  DASHBOARD_PAGE,
+  REGISTER_PAGE,
+  RESET_PASSWORD_PAGE,
+} from '../../pages/common/Pages';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LoadingButton from '../button/LoadingButton';
@@ -205,7 +209,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
               textDecoration: 'none',
               '&:hover': {
                 color: '#444444',
-                textDecoration: 'underline'
+                textDecoration: 'underline',
               },
               transition: 'color 0.3s ease, text-decoration 0.3s ease', // Smooth transition for hover effects
               cursor: 'pointer',
@@ -221,7 +225,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
               marginBottom: '20px',
               padding: '10px',
               '&:hover': {
-                backgroundColor: '#F1B800'
+                backgroundColor: '#F1B800',
               },
               transition: 'background-color 0.3s ease',
               width: '40%',
@@ -244,7 +248,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
               textDecoration: 'none',
               '&:hover': {
                 color: '#444444',
-                textDecoration: 'underline'
+                textDecoration: 'underline',
               },
               transition: 'color 0.3s ease, text-decoration 0.3s ease',
               cursor: 'pointer',
