@@ -9,21 +9,25 @@ import WalterLandingPage3 from '../components/landing/walter-landing-page-3.png'
 import LoadingButton from '../components/button/LoadingButton';
 import { LOGIN_PAGE } from './common/Pages';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import useIsMobile from '../components/utils/isMobile';
 
 const TITLE_FONT_SIZE: string = '8vw';
+const MOBILE_TITLE_FONT_SIZE: string = '9.5vw';
 const SUBTITLE_FONT_SIZE: string = '1.6vw';
+const MOBILE_SUBTITLE_FONT_SIZE: string = '3vw';
 
 const LandingPage: React.FC = () => {
+  const isMobile: boolean = useIsMobile();
   const navigate: NavigateFunction = useNavigate();
 
   return (
     <Grid container direction="column">
-      <Grid size={12} sx={{ marginTop: '100px' }}>
+      <Grid size={12} sx={{ marginTop: isMobile ? '40px' : '100px' }}>
         <Box
           sx={{
             display: 'inline',
             alignItems: 'center',
-            marginLeft: '100px',
+            marginLeft: isMobile ? '40px' : '100px',
           }}
         >
           <Typography
@@ -33,7 +37,7 @@ const LandingPage: React.FC = () => {
               fontWeight: 'bold',
               textAlign: 'left',
               width: '100%',
-              fontSize: TITLE_FONT_SIZE,
+              fontSize: isMobile ? MOBILE_TITLE_FONT_SIZE : TITLE_FONT_SIZE,
               display: 'inline',
               textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)',
             }}
@@ -48,22 +52,22 @@ const LandingPage: React.FC = () => {
               textAlign: 'left',
               display: 'inline',
               width: 'auto',
-              marginLeft: '20px',
-              fontSize: TITLE_FONT_SIZE,
+              marginLeft: isMobile ? '5px' : '20px',
+              fontSize: isMobile ? MOBILE_TITLE_FONT_SIZE : TITLE_FONT_SIZE,
               textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)',
             }}
           >
             Insights,
           </Typography>
         </Box>
-        <Box sx={{ display: 'flex', marginLeft: '100px' }}>
+        <Box sx={{ display: 'flex', marginLeft: isMobile ? '40px' : '100px' }}>
           <Typography
             variant="h1"
             sx={{
               fontFamily: 'Raleway',
               fontWeight: 'bold',
               textAlign: 'left',
-              fontSize: TITLE_FONT_SIZE,
+              fontSize: isMobile ? MOBILE_TITLE_FONT_SIZE : TITLE_FONT_SIZE,
               display: 'inline',
               textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)',
             }}
@@ -77,8 +81,8 @@ const LandingPage: React.FC = () => {
               fontWeight: 'normal',
               textAlign: 'left',
               display: 'inline',
-              marginLeft: '20px',
-              fontSize: TITLE_FONT_SIZE,
+              marginLeft: isMobile ? '5px' : '20px',
+              fontSize: isMobile ? MOBILE_TITLE_FONT_SIZE : TITLE_FONT_SIZE,
               textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)',
             }}
           >
@@ -89,10 +93,10 @@ const LandingPage: React.FC = () => {
       <Grid size={6}>
         <Typography
           sx={{
-            marginLeft: '100px',
+            marginLeft: isMobile ? '40px' : '100px',
             marginTop: '20px',
             fontFamily: 'Raleway',
-            fontSize: SUBTITLE_FONT_SIZE,
+            fontSize: isMobile ? MOBILE_SUBTITLE_FONT_SIZE : SUBTITLE_FONT_SIZE,
             textAlign: 'left',
             width: '100%',
           }}
@@ -106,14 +110,18 @@ const LandingPage: React.FC = () => {
           sx={{
             backgroundColor: '#FFD213',
             height: '3px',
-            marginY: 8,
+            marginY: isMobile ? 4 : 8,
             width: '85%',
             borderRadius: '8px',
-            marginLeft: '100px',
+            marginLeft: isMobile ? '40px' : '100px',
             border: 'none',
           }}
         ></Divider>
-        <Grid container direction={'row'}>
+        <Grid
+          container
+          direction={isMobile ? 'column' : 'row'}
+          sx={{ alignItems: 'left' }}
+        >
           <Grid size={3}>
             <img
               src={WalterLandingPage1}
@@ -121,7 +129,7 @@ const LandingPage: React.FC = () => {
               style={{
                 width: 'auto',
                 height: '100px',
-                marginLeft: '100px',
+                marginLeft: isMobile ? '40px' : '100px',
               }}
             />
           </Grid>
@@ -143,6 +151,7 @@ const LandingPage: React.FC = () => {
               style={{
                 width: 'auto',
                 height: '100px',
+                marginLeft: isMobile ? '40px' : '0px',
               }}
             />
           </Grid>
@@ -151,12 +160,14 @@ const LandingPage: React.FC = () => {
               sx={{
                 backgroundColor: '#FFD213',
                 borderRadius: '40px',
-                padding: '10px',
+                padding: isMobile ? '5px' : '10px',
                 '&:hover': {
                   backgroundColor: '#F1B800',
                 },
                 transition: 'background-color 0.3s ease',
-                width: '60%',
+                width: isMobile ? '150%' : '60%',
+                marginTop: isMobile ? '20px' : '0px',
+                marginLeft: isMobile ? '40px' : '0px',
               }}
               loading={false}
               onClick={() => navigate(LOGIN_PAGE)}

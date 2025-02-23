@@ -1,7 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Container } from '@mui/material';
+import {
+  Button,
+  Container,
+  List,
+  ListItem,
+  SwipeableDrawer,
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { removeCookie } from 'typescript-cookie';
@@ -14,7 +20,10 @@ import {
 } from '../../pages/common/Pages';
 import HeaderButton from './HeaderButton';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import WalterLogoText from '../logo/walter-logo-text.png';
 import WalterLogo from '../logo/walter-logo.png';
+import useIsMobile from '../utils/isMobile';
+import MenuIcon from '@mui/icons-material/Menu';
 
 /**
  * HeaderProps
@@ -42,7 +51,95 @@ export interface HeaderProps {
  * @constructor
  */
 const Header: FC<HeaderProps> = (props: HeaderProps) => {
+  const isMobile: boolean = useIsMobile();
   const navigate = useNavigate();
+  const [openMenu, setOpenMenu] = useState(false);
+
+  const getLogo = () => {
+    if (isMobile) {
+      return (
+        <img
+          src={WalterLogo}
+          alt="Walter Logo"
+          style={{
+            width: 'auto',
+            height: '70px',
+            marginTop: 12,
+            marginRight: 24,
+            cursor: 'pointer',
+          }}
+          onClick={() => navigate(LANDING_PAGE)}
+        />
+      );
+    } else {
+      return (
+        <img
+          src={WalterLogoText}
+          alt="Walter Logo"
+          style={{
+            width: 'auto',
+            height: '100px',
+            marginRight: 24,
+            marginBottom: '10px',
+            cursor: 'pointer',
+          }}
+          onClick={() => navigate(LANDING_PAGE)}
+        />
+      );
+    }
+  };
+
+  const getHeaderMenu = () => {
+    return (
+      <>
+        <Button
+          fullWidth
+          onClick={() => setOpenMenu(true)}
+          sx={{
+            fontFamily: 'Raleway',
+            fontWeight: 'bold',
+            color: 'black',
+            visibility: 'visible',
+          }}
+        >
+          <MenuIcon fontSize="large" />
+        </Button>
+        <SwipeableDrawer
+          anchor="right"
+          open={openMenu}
+          onClose={() => setOpenMenu(false)}
+          onOpen={() => setOpenMenu(true)}
+        >
+          <Box
+            sx={{ width: 250 }}
+            role="presentation"
+            onClick={() => setOpenMenu(false)}
+          >
+            <List>
+              <ListItem key="Home" disablePadding>
+                <HeaderButton
+                  title={'Home'}
+                  onClick={() => navigate(LANDING_PAGE)}
+                />
+              </ListItem>
+              <ListItem key="Sign Up" disablePadding>
+                <HeaderButton
+                  title={'Sign Up'}
+                  onClick={() => navigate(LANDING_PAGE)}
+                />
+              </ListItem>
+              <ListItem key="Login" disablePadding>
+                <HeaderButton
+                  title={'Login'}
+                  onClick={() => navigate(LANDING_PAGE)}
+                />
+              </ListItem>
+            </List>
+          </Box>
+        </SwipeableDrawer>
+      </>
+    );
+  };
 
   const getHeaderButtons = () => {
     if (!props.authenticated) {
@@ -95,23 +192,12 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
               marginTop: '10px',
             }}
           >
-            <img
-              src={WalterLogo}
-              alt="Walter Logo"
-              style={{
-                width: 'auto',
-                height: '100px',
-                marginRight: 24,
-                marginBottom: '10px',
-                cursor: 'pointer',
-              }}
-              onClick={() => navigate(LANDING_PAGE)}
-            />
+            {getLogo()}
           </Box>
           <Box
             sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}
           >
-            {getHeaderButtons()}
+            {isMobile ? getHeaderMenu() : getHeaderButtons()}
           </Box>
         </Toolbar>
       </Container>
