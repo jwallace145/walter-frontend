@@ -6,9 +6,9 @@ import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import { WalterAPI } from '../../api/WalterAPI';
 import { VerifyEmailResponse } from '../../api/methods/VerifyEmail';
 import { DASHBOARD_PAGE, LOGIN_PAGE } from '../../pages/common/Pages';
+import useIsMobile from '../utils/isMobile';
 import { setCookie } from 'typescript-cookie';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
-import useIsMobile from '../utils/isMobile';
 
 const EMAIL_VERIFICATION_TOKEN_KEY: string = 'token';
 
@@ -26,35 +26,59 @@ const VerifyEmailButton: FC<VerifyEmailButtonProps> = (
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
 
-  const getEmailToken = () => {
-    const queryParams = new URLSearchParams(location.search);
-    return queryParams.get(EMAIL_VERIFICATION_TOKEN_KEY);
-  };
-
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     // early return if token is null or undefined
-    const token: string | null = getEmailToken();
-    if (token === null || token === undefined) {
-      setError('Invalid token!');
-      setErrorAlert(true);
+    const token: string | null = getEmailVerificationToken();
+    if (!isValidEmailVerificationToken(token)) {
+      handleInvalidEmailVerificationToken();
       return;
     }
 
-    // attempt to verify email ownership with verification token and VerifyEmailButton API
+    // attempt to verify email ownership with email verification token and VerifyEmail API
+    attemptToVerifyEmail(token as string);
+  };
+
+  const getEmailVerificationToken = () => {
+    const queryParams = new URLSearchParams(location.search);
+    return queryParams.get(EMAIL_VERIFICATION_TOKEN_KEY);
+  };
+
+  const isValidEmailVerificationToken = (token: string | null) => {
+    if (token === null || token === undefined) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleInvalidEmailVerificationToken = () => {
+    setError('Invalid email verification token!');
+    setErrorAlert(true);
+  };
+
+  const attemptToVerifyEmail = (token: string) => {
     setLoading(true);
     WalterAPI.verifyEmail(token as string)
       .then((response: VerifyEmailResponse) => {
         if (response.isSuccess()) {
-          navigate(LOGIN_PAGE);
+          handleVerifyEmailSuccess(response.getToken());
         } else {
-          setError(response.getMessage());
-          setErrorAlert(true);
+          handleVerifyEmailFailure(response.getMessage());
         }
       })
       .catch((error: any) => console.log(error))
       .finally(() => setLoading(false));
+  };
+
+  const handleVerifyEmailSuccess = (userAuthToken: string) => {
+    setCookie(WALTER_TOKEN_NAME, userAuthToken);
+    navigate(DASHBOARD_PAGE);
+  };
+
+  const handleVerifyEmailFailure = (errorMessage: string) => {
+    setError(errorMessage);
+    setErrorAlert(true);
   };
 
   return (
