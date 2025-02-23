@@ -16,7 +16,12 @@ const VerifyEmailPage: React.FC<VerifyEmailPageProps> = (
 
   const getVerifyEmailPage = (isMobile: boolean) => {
     if (isMobile) {
-      return getVerifyEmailButton(FULL_PAGE_WIDTH);
+      return (
+        <>
+          {getVerifyEmailInformational(FULL_PAGE_WIDTH)}
+          {getVerifyEmailButton(FULL_PAGE_WIDTH)}
+        </>
+      );
     } else {
       return (
         <>
@@ -29,7 +34,14 @@ const VerifyEmailPage: React.FC<VerifyEmailPageProps> = (
 
   const getVerifyEmailButton = (size: number) => {
     return (
-      <Grid size={size} sx={{ marginTop: isMobile ? '100px' : '200px' }}>
+      <Grid
+        size={size}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: isMobile ? '20px' : '120px',
+        }}
+      >
         <VerifyEmailButton setAuthenticated={props.setAuthenticated} />
       </Grid>
     );
@@ -37,14 +49,21 @@ const VerifyEmailPage: React.FC<VerifyEmailPageProps> = (
 
   const getVerifyEmailInformational = (size: number) => {
     return (
-      <Grid size={size}>
+      <Grid
+        size={size}
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: isMobile ? '20px' : '100px',
+        }}
+      >
         <VerifyEmailInformational />
       </Grid>
     );
   };
 
   return (
-    <Grid container direction="row">
+    <Grid container direction={isMobile ? 'column' : 'row'}>
       {getVerifyEmailPage(isMobile)}
     </Grid>
   );

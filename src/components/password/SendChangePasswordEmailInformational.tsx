@@ -2,14 +2,21 @@ import React from 'react';
 import { Container, Divider } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import useIsMobile from '../utils/IsMobile';
+
+const TITLE_FONT_SIZE: string = '4vw';
+const MOBILE_TITLE_FONT_SIZE: string = '8vw';
+const SUBTITLE_FONT_SIZE: string = '1.5vw';
+const MOBILE_SUBTITLE_FONT_SIZE: string = '4vw';
 
 const SendChangePasswordEmailInformational: React.FC = () => {
+  const isMobile: boolean = useIsMobile();
+
   return (
     <Container
       sx={{
         backgroundColor: 'white',
         borderRadius: '40px',
-        marginTop: '120px',
         padding: '40px',
         width: '90%',
       }}
@@ -29,8 +36,7 @@ const SendChangePasswordEmailInformational: React.FC = () => {
             fontWeight: 'bold',
             textAlign: 'left',
             width: '100%',
-            marginLeft: '100px',
-            fontSize: '72px',
+            fontSize: isMobile ? MOBILE_TITLE_FONT_SIZE : TITLE_FONT_SIZE,
           }}
         >
           Reset Password
@@ -38,12 +44,11 @@ const SendChangePasswordEmailInformational: React.FC = () => {
         <Typography
           variant="body1"
           sx={{
-            marginLeft: '100px',
-            marginTop: '40px',
+            marginTop: isMobile ? '10px' : '40px',
             fontFamily: 'Raleway',
             textAlign: 'left',
             width: '100%',
-            fontSize: '18px',
+            fontSize: isMobile ? MOBILE_SUBTITLE_FONT_SIZE : SUBTITLE_FONT_SIZE,
           }}
         >
           Enter your email and we'll send you a link to reset your password.
