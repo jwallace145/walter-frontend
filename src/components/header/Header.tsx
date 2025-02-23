@@ -5,7 +5,13 @@ import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { removeCookie } from 'typescript-cookie';
-import { DASHBOARD_PAGE, LANDING_PAGE, LOGIN_PAGE, NEWSLETTER_PAGE, REGISTER_PAGE } from '../../pages/common/Pages';
+import {
+  DASHBOARD_PAGE,
+  LANDING_PAGE,
+  LOGIN_PAGE,
+  NEWSLETTER_PAGE,
+  REGISTER_PAGE,
+} from '../../pages/common/Pages';
 import SendIcon from '@mui/icons-material/Send';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LoginIcon from '@mui/icons-material/Login';

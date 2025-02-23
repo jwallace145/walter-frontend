@@ -3,11 +3,19 @@ import Grid from '@mui/material/Grid2';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Divider } from '@mui/material';
+import WalterLandingPage1 from '../components/landing/walter-landing-page-1.png';
+import WalterLandingPage2 from '../components/landing/walter-landing-page-2.png';
+import WalterLandingPage3 from '../components/landing/walter-landing-page-3.png';
+import LoadingButton from '../components/button/LoadingButton';
+import { LOGIN_PAGE } from './common/Pages';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 const TITLE_FONT_SIZE: string = '8vw';
 const SUBTITLE_FONT_SIZE: string = '1.6vw';
 
 const LandingPage: React.FC = () => {
+  const navigate: NavigateFunction = useNavigate();
+
   return (
     <Grid container direction="column">
       <Grid size={12} sx={{ marginTop: '100px' }}>
@@ -42,7 +50,7 @@ const LandingPage: React.FC = () => {
               width: 'auto',
               marginLeft: '20px',
               fontSize: TITLE_FONT_SIZE,
-              textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)'
+              textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)',
             }}
           >
             Insights,
@@ -71,7 +79,7 @@ const LandingPage: React.FC = () => {
               display: 'inline',
               marginLeft: '20px',
               fontSize: TITLE_FONT_SIZE,
-              textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)'
+              textShadow: '4px 4px 10px rgba(0, 0, 0, 0.5)',
             }}
           >
             Investing
@@ -98,12 +106,64 @@ const LandingPage: React.FC = () => {
           sx={{
             backgroundColor: '#FFD213',
             height: '3px',
-            marginY: 16,
+            marginY: 8,
             width: '85%',
             borderRadius: '8px',
             marginLeft: '100px',
             border: 'none',
-          }}></Divider>
+          }}
+        ></Divider>
+        <Grid container direction={'row'}>
+          <Grid size={3}>
+            <img
+              src={WalterLandingPage1}
+              alt="walter-step-1-create-account"
+              style={{
+                width: 'auto',
+                height: '100px',
+                marginLeft: '100px',
+              }}
+            />
+          </Grid>
+          <Grid size={3}>
+            <img
+              src={WalterLandingPage2}
+              alt="walter-step-2-verify-email-address"
+              style={{
+                width: 'auto',
+                height: '100px',
+                marginLeft: '40px',
+              }}
+            />
+          </Grid>
+          <Grid size={3}>
+            <img
+              src={WalterLandingPage3}
+              alt="walter-step-3-subscribe-to-newsletter"
+              style={{
+                width: 'auto',
+                height: '100px',
+              }}
+            />
+          </Grid>
+          <Grid size={3}>
+            <LoadingButton
+              sx={{
+                backgroundColor: '#FFD213',
+                borderRadius: '40px',
+                padding: '10px',
+                '&:hover': {
+                  backgroundColor: '#F1B800',
+                },
+                transition: 'background-color 0.3s ease',
+                width: '60%',
+              }}
+              loading={false}
+              onClick={() => navigate(LOGIN_PAGE)}
+              text={'Get Started'}
+            />
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );
