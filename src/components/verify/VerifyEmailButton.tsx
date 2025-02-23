@@ -68,6 +68,7 @@ const VerifyEmailButton: FC<VerifyEmailButtonProps> = (
         marginRight: '120px',
         padding: '40px',
         width: '80%',
+        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
       }}
     >
       <Box
