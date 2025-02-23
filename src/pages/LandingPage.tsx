@@ -14,7 +14,7 @@ import useIsMobile from '../components/utils/isMobile';
 const TITLE_FONT_SIZE: string = '8vw';
 const MOBILE_TITLE_FONT_SIZE: string = '9.5vw';
 const SUBTITLE_FONT_SIZE: string = '1.6vw';
-const MOBILE_SUBTITLE_FONT_SIZE: string = '3vw';
+const MOBILE_SUBTITLE_FONT_SIZE: string = '3.5vw';
 
 const LandingPage: React.FC = () => {
   const isMobile: boolean = useIsMobile();
@@ -98,7 +98,7 @@ const LandingPage: React.FC = () => {
             fontFamily: 'Raleway',
             fontSize: isMobile ? MOBILE_SUBTITLE_FONT_SIZE : SUBTITLE_FONT_SIZE,
             textAlign: 'left',
-            width: '100%',
+            width: isMobile ? '150%' : '100%',
           }}
         >
           Walter delivers AI-powered stock updates tailored to your portfolio -
