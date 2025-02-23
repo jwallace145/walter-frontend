@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid2';
 import VerifyEmailButton from '../components/verify/VerifyEmailButton';
 import VerifyEmailInformational from '../components/verify/VerifyEmailInformational';
-import useIsMobile from '../components/utils/isMobile';
+import useIsMobile from '../components/utils/IsMobile';
 import { FULL_PAGE_WIDTH, HALF_PAGE_WIDTH } from '../constants/Constants';
 
 interface VerifyEmailPageProps {

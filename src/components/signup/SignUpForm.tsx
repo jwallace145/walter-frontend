@@ -19,7 +19,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { isValidEmail, isValidUsername } from '../../constants/Constants';
 import { LOGIN_PAGE } from '../../pages/common/Pages';
-import useIsMobile from '../utils/isMobile';
+import useIsMobile from '../utils/IsMobile';
 
 interface SignUpFormProps {
   setSentEmailVerificationAlert: (sentEmailVerification: boolean) => void;

@@ -9,7 +9,7 @@ import WalterLandingPage3 from '../components/landing/walter-landing-page-3.png'
 import LoadingButton from '../components/button/LoadingButton';
 import { LOGIN_PAGE } from './common/Pages';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import useIsMobile from '../components/utils/isMobile';
+import useIsMobile from '../components/utils/IsMobile';
 
 const TITLE_FONT_SIZE: string = '8vw';
 const MOBILE_TITLE_FONT_SIZE: string = '9.5vw';

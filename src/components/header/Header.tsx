@@ -22,8 +22,9 @@ import HeaderButton from './HeaderButton';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 import WalterLogoText from '../logo/walter-logo-text.png';
 import WalterLogo from '../logo/walter-logo.png';
-import useIsMobile from '../utils/isMobile';
 import MenuIcon from '@mui/icons-material/Menu';
+// @ts-ignore
+import useIsMobile from '../utils/IsMobile';
 
 /**
  * HeaderProps
@@ -36,6 +37,17 @@ export interface HeaderProps {
   authenticated: boolean;
   setAuthenticated: (authenticated: boolean) => void;
 }
+
+const AUTHENTICATED_HEADER_BUTTON_PROPS: any[] = [
+  { title: 'Dashboard', page: DASHBOARD_PAGE },
+  { title: 'Newsletter', page: NEWSLETTER_PAGE },
+];
+
+const UNAUTHENTICATED_HEADER_BUTTON_PROPS: any[] = [
+  { title: 'Home', page: LANDING_PAGE },
+  { title: 'Sign Up', page: REGISTER_PAGE },
+  { title: 'Login', page: LOGIN_PAGE },
+];
 
 /**
  * Header
@@ -55,7 +67,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
 
-  const getLogo = () => {
+  const getLogo = (isMobile: boolean) => {
     if (isMobile) {
       return (
         <img
@@ -89,7 +101,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
     }
   };
 
-  const getHeaderMenu = () => {
+  const getHeaderMenu = (authenticated: boolean) => {
     return (
       <>
         <Button
@@ -115,59 +127,70 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             role="presentation"
             onClick={() => setOpenMenu(false)}
           >
-            <List>
-              <ListItem key="Home" disablePadding>
-                <HeaderButton
-                  title={'Home'}
-                  onClick={() => navigate(LANDING_PAGE)}
-                />
-              </ListItem>
-              <ListItem key="Sign Up" disablePadding>
-                <HeaderButton
-                  title={'Sign Up'}
-                  onClick={() => navigate(REGISTER_PAGE)}
-                />
-              </ListItem>
-              <ListItem key="Login" disablePadding>
-                <HeaderButton
-                  title={'Login'}
-                  onClick={() => navigate(LOGIN_PAGE)}
-                />
-              </ListItem>
-            </List>
+            <List>{getHeaderMenuButtons(authenticated)}</List>
           </Box>
         </SwipeableDrawer>
       </>
     );
   };
 
-  const getHeaderButtons = () => {
-    if (!props.authenticated) {
-      return (
-        <>
-          <HeaderButton title="Home" onClick={() => navigate(LANDING_PAGE)} />
-          <HeaderButton
-            title="Sign Up"
-            onClick={() => navigate(REGISTER_PAGE)}
-          />
-          <HeaderButton title="Login" onClick={() => navigate(LOGIN_PAGE)} />
-        </>
-      );
+  const getHeaderMenuButtons = (authenticated: boolean) => {
+    if (authenticated) {
+      return [
+        ...AUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
+          getHeaderMenuButton(button),
+        ),
+        getHeaderMenuLogoutButton(),
+      ];
     } else {
-      return (
-        <>
-          <HeaderButton
-            title={'Dashboard'}
-            onClick={() => navigate(DASHBOARD_PAGE)}
-          />
-          <HeaderButton
-            title={'Newsletter'}
-            onClick={() => navigate(NEWSLETTER_PAGE)}
-          />
-          <HeaderButton title={'Logout'} onClick={handleLogoutButton} />
-        </>
+      return UNAUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
+        getHeaderMenuButton(button),
       );
     }
+  };
+
+  const getHeaderMenuButton = (button: any) => {
+    return (
+      <ListItem key={button.title} disablePadding>
+        {getHeaderButton(button)}
+      </ListItem>
+    );
+  };
+
+  const getHeaderMenuLogoutButton = () => {
+    return (
+      <ListItem key={'Logout'} disablePadding>
+        {getHeaderLogoutButton()}
+      </ListItem>
+    );
+  };
+
+  const getHeaderButtons = (authenticated: boolean) => {
+    if (authenticated) {
+      return [
+        ...AUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
+          getHeaderButton(button),
+        ),
+        getHeaderLogoutButton(),
+      ];
+    } else {
+      return UNAUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
+        getHeaderButton(button),
+      );
+    }
+  };
+
+  const getHeaderButton = (button: any) => {
+    return (
+      <HeaderButton
+        title={button.title}
+        onClick={() => navigate(button.page)}
+      />
+    );
+  };
+
+  const getHeaderLogoutButton = () => {
+    return <HeaderButton title={'Logout'} onClick={handleLogoutButton} />;
   };
 
   const handleLogoutButton = () => {
@@ -192,12 +215,14 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
               marginTop: '10px',
             }}
           >
-            {getLogo()}
+            {getLogo(isMobile)}
           </Box>
           <Box
             sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}
           >
-            {isMobile ? getHeaderMenu() : getHeaderButtons()}
+            {isMobile
+              ? getHeaderMenu(props.authenticated)
+              : getHeaderButtons(props.authenticated)}
           </Box>
         </Toolbar>
       </Container>

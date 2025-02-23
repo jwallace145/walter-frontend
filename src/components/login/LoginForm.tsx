@@ -16,7 +16,6 @@ import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/methods/AuthUser';
 import {
   DASHBOARD_PAGE,
-  REGISTER_PAGE,
   SEND_CHANGE_PASSWORD_EMAIL_PAGE,
 } from '../../pages/common/Pages';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
@@ -25,7 +24,7 @@ import LoadingButton from '../button/LoadingButton';
 import { isValidEmail, WALTER_TOKEN_NAME } from '../../constants/Constants';
 import Typography from '@mui/material/Typography';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import useIsMobile from '../utils/isMobile';
+import useIsMobile from '../utils/IsMobile';
 
 /**
  * LoginProps
