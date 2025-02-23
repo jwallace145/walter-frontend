@@ -63,7 +63,7 @@ const PortfolioDashboardPage: React.FC<PortfolioDashboardPageProps> = (
     } else {
       props.setNoStocksAlert(false);
     }
-  }
+  };
 
   return (
     <Box sx={{ width: '100%' }}>
