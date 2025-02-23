@@ -44,7 +44,6 @@ const VerifyEmailButton: FC<VerifyEmailButtonProps> = (
     setLoading(true);
     WalterAPI.verifyEmail(token as string)
       .then((response: VerifyEmailResponse) => {
-        console.log(response);
         if (response.isSuccess()) {
           const token: string = response.getToken();
           setCookie(WALTER_TOKEN_NAME, token);
@@ -64,8 +63,6 @@ const VerifyEmailButton: FC<VerifyEmailButtonProps> = (
       sx={{
         backgroundColor: '#cccccc',
         borderRadius: '40px',
-        marginTop: '200px',
-        marginRight: '120px',
         padding: '40px',
         width: '80%',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
