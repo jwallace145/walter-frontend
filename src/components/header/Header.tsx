@@ -63,7 +63,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
           alt="Walter Logo"
           style={{
             width: 'auto',
-            height: '70px',
+            height: '40px',
             marginTop: 12,
             marginRight: 24,
             cursor: 'pointer',
@@ -181,7 +181,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
       position="static"
       sx={{
         background: 'linear-gradient(to right, #B5E0F7, white)',
-        height: '120px',
+        height: isMobile ? '80px' : '120px',
       }}
     >
       <Container maxWidth="xl">
