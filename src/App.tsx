@@ -19,7 +19,6 @@ import {
   VERIFY_EMAIL_PAGE,
 } from './pages/common/Pages';
 import { GetUserResponse } from './api/methods/GetUser';
-import VerifyEmailButton from './components/verify/VerifyEmailButton';
 import UserNotVerifiedAlert from './components/alerts/UserNotVerifiedAlert';
 import SendVerifyEmail from './components/verify/SendVerifyEmail';
 import NewslettersPage from './pages/NewslettersPage';
@@ -36,6 +35,7 @@ import LandingPage from './pages/LandingPage';
 import { WALTER_TOKEN_NAME } from './constants/Constants';
 import { getCookie } from 'typescript-cookie';
 import VerifyEmailPage from './pages/VerifyEmailPage';
+import SentEmailVerificationAlert from './components/alerts/SentEmailVerificationAlert';
 
 /**
  * Walter App
@@ -52,6 +52,8 @@ const App: React.FC = () => {
   const [userNotVerifiedAlert, setUserNotVerifiedAlert] =
     useState<boolean>(false);
   const [userNotSubscribedAlert, setUserNotSubscribeAlert] =
+    useState<boolean>(false);
+  const [sentEmailVerificationAlert, setSentEmailVerificationAlert] =
     useState<boolean>(false);
 
   /**
@@ -96,7 +98,14 @@ const App: React.FC = () => {
         <>
           <Routes>
             <Route path={LANDING_PAGE} element={<LandingPage />} />
-            <Route path={REGISTER_PAGE} element={<SignUpPage />} />
+            <Route
+              path={REGISTER_PAGE}
+              element={
+                <SignUpPage
+                  setSentEmailVerificationAlert={setSentEmailVerificationAlert}
+                />
+              }
+            />
             <Route
               path={LOGIN_PAGE}
               element={<LoginPage setAuthenticated={setAuthenticated} />}
@@ -133,6 +142,10 @@ const App: React.FC = () => {
           <UserNotSubscribedAlert
             userNotSubscribed={userNotSubscribedAlert}
             setUserNotSubscribedAlert={setUserNotSubscribeAlert}
+          />
+          <SentEmailVerificationAlert
+            sentEmailVerificationAlert={sentEmailVerificationAlert}
+            setSentEmailVerificationAlert={setSentEmailVerificationAlert}
           />
         </>
       )}

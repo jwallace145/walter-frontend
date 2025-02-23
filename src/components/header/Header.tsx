@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { Container } from '@mui/material';
@@ -12,16 +12,9 @@ import {
   NEWSLETTER_PAGE,
   REGISTER_PAGE,
 } from '../../pages/common/Pages';
-import SendIcon from '@mui/icons-material/Send';
-import ShowChartIcon from '@mui/icons-material/ShowChart';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HeaderButton from './HeaderButton';
-import DrawerButton from './DrawerButton';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 import WalterLogo from '../logo/walter-logo.png';
-import Typography from '@mui/material/Typography';
 
 /**
  * HeaderProps

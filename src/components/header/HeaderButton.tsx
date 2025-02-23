@@ -38,7 +38,7 @@ const HeaderButton: FC<HeaderButtonProps> = (props) => {
           },
           transition: 'color 0.3s ease, text-decoration 0.3s ease',
           cursor: 'pointer',
-          marginLeft: '20px',
+          marginLeft: '30px',
         }}
         onClick={props.onClick}
       >

@@ -18,8 +18,13 @@ import Typography from '@mui/material/Typography';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { isValidEmail, isValidUsername } from '../../constants/Constants';
+import { LOGIN_PAGE } from '../../pages/common/Pages';
 
-const SignUpForm: React.FC = () => {
+interface SignUpFormProps {
+  setSentEmailVerificationAlert: (sentEmailVerification: boolean) => void;
+}
+
+const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
   const navigate: NavigateFunction = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
@@ -28,8 +33,6 @@ const SignUpForm: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState<string>('');
-  const [openSuccessAlert, setSuccessAlert] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [openErrorAlert, setErrorAlert] = useState<boolean>(false);
 
@@ -65,9 +68,8 @@ const SignUpForm: React.FC = () => {
 
       const message: string = response.getMessage();
       if (response.isSuccess()) {
-        setSuccess(message);
-        setSuccessAlert(true);
-        navigate('/login');
+        props.setSentEmailVerificationAlert(true);
+        navigate(LOGIN_PAGE);
       } else {
         setError(message);
         setErrorAlert(true);
@@ -81,11 +83,6 @@ const SignUpForm: React.FC = () => {
     setUsername('');
     setPassword('');
     setConfirmPassword('');
-  };
-
-  const handleClose = () => {
-    setSuccessAlert(false);
-    setErrorAlert(false);
   };
 
   const handleClickShowPassword = () => {
@@ -106,6 +103,7 @@ const SignUpForm: React.FC = () => {
           marginRight: '120px',
           padding: '40px',
           width: '80%',
+          boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
         }}
       >
         <Box
@@ -321,20 +319,11 @@ const SignUpForm: React.FC = () => {
           />
         </Box>
         <Snackbar
-          open={openSuccessAlert}
-          autoHideDuration={6000}
-          onClose={handleClose}
-        >
-          <Alert onClose={handleClose} severity="success">
-            {success}
-          </Alert>
-        </Snackbar>
-        <Snackbar
           open={openErrorAlert}
           autoHideDuration={6000}
-          onClose={handleClose}
+          onClose={() => setErrorAlert(false)}
         >
-          <Alert onClose={handleClose} severity="error">
+          <Alert onClose={() => setErrorAlert(false)} severity="error">
             {error}
           </Alert>
         </Snackbar>
