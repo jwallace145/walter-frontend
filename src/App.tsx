@@ -71,7 +71,9 @@ const App: React.FC = () => {
     const userAuthToken: string | undefined = getCookie(WALTER_TOKEN_NAME);
     if (userAuthToken === undefined || userAuthToken === '') {
       setLoading(false);
-      return false;
+      setAuthenticated(false);
+      setUserNotVerifiedAlert(false);
+      setUserNotSubscribeAlert(false);
     }
 
     // user authentication token is present in user cookies, call AuthUser API
