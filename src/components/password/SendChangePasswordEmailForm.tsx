@@ -14,6 +14,12 @@ import KeyIcon from '@mui/icons-material/Key';
 import LoadingButton from '../button/LoadingButton';
 import Typography from '@mui/material/Typography';
 import { isValidEmail } from '../../constants/Constants';
+import useIsMobile from '../utils/IsMobile';
+
+const TITLE_FONT_SIZE: string = '2.2vw';
+const MOBILE_TITLE_FONT_SIZE: string = '7vw';
+const SUBTITLE_FONT_SIZE: string = '1.3vw';
+const MOBILE_SUBTITLE_FONT_SIZE: string = '4vw';
 
 /**
  * The send change password email component.
@@ -25,6 +31,7 @@ import { isValidEmail } from '../../constants/Constants';
  * @constructor
  */
 const SendChangePasswordEmailForm: FC = () => {
+  const isMobile: boolean = useIsMobile();
   const [email, setEmail] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<string>('');
@@ -76,8 +83,6 @@ const SendChangePasswordEmailForm: FC = () => {
       sx={{
         backgroundColor: '#cccccc',
         borderRadius: '40px',
-        marginTop: '120px',
-        marginRight: '120px',
         padding: '40px',
         width: '80%',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
@@ -93,7 +98,11 @@ const SendChangePasswordEmailForm: FC = () => {
       >
         <Typography
           variant="h4"
-          sx={{ fontFamily: 'Raleway', fontWeight: '700' }}
+          sx={{
+            fontFamily: 'Raleway',
+            fontWeight: 'bold',
+            fontSize: isMobile ? MOBILE_TITLE_FONT_SIZE : TITLE_FONT_SIZE,
+          }}
         >
           Reset Password
         </Typography>
@@ -101,9 +110,10 @@ const SendChangePasswordEmailForm: FC = () => {
           variant="body1"
           sx={{
             marginLeft: '20px',
-            marginTop: '20px',
+            marginTop: isMobile ? '10px' : '20px',
             fontFamily: 'Raleway',
-            fontWeight: 600,
+            fontWeight: 'bold',
+            fontSize: isMobile ? MOBILE_SUBTITLE_FONT_SIZE : SUBTITLE_FONT_SIZE,
             textAlign: 'left',
             width: '100%',
           }}
@@ -134,14 +144,14 @@ const SendChangePasswordEmailForm: FC = () => {
           sx={{
             backgroundColor: '#FFD213',
             borderRadius: '40px',
-            marginTop: '40px',
+            marginTop: isMobile ? '20px' : '40px',
             marginBottom: '20px',
-            padding: '10px',
+            padding: isMobile ? '8px' : '10px',
             '&:hover': {
               backgroundColor: '#F1B800',
             },
             transition: 'background-color 0.3s ease',
-            width: '40%',
+            width: isMobile ? '80%' : '40%',
           }}
           loading={loading}
           onClick={handleSendChangePasswordEmail}
