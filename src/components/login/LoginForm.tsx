@@ -25,6 +25,7 @@ import LoadingButton from '../button/LoadingButton';
 import { isValidEmail, WALTER_TOKEN_NAME } from '../../constants/Constants';
 import Typography from '@mui/material/Typography';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import useIsMobile from '../utils/isMobile';
 
 /**
  * LoginProps
@@ -46,6 +47,7 @@ export interface LoginFormProps {
  * @constructor
  */
 const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
+  const isMobile: boolean = useIsMobile();
   const navigate: NavigateFunction = useNavigate();
   const [loading, setLoading] = React.useState(false);
   const [email, setEmail] = React.useState<string>('');
@@ -92,8 +94,6 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
         sx={{
           backgroundColor: '#cccccc',
           borderRadius: '40px',
-          marginTop: '120px',
-          marginRight: '120px',
           padding: '40px',
           width: '80%',
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
@@ -231,12 +231,12 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
               borderRadius: '40px',
               marginTop: '20px',
               marginBottom: '20px',
-              padding: '10px',
+              padding: isMobile ? '8px' : '10px',
               '&:hover': {
                 backgroundColor: '#F1B800',
               },
               transition: 'background-color 0.3s ease',
-              width: '40%',
+              width: isMobile ? '80%' : '40%',
             }}
             loading={loading}
             onClick={handleLogin}
