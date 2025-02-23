@@ -5,7 +5,13 @@ import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { removeCookie } from 'typescript-cookie';
-import { DASHBOARD_PAGE, LANDING_PAGE, LOGIN_PAGE, NEWSLETTER_PAGE, REGISTER_PAGE } from '../../pages/common/Pages';
+import {
+  DASHBOARD_PAGE,
+  LANDING_PAGE,
+  LOGIN_PAGE,
+  NEWSLETTER_PAGE,
+  REGISTER_PAGE,
+} from '../../pages/common/Pages';
 import SendIcon from '@mui/icons-material/Send';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LoginIcon from '@mui/icons-material/Login';
@@ -44,95 +50,38 @@ export interface HeaderProps {
  */
 const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const navigate = useNavigate();
-  const [open, setOpen] = useState<boolean>(false);
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
-  };
-
-  const getDrawerButtons = () => {
-    if (props.authenticated) {
+  const getHeaderButtons = () => {
+    if (!props.authenticated) {
       return (
         <>
-          <DrawerButton
-            onClick={() => navigate(DASHBOARD_PAGE)}
-            buttonName={'Portfolio'}
+          <HeaderButton title="Home" onClick={() => navigate(LANDING_PAGE)} />
+          <HeaderButton
+            title="Sign Up"
+            onClick={() => navigate(REGISTER_PAGE)}
           />
-          <DrawerButton
-            onClick={() => navigate(NEWSLETTER_PAGE)}
-            buttonName={'Newsletter'}
-          />
-          <DrawerButton onClick={handleLogoutButton} buttonName={'Exit'} />
+          <HeaderButton title="Login" onClick={() => navigate(LOGIN_PAGE)} />
         </>
       );
     } else {
       return (
         <>
-          <DrawerButton
-            onClick={() => navigate(LOGIN_PAGE)}
-            buttonName={'login'}
-          />
-          <DrawerButton
-            onClick={() => navigate(REGISTER_PAGE)}
-            buttonName={'Register'}
-          />
-        </>
-      );
-    }
-  };
-
-  /**
-   * Get the buttons for the AppBar
-   *
-   * If the user is authenticated, get the restricted header buttons for
-   * sending a newsletter, seeing the portfolio dashboard, etc. If the user is
-   * not authenticated, return the login and register header buttons.
-   */
-  const getHeaderButtons = () => {
-    if (props.authenticated) {
-      return (
-        <Box display="flex" gap={1} sx={{ marginLeft: 'auto' }}>
           <HeaderButton
             title={'Dashboard'}
             onClick={() => navigate(DASHBOARD_PAGE)}
-            children={<ShowChartIcon />}
           />
           <HeaderButton
             title={'Newsletter'}
             onClick={() => navigate(NEWSLETTER_PAGE)}
-            children={<SendIcon />}
           />
-          <HeaderButton
-            title={'Logout'}
-            onClick={handleLogoutButton}
-            children={<LogoutIcon />}
-          />
-        </Box>
-      );
-    } else {
-      return (
-        <Box display="flex" gap={1}>
-          <HeaderButton
-            title={'login'}
-            onClick={() => navigate(LOGIN_PAGE)}
-            children={<LoginIcon />}
-          />
-          <HeaderButton
-            title={'Sign Up'}
-            onClick={() => navigate(REGISTER_PAGE)}
-            children={<AddCircleOutlineIcon />}
-          />
-        </Box>
+          <HeaderButton title={'Logout'} onClick={handleLogoutButton} />
+        </>
       );
     }
   };
 
-  /**
-   * Handle logout button and unset user token and redirect to login page.
-   */
   const handleLogoutButton = () => {
     removeCookie(WALTER_TOKEN_NAME);
-    setOpen(false);
     navigate(LOGIN_PAGE);
     props.setAuthenticated(false);
   };
@@ -169,59 +118,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
           <Box
             sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}
           >
-            <Typography
-              sx={{
-                color: 'black',
-                fontFamily: 'Raleway',
-                fontSize: '24px',
-                fontWeight: 'bold',
-                '&:hover': {
-                  color: '#FFD213',
-                  textDecoration: 'underline',
-                },
-                transition: 'color 0.3s ease, text-decoration 0.3s ease',
-                cursor: 'pointer',
-              }}
-              onClick={() => navigate(LANDING_PAGE)}
-            >
-              Home
-            </Typography>
-            <Typography
-              sx={{
-                color: 'black',
-                fontFamily: 'Raleway',
-                fontSize: '24px',
-                fontWeight: 'bold',
-                marginLeft: '20px',
-                '&:hover': {
-                  color: '#FFD213',
-                  textDecoration: 'underline',
-                },
-                transition: 'color 0.3s ease, text-decoration 0.3s ease',
-                cursor: 'pointer',
-              }}
-              onClick={() => navigate(REGISTER_PAGE)}
-            >
-              Sign Up
-            </Typography>
-            <Typography
-              sx={{
-                color: 'black',
-                fontFamily: 'Raleway',
-                fontSize: '24px',
-                fontWeight: 'bold',
-                marginLeft: '20px',
-                '&:hover': {
-                  color: '#FFD213',
-                  textDecoration: 'underline',
-                },
-                transition: 'color 0.3s ease, text-decoration 0.3s ease',
-                cursor: 'pointer',
-              }}
-              onClick={() => navigate(LOGIN_PAGE)}
-            >
-              Login
-            </Typography>
+            {getHeaderButtons()}
           </Box>
         </Toolbar>
       </Container>

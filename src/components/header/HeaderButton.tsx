@@ -1,6 +1,8 @@
-import { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { LANDING_PAGE } from '../../pages/common/Pages';
+import Typography from '@mui/material/Typography';
 
 /**
  * HeaderButtonProps
@@ -10,7 +12,6 @@ import { grey } from '@mui/material/colors';
 export interface HeaderButtonProps {
   title: string;
   onClick: () => void;
-  children: ReactNode;
 }
 
 /**
@@ -25,20 +26,24 @@ export interface HeaderButtonProps {
 const HeaderButton: FC<HeaderButtonProps> = (props) => {
   return (
     <>
-      <Tooltip title={props.title}>
-        <IconButton
-          sx={{
-            bgcolor: grey[500],
-            cursor: 'pointer',
-            '&:hover': {
-              bgcolor: grey[200],
-            },
-          }}
-          onClick={props.onClick}
-        >
-          {props.children}
-        </IconButton>
-      </Tooltip>
+      <Typography
+        sx={{
+          color: 'black',
+          fontFamily: 'Raleway',
+          fontSize: '20px',
+          fontWeight: 'bold',
+          '&:hover': {
+            color: '#FFD213',
+            textDecoration: 'underline',
+          },
+          transition: 'color 0.3s ease, text-decoration 0.3s ease',
+          cursor: 'pointer',
+          marginLeft: '20px',
+        }}
+        onClick={props.onClick}
+      >
+        {props.title}
+      </Typography>
     </>
   );
 };
