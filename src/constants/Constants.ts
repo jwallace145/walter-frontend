@@ -27,3 +27,6 @@ export const isValidUsername: (username: string) => boolean = (
   const usernamePattern = /^[a-zA-Z0-9]+$/;
   return usernamePattern.test(username);
 };
+
+export const FULL_PAGE_WIDTH: number = 12;
+export const HALF_PAGE_WIDTH: number = 6;

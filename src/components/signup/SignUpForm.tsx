@@ -19,12 +19,14 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { isValidEmail, isValidUsername } from '../../constants/Constants';
 import { LOGIN_PAGE } from '../../pages/common/Pages';
+import useIsMobile from '../utils/isMobile';
 
 interface SignUpFormProps {
   setSentEmailVerificationAlert: (sentEmailVerification: boolean) => void;
 }
 
 const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
+  const isMobile: boolean = useIsMobile();
   const navigate: NavigateFunction = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
@@ -99,8 +101,6 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
         sx={{
           backgroundColor: '#cccccc',
           borderRadius: '40px',
-          marginTop: '80px',
-          marginRight: '120px',
           padding: '40px',
           width: '80%',
           boxShadow: '0 4px 10px rgba(0, 0, 0, 0.3)',
@@ -306,12 +306,12 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
               borderRadius: '40px',
               marginTop: '20px',
               marginBottom: '20px',
-              padding: '10px',
+              padding: isMobile ? '8px' : '10px',
               '&:hover': {
                 backgroundColor: '#F1B800',
               },
               transition: 'background-color 0.3s ease',
-              width: '40%',
+              width: isMobile ? '80%' : '40%',
             }}
             loading={loading}
             onClick={handleSubmit}
