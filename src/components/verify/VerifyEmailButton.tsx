@@ -8,6 +8,7 @@ import { VerifyEmailResponse } from '../../api/methods/VerifyEmail';
 import { DASHBOARD_PAGE } from '../../pages/common/Pages';
 import { setCookie } from 'typescript-cookie';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import useIsMobile from '../utils/isMobile';
 
 const EMAIL_VERIFICATION_TOKEN_KEY: string = 'token';
 
@@ -18,6 +19,7 @@ interface VerifyEmailButtonProps {
 const VerifyEmailButton: FC<VerifyEmailButtonProps> = (
   props: VerifyEmailButtonProps,
 ) => {
+  const isMobile: boolean = useIsMobile();
   const navigate: NavigateFunction = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState<boolean>(false);
@@ -82,12 +84,12 @@ const VerifyEmailButton: FC<VerifyEmailButtonProps> = (
             borderRadius: '40px',
             marginTop: '20px',
             marginBottom: '20px',
-            padding: '10px',
+            padding: isMobile ? '8px' : '10px',
             '&:hover': {
               backgroundColor: '#F1B800',
             },
             transition: 'background-color 0.3s ease',
-            width: '40%',
+            width: isMobile ? '80%' : '40%',
           }}
           loading={loading}
           onClick={handleSubmit}
