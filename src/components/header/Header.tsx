@@ -1,18 +1,11 @@
 import React, { FC, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Button, Container, Drawer, List } from '@mui/material';
+import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { removeCookie } from 'typescript-cookie';
-import {
-  DASHBOARD_PAGE,
-  LANDING_PAGE,
-  LOGIN_PAGE,
-  NEWSLETTER_PAGE,
-  REGISTER_PAGE,
-} from '../../pages/common/Pages';
+import { DASHBOARD_PAGE, LANDING_PAGE, LOGIN_PAGE, NEWSLETTER_PAGE, REGISTER_PAGE } from '../../pages/common/Pages';
 import SendIcon from '@mui/icons-material/Send';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LoginIcon from '@mui/icons-material/Login';
@@ -20,7 +13,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HeaderButton from './HeaderButton';
 import SearchBar from './SearchBar';
-import MenuIcon from '@mui/icons-material/Menu';
 import DrawerButton from './DrawerButton';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 import WalterLogo from '../logo/walter-logo.png';
@@ -149,7 +141,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
     <AppBar
       position="static"
       sx={{
-        background: 'linear-gradient(to left, #B5E0F7, white)',
+        background: 'linear-gradient(to right, #B5E0F7, white)',
         height: '120px',
       }}
     >
@@ -160,45 +152,21 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              marginTop: '20px',
+              marginTop: '10px',
             }}
           >
-            <Typography
-              variant="h6"
-              noWrap
-              sx={{
-                mr: 8,
-                display: { md: 'flex' },
-                fontFamily: 'Raleway',
-                fontWeight: 'bold',
-                letterSpacing: '.3rem',
-                color: 'black',
-                textDecoration: 'none',
+            <img
+              src={WalterLogo}
+              alt="Walter Logo"
+              style={{
+                width: 'auto',
+                height: '100px',
+                marginRight: 24,
+                marginBottom: '10px',
                 cursor: 'pointer',
               }}
               onClick={() => navigate(LANDING_PAGE)}
-            >
-              <img
-                src={WalterLogo}
-                alt="Walter Logo"
-                style={{ width: 40, height: 'auto', marginRight: 24 }}
-              />
-              WALTER
-            </Typography>
-            <Typography
-              sx={{
-                mt: 2,
-                ml: 4,
-                mr: 4,
-                display: { md: 'flex' },
-                fontFamily: 'Raleway',
-                color: 'black',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              Your Portfolio. Simplified.
-            </Typography>
+            />
           </Box>
           <Box
             sx={{

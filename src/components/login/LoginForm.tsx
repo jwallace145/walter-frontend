@@ -14,7 +14,11 @@ import {
 import { WalterAPI } from '../../api/WalterAPI';
 import { setCookie } from 'typescript-cookie';
 import { AuthUserResponse } from '../../api/methods/AuthUser';
-import { DASHBOARD_PAGE, REGISTER_PAGE, SEND_CHANGE_PASSWORD_EMAIL_PAGE } from '../../pages/common/Pages';
+import {
+  DASHBOARD_PAGE,
+  REGISTER_PAGE,
+  SEND_CHANGE_PASSWORD_EMAIL_PAGE,
+} from '../../pages/common/Pages';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LoadingButton from '../button/LoadingButton';

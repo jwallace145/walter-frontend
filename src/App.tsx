@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/header/Header';
 import { WalterAPI } from './api/WalterAPI';
-import LandingPage from './components/landing/LandingPage';
 import LoadingCircularProgress from './components/progress/LoadingCircularProgress';
 import {
   CHANGE_PASSWORD_PAGE,
@@ -33,6 +32,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
 import SendChangePasswordEmailPage from './pages/SendChangePasswordEmailPage';
+import LandingPage from './pages/LandingPage';
 
 /**
  * Walter App

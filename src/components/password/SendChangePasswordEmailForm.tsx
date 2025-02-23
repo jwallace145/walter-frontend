@@ -166,7 +166,6 @@ const SendChangePasswordEmailForm: FC = () => {
         </Alert>
       </Snackbar>
     </Container>
-
   );
 };
 
