@@ -33,6 +33,8 @@ import SignUpPage from './pages/SignUpPage';
 import ChangePasswordPage from './pages/ChangePasswordPage';
 import SendChangePasswordEmailPage from './pages/SendChangePasswordEmailPage';
 import LandingPage from './pages/LandingPage';
+import { WALTER_TOKEN_NAME } from './constants/Constants';
+import { getCookie } from 'typescript-cookie';
 
 /**
  * Walter App
@@ -62,6 +64,14 @@ const App: React.FC = () => {
    * Call Walter API and determine if the current user is authenticated or not.
    */
   const isUserAuthenticated = async () => {
+    // early return if user authentication token is not present
+    const userAuthToken: string | undefined = getCookie(WALTER_TOKEN_NAME);
+    if (userAuthToken === undefined || userAuthToken === '') {
+      setLoading(false);
+      return false;
+    }
+
+    // user authentication token is present in user cookies, call AuthUser API
     setLoading(true);
     WalterAPI.getUser()
       .then((response: GetUserResponse) => {
