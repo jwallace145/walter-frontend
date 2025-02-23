@@ -3,13 +3,11 @@ import Grid from '@mui/material/Grid2';
 import LoginForm from '../components/login/LoginForm';
 import LoginInformational from '../components/login/LoginInformational';
 import useIsMobile from '../components/utils/isMobile';
+import { FULL_PAGE_WIDTH, HALF_PAGE_WIDTH } from '../constants/Constants';
 
 interface LoginPageProps {
   setAuthenticated: (authenticated: boolean) => void;
 }
-
-const FULL_PAGE_WIDTH: number = 12;
-const HALF_PAGE_WIDTH: number = 6;
 
 const LoginPage: React.FC<LoginPageProps> = (props: LoginPageProps) => {
   const isMobile: boolean = useIsMobile();

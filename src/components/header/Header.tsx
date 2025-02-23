@@ -125,13 +125,13 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
               <ListItem key="Sign Up" disablePadding>
                 <HeaderButton
                   title={'Sign Up'}
-                  onClick={() => navigate(LANDING_PAGE)}
+                  onClick={() => navigate(REGISTER_PAGE)}
                 />
               </ListItem>
               <ListItem key="Login" disablePadding>
                 <HeaderButton
                   title={'Login'}
-                  onClick={() => navigate(LANDING_PAGE)}
+                  onClick={() => navigate(LOGIN_PAGE)}
                 />
               </ListItem>
             </List>
