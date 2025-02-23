@@ -41,58 +41,65 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // early return if sign up form contains invalid user inputs
+    if (!validateSignUpFormFields(email, username, password, confirmPassword)) {
+      return;
+    }
+
+    createUserInDatabase(email, username, password);
+    clearSignUpFormFields();
+  };
+
+  const validateSignUpFormFields = (
+    email: string,
+    username: string,
+    password: string,
+    confirmPassword: string,
+  ): boolean => {
     if (!isValidEmail(email)) {
       setError('Invalid email address!');
       setErrorAlert(true);
-      return;
-    }
-
-    if (!isValidUsername(username)) {
+      return false;
+    } else if (!isValidUsername(username)) {
       setError('Invalid username!');
       setErrorAlert(true);
-      return;
-    }
-
-    if (password !== confirmPassword) {
+      return false;
+    } else if (password !== confirmPassword) {
       setError('Passwords do not match!');
       setErrorAlert(true);
-      return;
+      return false;
     }
+    return true;
+  };
 
-    try {
-      setLoading(true);
-      const response: CreateUserResponse = await WalterAPI.createUser(
-        email,
-        username,
-        password,
-      );
-      setLoading(false);
-
-      const message: string = response.getMessage();
-      if (response.isSuccess()) {
-        props.setSentEmailVerificationAlert(true);
-        navigate(LOGIN_PAGE);
-      } else {
-        setError(message);
+  const createUserInDatabase = (
+    email: string,
+    username: string,
+    password: string,
+  ): void => {
+    setLoading(true);
+    WalterAPI.createUser(email, username, password)
+      .then((response: CreateUserResponse) => {
+        if (response.isSuccess()) {
+          props.setSentEmailVerificationAlert(true);
+          navigate(LOGIN_PAGE);
+        } else {
+          setError(response.getMessage());
+          setErrorAlert(true);
+        }
+      })
+      .catch((e) => {
+        setError('Unexpected error occurred!');
         setErrorAlert(true);
-      }
-    } catch (error) {
-      setError('Unexpected error!');
-      setErrorAlert(true);
-    }
+      })
+      .finally(() => setLoading(false));
+  };
 
+  const clearSignUpFormFields = () => {
     setEmail('');
     setUsername('');
     setPassword('');
     setConfirmPassword('');
-  };
-
-  const handleClickShowPassword = () => {
-    setShowPassword((show) => !show);
-  };
-
-  const handleClickShowConfirmPassword = () => {
-    setShowConfirmPassword((show) => !show);
   };
 
   return (
@@ -233,7 +240,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
                         ? 'hide the password'
                         : 'display the password'
                     }
-                    onClick={handleClickShowPassword}
+                    onClick={() => setShowPassword((show) => !show)}
                     edge="end"
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -290,7 +297,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
                         ? 'hide the password'
                         : 'display the password'
                     }
-                    onClick={handleClickShowConfirmPassword}
+                    onClick={() => setShowConfirmPassword((show) => !show)}
                     edge="end"
                   >
                     {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
