@@ -5,23 +5,17 @@ import { Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { removeCookie } from 'typescript-cookie';
-import {
-  DASHBOARD_PAGE,
-  LANDING_PAGE,
-  LOGIN_PAGE,
-  NEWSLETTER_PAGE,
-  REGISTER_PAGE,
-} from '../../pages/common/Pages';
+import { DASHBOARD_PAGE, LANDING_PAGE, LOGIN_PAGE, NEWSLETTER_PAGE, REGISTER_PAGE } from '../../pages/common/Pages';
 import SendIcon from '@mui/icons-material/Send';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HeaderButton from './HeaderButton';
-import SearchBar from './SearchBar';
 import DrawerButton from './DrawerButton';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 import WalterLogo from '../logo/walter-logo.png';
+import Typography from '@mui/material/Typography';
 
 /**
  * HeaderProps
@@ -155,9 +149,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
         <Toolbar disableGutters>
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
+              alignItems: 'left',
               marginTop: '10px',
             }}
           >
@@ -175,15 +167,62 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             />
           </Box>
           <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: 'none', md: 'flex' },
-              marginLeft: 'auto',
-            }}
+            sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}
           >
-            {getHeaderButtons()}
+            <Typography
+              sx={{
+                color: 'black',
+                fontFamily: 'Raleway',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                '&:hover': {
+                  color: '#FFD213',
+                  textDecoration: 'underline',
+                },
+                transition: 'color 0.3s ease, text-decoration 0.3s ease',
+                cursor: 'pointer',
+              }}
+              onClick={() => navigate(LANDING_PAGE)}
+            >
+              Home
+            </Typography>
+            <Typography
+              sx={{
+                color: 'black',
+                fontFamily: 'Raleway',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                marginLeft: '20px',
+                '&:hover': {
+                  color: '#FFD213',
+                  textDecoration: 'underline',
+                },
+                transition: 'color 0.3s ease, text-decoration 0.3s ease',
+                cursor: 'pointer',
+              }}
+              onClick={() => navigate(REGISTER_PAGE)}
+            >
+              Sign Up
+            </Typography>
+            <Typography
+              sx={{
+                color: 'black',
+                fontFamily: 'Raleway',
+                fontSize: '24px',
+                fontWeight: 'bold',
+                marginLeft: '20px',
+                '&:hover': {
+                  color: '#FFD213',
+                  textDecoration: 'underline',
+                },
+                transition: 'color 0.3s ease, text-decoration 0.3s ease',
+                cursor: 'pointer',
+              }}
+              onClick={() => navigate(LOGIN_PAGE)}
+            >
+              Login
+            </Typography>
           </Box>
-          {props.authenticated && <SearchBar />}
         </Toolbar>
       </Container>
     </AppBar>
