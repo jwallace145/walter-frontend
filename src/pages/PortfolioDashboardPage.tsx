@@ -10,6 +10,10 @@ import PortfolioStockLineChartWidget from '../components/portfolio/linechart/Por
 import PortfolioDataGridV2 from '../components/portfolio/datagrid/PortfolioDataGridV2';
 import PortfolioPieChartWidget from '../components/portfolio/piechart/PortfolioPieChartWidget';
 
+interface PortfolioDashboardPageProps {
+  setNoStocksAlert: (noStocks: boolean) => void;
+}
+
 /**
  * Portfolio Dashboard Page
  *
@@ -20,7 +24,9 @@ import PortfolioPieChartWidget from '../components/portfolio/piechart/PortfolioP
  *
  * @constructor
  */
-const PortfolioDashboardPage: React.FC = () => {
+const PortfolioDashboardPage: React.FC<PortfolioDashboardPageProps> = (
+  props: PortfolioDashboardPageProps,
+) => {
   const [loading, setLoading] = useState(false);
   const [totalEquity, setTotalEquity] = useState<number>(0);
   const [stocks, setStocks] = useState<PortfolioStock[]>([]);
@@ -32,9 +38,16 @@ const PortfolioDashboardPage: React.FC = () => {
    * most likely updated the portfolio and triggered a refresh operation.
    */
   useEffect(() => {
+    attempToGetUserPortfolioFromDB(props.setNoStocksAlert);
+  }, [refresh]);
+
+  const attempToGetUserPortfolioFromDB = (
+    alert: (noStocks: boolean) => void,
+  ) => {
     setLoading(true);
     WalterAPI.getPortfolio()
       .then((response: GetPortfolioResponse) => {
+        alertUserIfNoStocksInPortfolio(response.getStocks());
         setStocks(response.getStocks());
         setTotalEquity(response.getTotalEquity());
       })
@@ -42,7 +55,15 @@ const PortfolioDashboardPage: React.FC = () => {
         setLoading(false);
         setRefresh(false);
       });
-  }, [refresh]);
+  };
+
+  const alertUserIfNoStocksInPortfolio = (stocks: PortfolioStock[]) => {
+    if (stocks.length === 0) {
+      props.setNoStocksAlert(true);
+    } else {
+      props.setNoStocksAlert(false);
+    }
+  }
 
   return (
     <Box sx={{ width: '100%' }}>

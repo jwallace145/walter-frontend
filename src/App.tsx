@@ -36,6 +36,7 @@ import { WALTER_TOKEN_NAME } from './constants/Constants';
 import { getCookie } from 'typescript-cookie';
 import VerifyEmailPage from './pages/VerifyEmailPage';
 import SentEmailVerificationAlert from './components/alerts/SentEmailVerificationAlert';
+import NoStocksInUserPortfolioAlert from './components/alerts/NoStocksInUserPortfolioAlert';
 
 /**
  * Walter App
@@ -54,6 +55,8 @@ const App: React.FC = () => {
   const [userNotSubscribedAlert, setUserNotSubscribeAlert] =
     useState<boolean>(false);
   const [sentEmailVerificationAlert, setSentEmailVerificationAlert] =
+    useState<boolean>(false);
+  const [noStocksInUserPortfolioAlert, setNoStocksInUserPortfolioAlert] =
     useState<boolean>(false);
 
   /**
@@ -112,7 +115,14 @@ const App: React.FC = () => {
               path={LOGIN_PAGE}
               element={<LoginPage setAuthenticated={setAuthenticated} />}
             />
-            <Route path={DASHBOARD_PAGE} element={<PortfolioDashboardPage />} />
+            <Route
+              path={DASHBOARD_PAGE}
+              element={
+                <PortfolioDashboardPage
+                  setNoStocksAlert={setNoStocksInUserPortfolioAlert}
+                />
+              }
+            />
             <Route path={NEWSLETTER_PAGE} element={<NewslettersPage />} />
             <Route
               path={SEND_VERIFY_EMAIL_PAGE}
@@ -148,6 +158,10 @@ const App: React.FC = () => {
           <SentEmailVerificationAlert
             sentEmailVerificationAlert={sentEmailVerificationAlert}
             setSentEmailVerificationAlert={setSentEmailVerificationAlert}
+          />
+          <NoStocksInUserPortfolioAlert
+            noStocksInUserPortfolio={noStocksInUserPortfolioAlert}
+            setNoStocksInUserPortfolio={setNoStocksInUserPortfolioAlert}
           />
         </>
       )}
