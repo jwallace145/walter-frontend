@@ -17,7 +17,7 @@ import LoadingButton from '../button/LoadingButton';
 import Typography from '@mui/material/Typography';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { isValidEmail } from '../../constants/Constants';
+import { isValidEmail, isValidUsername } from '../../constants/Constants';
 
 const SignUpForm: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
@@ -42,7 +42,11 @@ const SignUpForm: React.FC = () => {
       return;
     }
 
-    // TODO: Validate username before making CreateUser API call
+    if (!isValidUsername(username)) {
+      setError('Invalid username!');
+      setErrorAlert(true);
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match!');
