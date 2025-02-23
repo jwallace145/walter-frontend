@@ -19,7 +19,7 @@ import {
   VERIFY_EMAIL_PAGE,
 } from './pages/common/Pages';
 import { GetUserResponse } from './api/methods/GetUser';
-import VerifyEmail from './components/verify/VerifyEmail';
+import VerifyEmailButton from './components/verify/VerifyEmailButton';
 import UserNotVerifiedAlert from './components/alerts/UserNotVerifiedAlert';
 import SendVerifyEmail from './components/verify/SendVerifyEmail';
 import NewslettersPage from './pages/NewslettersPage';
@@ -35,6 +35,7 @@ import SendChangePasswordEmailPage from './pages/SendChangePasswordEmailPage';
 import LandingPage from './pages/LandingPage';
 import { WALTER_TOKEN_NAME } from './constants/Constants';
 import { getCookie } from 'typescript-cookie';
+import VerifyEmailPage from './pages/VerifyEmailPage';
 
 /**
  * Walter App
@@ -106,7 +107,10 @@ const App: React.FC = () => {
               path={SEND_VERIFY_EMAIL_PAGE}
               element={<SendVerifyEmail />}
             />
-            <Route path={VERIFY_EMAIL_PAGE} element={<VerifyEmail />} />
+            <Route
+              path={VERIFY_EMAIL_PAGE}
+              element={<VerifyEmailPage setAuthenticated={setAuthenticated} />}
+            />
             <Route
               path={CHANGE_PASSWORD_PAGE}
               element={<ChangePasswordPage />}
