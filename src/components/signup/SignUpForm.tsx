@@ -46,8 +46,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
       return;
     }
 
-    createUserInDatabase(email, username, password);
-    clearSignUpFormFields();
+    attemptToCreateUser(email, username, password);
   };
 
   const validateSignUpFormFields = (
@@ -72,7 +71,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
     return true;
   };
 
-  const createUserInDatabase = (
+  const attemptToCreateUser = (
     email: string,
     username: string,
     password: string,
@@ -81,18 +80,27 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
     WalterAPI.createUser(email, username, password)
       .then((response: CreateUserResponse) => {
         if (response.isSuccess()) {
-          props.setSentEmailVerificationAlert(true);
-          navigate(LOGIN_PAGE);
+          handleCreateUserSuccess();
         } else {
-          setError(response.getMessage());
-          setErrorAlert(true);
+          const errorMessage: string = response.getMessage();
+          handleCreateUserFailure(errorMessage);
         }
       })
       .catch((e) => {
-        setError('Unexpected error occurred!');
-        setErrorAlert(true);
+        handleCreateUserFailure('Unexpected error occurred!');
       })
       .finally(() => setLoading(false));
+  };
+
+  const handleCreateUserSuccess = () => {
+    props.setSentEmailVerificationAlert(true);
+    navigate(LOGIN_PAGE);
+  };
+
+  const handleCreateUserFailure = (errorMessage: string) => {
+    setError(errorMessage);
+    setErrorAlert(true);
+    clearSignUpFormFields();
   };
 
   const clearSignUpFormFields = () => {
@@ -131,7 +139,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
             variant="body1"
             sx={{
               marginLeft: '20px',
-              marginTop: '20px',
+              marginTop: isMobile ? '10px' : '20px',
               fontFamily: 'Raleway',
               fontWeight: 600,
               textAlign: 'left',
@@ -164,7 +172,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
             variant="body1"
             sx={{
               marginLeft: '20px',
-              marginTop: '20px',
+              marginTop: isMobile ? '10px' : '20px',
               fontFamily: 'Raleway',
               fontWeight: 600,
               textAlign: 'left',
@@ -197,7 +205,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
             variant="body1"
             sx={{
               marginLeft: '20px',
-              marginTop: '20px',
+              marginTop: isMobile ? '10px' : '20px',
               fontFamily: 'Raleway',
               fontWeight: 600,
               textAlign: 'left',
@@ -254,7 +262,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
             variant="body1"
             sx={{
               marginLeft: '20px',
-              marginTop: '20px',
+              marginTop: isMobile ? '10px' : '20px',
               fontFamily: 'Raleway',
               fontWeight: 600,
               textAlign: 'left',
