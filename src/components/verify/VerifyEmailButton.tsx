@@ -5,7 +5,7 @@ import LoadingButton from '../button/LoadingButton';
 import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import { WalterAPI } from '../../api/WalterAPI';
 import { VerifyEmailResponse } from '../../api/methods/VerifyEmail';
-import { DASHBOARD_PAGE } from '../../pages/common/Pages';
+import { DASHBOARD_PAGE, LOGIN_PAGE } from '../../pages/common/Pages';
 import { setCookie } from 'typescript-cookie';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 import useIsMobile from '../utils/isMobile';
@@ -47,10 +47,7 @@ const VerifyEmailButton: FC<VerifyEmailButtonProps> = (
     WalterAPI.verifyEmail(token as string)
       .then((response: VerifyEmailResponse) => {
         if (response.isSuccess()) {
-          const token: string = response.getToken();
-          setCookie(WALTER_TOKEN_NAME, token);
-          props.setAuthenticated(true);
-          navigate(DASHBOARD_PAGE);
+          navigate(LOGIN_PAGE);
         } else {
           setError(response.getMessage());
           setErrorAlert(true);
