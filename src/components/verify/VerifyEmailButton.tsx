@@ -6,7 +6,7 @@ import { NavigateFunction, useLocation, useNavigate } from 'react-router-dom';
 import { WalterAPI } from '../../api/WalterAPI';
 import { VerifyEmailResponse } from '../../api/methods/VerifyEmail';
 import { DASHBOARD_PAGE, LOGIN_PAGE } from '../../pages/common/Pages';
-import useIsMobile from '../utils/isMobile';
+import useIsMobile from '../utils/IsMobile';
 import { setCookie } from 'typescript-cookie';
 import { WALTER_TOKEN_NAME } from '../../constants/Constants';
 

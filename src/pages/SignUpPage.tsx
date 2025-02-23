@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid2';
 import SignUpInformational from '../components/signup/SignUpInformational';
 import SignUpForm from '../components/signup/SignUpForm';
-import useIsMobile from '../components/utils/isMobile';
+import useIsMobile from '../components/utils/IsMobile';
 import { FULL_PAGE_WIDTH, HALF_PAGE_WIDTH } from '../constants/Constants';
 
 interface SignUpPageProps {
