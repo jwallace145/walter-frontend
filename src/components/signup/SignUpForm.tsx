@@ -139,7 +139,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
             variant="body1"
             sx={{
               marginLeft: '20px',
-              marginTop: isMobile ? '10px' : '20px',
+              marginTop: isMobile ? '10px' : '15px',
               fontFamily: 'Raleway',
               fontWeight: 600,
               textAlign: 'left',
@@ -172,7 +172,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
             variant="body1"
             sx={{
               marginLeft: '20px',
-              marginTop: isMobile ? '10px' : '20px',
+              marginTop: isMobile ? '10px' : '15px',
               fontFamily: 'Raleway',
               fontWeight: 600,
               textAlign: 'left',
@@ -205,7 +205,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
             variant="body1"
             sx={{
               marginLeft: '20px',
-              marginTop: isMobile ? '10px' : '20px',
+              marginTop: isMobile ? '10px' : '15px',
               fontFamily: 'Raleway',
               fontWeight: 600,
               textAlign: 'left',
@@ -262,7 +262,7 @@ const SignUpForm: React.FC<SignUpFormProps> = (props: SignUpFormProps) => {
             variant="body1"
             sx={{
               marginLeft: '20px',
-              marginTop: isMobile ? '10px' : '20px',
+              marginTop: isMobile ? '10px' : '15px',
               fontFamily: 'Raleway',
               fontWeight: 600,
               textAlign: 'left',

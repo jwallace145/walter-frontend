@@ -194,7 +194,7 @@ export class WalterAPI {
   }
 
   /**
-   * Unsubscribe the user with the given token from Walter's newsletter.
+   * UnsubscribeButton the user with the given token from Walter's newsletter.
    */
   public static async unsubscribeUser(
     token: string,
@@ -203,7 +203,7 @@ export class WalterAPI {
   }
 
   /**
-   * Unsubscribe the current authenticated user from Walter's newsletter.
+   * UnsubscribeButton the current authenticated user from Walter's newsletter.
    */
   public static async unsubscribe(): Promise<UnsubscribeResponse> {
     const token: string = getCookie('WalterToken') as string;
