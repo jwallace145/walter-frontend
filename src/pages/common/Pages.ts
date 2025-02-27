@@ -13,3 +13,5 @@ export const SEND_CHANGE_PASSWORD_EMAIL_PAGE = '/password/reset';
 export const UNSUBSCRIBE_PAGE = '/unsubscribe';
 export const STOCK_DASHBOARD_PAGE = '/stocks/:symbol';
 export const SEARCH_STOCKS_PAGE = 'stocks/search/:symbol';
+export const PURCHASE_NEWSLETTER_SUBSCRIPTION_SUCCESS_PAGE =
+  '/newsletter/purchase/success';

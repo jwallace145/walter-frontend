@@ -10,6 +10,7 @@ import {
   LANDING_PAGE,
   LOGIN_PAGE,
   NEWSLETTER_PAGE,
+  PURCHASE_NEWSLETTER_SUBSCRIPTION_SUCCESS_PAGE,
   REGISTER_PAGE,
   SEARCH_STOCKS_PAGE,
   SEND_CHANGE_PASSWORD_EMAIL_PAGE,
@@ -37,6 +38,7 @@ import { getCookie } from 'typescript-cookie';
 import VerifyEmailPage from './pages/VerifyEmailPage';
 import SentEmailVerificationAlert from './components/alerts/SentEmailVerificationAlert';
 import NoStocksInUserPortfolioAlert from './components/alerts/NoStocksInUserPortfolioAlert';
+import PurchaseNewsletterSubscriptionSuccessPage from './pages/PurchaseNewsletterSubscriptionSuccessPage';
 
 /**
  * Walter App
@@ -146,6 +148,10 @@ const App: React.FC = () => {
               element={<StockDashboardPage />}
             />
             <Route path={SEARCH_STOCKS_PAGE} element={<SearchStocksPage />} />
+            <Route
+              path={PURCHASE_NEWSLETTER_SUBSCRIPTION_SUCCESS_PAGE}
+              element={<PurchaseNewsletterSubscriptionSuccessPage />}
+            />
           </Routes>
           <UserNotVerifiedAlert
             userNotVerified={userNotVerifiedAlert}
