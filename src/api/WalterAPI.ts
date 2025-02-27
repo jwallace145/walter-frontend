@@ -35,6 +35,11 @@ import {
   purchaseNewsletterSubscription,
   PurchaseNewsletterSubscriptionResponse,
 } from './methods/PurchaseNewsletterSubscription';
+import {
+  verifyPurchaseNewsletterSubscription,
+  VerifyPurchaseNewsletterSubscriptionResponse,
+} from './methods/VerifyPurchaseNewsletterSubscription';
+import { WALTER_TOKEN_NAME } from '../constants/Constants';
 
 /**
  * Walter API
@@ -77,7 +82,7 @@ export class WalterAPI {
    * Get the current user from the Walter token.
    */
   public static async getUser(): Promise<GetUserResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return getUser(WalterAPI.ENDPOINT, token);
   }
 
@@ -111,7 +116,7 @@ export class WalterAPI {
     stock: string,
     quantity: number,
   ): Promise<AddStockResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return addStock(WalterAPI.ENDPOINT, token, stock, quantity);
   }
 
@@ -121,7 +126,7 @@ export class WalterAPI {
    * @param stock
    */
   public static async deleteStock(stock: string): Promise<DeleteStockResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return deleteStock(WalterAPI.ENDPOINT, token, stock);
   }
 
@@ -138,7 +143,7 @@ export class WalterAPI {
    * Get the user's current portfolio.
    */
   public static async getPortfolio(): Promise<GetPortfolioResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return getPortfolio(WalterAPI.ENDPOINT, token);
   }
 
@@ -146,7 +151,7 @@ export class WalterAPI {
    * Send a newsletter to the current user.
    */
   public static async sendNewsletter(): Promise<SendNewsletterResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return sendNewsletter(WalterAPI.ENDPOINT, token);
   }
 
@@ -154,7 +159,7 @@ export class WalterAPI {
    * Send verify user email to user's email address.
    */
   public static async sendVerifyEmail(): Promise<SendVerifyEmailResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return sendVerifyEmail(WalterAPI.ENDPOINT, token);
   }
 
@@ -193,7 +198,7 @@ export class WalterAPI {
    * SubscribeButton the authenticated user to Walter's newsletter.
    */
   public static async subscribe(): Promise<SubscribeResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return subscribe(WalterAPI.ENDPOINT, token);
   }
 
@@ -210,7 +215,7 @@ export class WalterAPI {
    * UnsubscribeButton the current authenticated user from Walter's newsletter.
    */
   public static async unsubscribe(): Promise<UnsubscribeResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return unsubscribe(WalterAPI.ENDPOINT, token);
   }
 
@@ -228,7 +233,18 @@ export class WalterAPI {
    * newsletter subscription.
    */
   public static async purchaseNewsletterSubscription(): Promise<PurchaseNewsletterSubscriptionResponse> {
-    const token: string = getCookie('WalterToken') as string;
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return purchaseNewsletterSubscription(WalterAPI.ENDPOINT, token);
+  }
+
+  public static async verifyPurchaseNewsletterSubscription(
+    stripeSessionId: string,
+  ): Promise<VerifyPurchaseNewsletterSubscriptionResponse> {
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
+    return verifyPurchaseNewsletterSubscription(
+      WalterAPI.ENDPOINT,
+      token,
+      stripeSessionId,
+    );
   }
 }

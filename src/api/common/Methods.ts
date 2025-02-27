@@ -21,3 +21,5 @@ export const GET_NEWS_SUMMARY_METHOD: string = 'GetNewsSummary';
 export const SEARCH_STOCKS_METHOD: string = 'SearchStocks';
 export const PURCHASE_NEWSLETTER_SUBSCRIPTION_METHOD: string =
   'PurchaseNewsletterSubscription';
+export const VERIFY_PURCHASE_NEWSLETTER_SUBSCRIPTION_METHOD: string =
+  'VerifyPurchaseNewsletterSubscription';
