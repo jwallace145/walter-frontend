@@ -30,3 +30,16 @@ export const isValidUsername: (username: string) => boolean = (
 
 export const FULL_PAGE_WIDTH: number = 12;
 export const HALF_PAGE_WIDTH: number = 6;
+
+export const Colors = {
+  BLACK: '#000000',
+  BLACK_HOVER: '#444444',
+  GRAY: '#cccccc',
+  YELLOW: '#FFD213',
+  YELLOW_HOVER: '#F1B800',
+  WHITE: '#FFFFFF',
+};
+
+export const Fonts = {
+  RALEWAY: 'Raleway',
+};

@@ -3,12 +3,13 @@ import { Container, Divider, Link } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { REGISTER_PAGE } from '../../pages/common/Pages';
+import { Colors, Fonts } from '../../constants/Constants';
 
 const LoginInformational: React.FC = () => {
   return (
     <Container
       sx={{
-        backgroundColor: 'white',
+        backgroundColor: Colors.WHITE,
         borderRadius: '40px',
         marginTop: '120px',
         padding: '40px',
@@ -26,7 +27,7 @@ const LoginInformational: React.FC = () => {
         <Typography
           variant="h1"
           sx={{
-            fontFamily: 'Raleway',
+            fontFamily: Fonts.RALEWAY,
             fontWeight: 'bold',
             textAlign: 'left',
             width: '100%',
@@ -41,7 +42,7 @@ const LoginInformational: React.FC = () => {
           sx={{
             marginLeft: '100px',
             marginTop: '40px',
-            fontFamily: 'Raleway',
+            fontFamily: Fonts.RALEWAY,
             textAlign: 'left',
             width: '100%',
             fontSize: '18px',
@@ -52,7 +53,7 @@ const LoginInformational: React.FC = () => {
         </Typography>
         <Divider
           sx={{
-            backgroundColor: 'black',
+            backgroundColor: Colors.BLACK,
             height: '3px',
             marginY: 4,
             width: '20%',
@@ -65,7 +66,7 @@ const LoginInformational: React.FC = () => {
           sx={{
             marginLeft: '100px',
             marginTop: '40px',
-            fontFamily: 'Raleway',
+            fontFamily: Fonts.RALEWAY,
             fontWeight: 'bold',
             fontSize: '28px',
             textAlign: 'left',
@@ -79,14 +80,14 @@ const LoginInformational: React.FC = () => {
             sx={{
               marginLeft: '5px',
               marginTop: '20px',
-              color: 'black',
-              fontFamily: 'Raleway',
+              color: Colors.BLACK,
+              fontFamily: Fonts.RALEWAY,
               fontWeight: 'bold',
               textAlign: 'left',
               width: '100%',
               textDecoration: 'none',
               '&:hover': {
-                color: '#FFD213',
+                color: Colors.YELLOW,
                 textDecoration: 'underline',
               },
               fontSize: '28px',

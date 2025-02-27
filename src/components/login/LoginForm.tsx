@@ -21,30 +21,20 @@ import {
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LoadingButton from '../button/LoadingButton';
-import { isValidEmail, WALTER_TOKEN_NAME } from '../../constants/Constants';
+import {
+  Colors,
+  Fonts,
+  isValidEmail,
+  WALTER_TOKEN_NAME,
+} from '../../constants/Constants';
 import Typography from '@mui/material/Typography';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import useIsMobile from '../utils/IsMobile';
 
-/**
- * LoginProps
- *
- * The props to pass into the login component which is responsible for
- * authenticating users.
- */
 export interface LoginFormProps {
   setAuthenticated: (authenticated: boolean) => void;
 }
 
-/**
- * LoginForm
- *
- * The login component that users will interact with to authenticate themselves
- * and get access to restricted pages.
- *
- * @param props
- * @constructor
- */
 const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
   const isMobile: boolean = useIsMobile();
   const navigate: NavigateFunction = useNavigate();
@@ -57,41 +47,52 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const handleLogin = async (event: React.FormEvent) => {
+  const handleLogin = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
 
     if (!isValidEmail(email)) {
-      setError('Invalid email address!');
-      setErrorAlert(true);
+      handleLoginFailure('Invalid email address!');
       return;
     }
 
+    await authenticateUser(email, password);
+  };
+
+  const authenticateUser = async (
+    email: string,
+    password: string,
+  ): Promise<void> => {
     setLoading(true);
     WalterAPI.authUser(email, password)
       .then((response: AuthUserResponse) => {
-        const message: string = response.getMessage();
         if (response.isSuccess()) {
-          const token: string = response.getToken();
-          setCookie(WALTER_TOKEN_NAME, token);
-          props.setAuthenticated(true);
-          navigate(DASHBOARD_PAGE);
+          handleLoginSuccess(response.getToken());
         } else {
-          setError(message);
-          setErrorAlert(true);
+          handleLoginFailure(response.getMessage());
         }
       })
       .catch((error: any) => {
-        setError('Unexpected error occurred!');
-        setErrorAlert(true);
+        handleLoginFailure('Unexpected error occurred!');
       })
       .finally(() => setLoading(false));
+  };
+
+  const handleLoginSuccess = (token: string) => {
+    setCookie(WALTER_TOKEN_NAME, token);
+    props.setAuthenticated(true);
+    navigate(DASHBOARD_PAGE);
+  };
+
+  const handleLoginFailure = (errorMessage: string) => {
+    setError(errorMessage);
+    setErrorAlert(true);
   };
 
   return (
     <>
       <Container
         sx={{
-          backgroundColor: '#cccccc',
+          backgroundColor: Colors.GRAY,
           borderRadius: '40px',
           padding: '40px',
           width: '80%',
@@ -108,7 +109,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
         >
           <Typography
             variant="h4"
-            sx={{ fontFamily: 'Raleway', fontWeight: '700' }}
+            sx={{ fontFamily: Fonts.RALEWAY, fontWeight: '700' }}
           >
             Login
           </Typography>
@@ -117,7 +118,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
             sx={{
               marginLeft: '20px',
               marginTop: '20px',
-              fontFamily: 'Raleway',
+              fontFamily: Fonts.RALEWAY,
               fontWeight: 600,
               textAlign: 'left',
               width: '100%',
@@ -151,7 +152,7 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
               marginLeft: '20px',
               marginTop: '20px',
               marginBottom: '10px',
-              fontFamily: 'Raleway',
+              fontFamily: Fonts.RALEWAY,
               fontWeight: 'bold',
               textAlign: 'left',
               width: '100%',
@@ -164,12 +165,12 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
             required
             sx={{
               '& .MuiOutlinedInput-root': {
-                borderColor: 'black',
+                borderColor: Colors.BLACK,
                 borderRadius: '16px',
                 backgroundColor: '#EFEFEF',
               },
               '& .MuiInputLabel-root': {
-                borderColor: 'black',
+                borderColor: Colors.BLACK,
                 borderRadius: '16px',
                 backgroundColor: '#EFEFEF',
               },
@@ -208,14 +209,14 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
             sx={{
               marginLeft: '20px',
               marginTop: '20px',
-              color: 'black',
-              fontFamily: 'Raleway',
+              color: Colors.BLACK,
+              fontFamily: Fonts.RALEWAY,
               fontWeight: 'bold',
               textAlign: 'left',
               width: '100%',
               textDecoration: 'none',
               '&:hover': {
-                color: '#444444',
+                color: Colors.BLACK_HOVER,
                 textDecoration: 'underline',
               },
               transition: 'color 0.3s ease, text-decoration 0.3s ease',
@@ -226,13 +227,13 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
           </Link>
           <LoadingButton
             sx={{
-              backgroundColor: '#FFD213',
+              backgroundColor: Colors.YELLOW,
               borderRadius: '40px',
               marginTop: '20px',
               marginBottom: '20px',
               padding: isMobile ? '8px' : '10px',
               '&:hover': {
-                backgroundColor: '#F1B800',
+                backgroundColor: Colors.YELLOW_HOVER,
               },
               transition: 'background-color 0.3s ease',
               width: isMobile ? '80%' : '40%',

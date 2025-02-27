@@ -19,3 +19,5 @@ export const SEND_CHANGE_PASSWORD_EMAIL_METHOD: string =
   'SendChangePasswordEmail';
 export const GET_NEWS_SUMMARY_METHOD: string = 'GetNewsSummary';
 export const SEARCH_STOCKS_METHOD: string = 'SearchStocks';
+export const PURCHASE_NEWSLETTER_SUBSCRIPTION_METHOD: string =
+  'PurchaseNewsletterSubscription';
