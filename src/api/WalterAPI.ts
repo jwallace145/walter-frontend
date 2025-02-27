@@ -31,6 +31,10 @@ import {
   GetNewsSummaryResponse,
 } from './methods/GetNewsSummary';
 import { searchStocks, SearchStocksResponse } from './methods/SearchStocks';
+import {
+  purchaseNewsletterSubscription,
+  PurchaseNewsletterSubscriptionResponse,
+} from './methods/PurchaseNewsletterSubscription';
 
 /**
  * Walter API
@@ -217,5 +221,14 @@ export class WalterAPI {
     symbol: string,
   ): Promise<SearchStocksResponse> {
     return searchStocks(WalterAPI.ENDPOINT, symbol);
+  }
+
+  /**
+   * Create a Stripe checkout session to redirect the user to purchase a
+   * newsletter subscription.
+   */
+  public static async purchaseNewsletterSubscription(): Promise<PurchaseNewsletterSubscriptionResponse> {
+    const token: string = getCookie('WalterToken') as string;
+    return purchaseNewsletterSubscription(WalterAPI.ENDPOINT, token);
   }
 }

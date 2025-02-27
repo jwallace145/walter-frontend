@@ -10,6 +10,8 @@ import UnsubscribeIcon from '@mui/icons-material/Unsubscribe';
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import ScheduleSendIcon from '@mui/icons-material/ScheduleSend';
 import { SEND_VERIFY_EMAIL_PAGE } from './common/Pages';
+import { PurchaseNewsletterSubscriptionResponse } from '../api/methods/PurchaseNewsletterSubscription';
+import { loadStripe, Stripe } from '@stripe/stripe-js';
 
 /**
  * Newsletters Page
@@ -93,6 +95,28 @@ const NewslettersPage: React.FC = () => {
       })
       .catch((error: any) => console.log(error))
       .finally(() => setLoading(false));
+  };
+
+  const handlePurchase = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const stripe: Stripe | null = await loadStripe(
+      'pk_test_51QwECvQMqNHwv625BtmYcO7aMcPZmw7pn6WYadT9IYy1zzdtUvQQGkOKfvIlqBXBsSs3dgZkKtXPgVWDKR8LyLpt00EMsyuzxM',
+    );
+
+    setLoading(true);
+    WalterAPI.purchaseNewsletterSubscription().then(
+      (response: PurchaseNewsletterSubscriptionResponse) => {
+        if (response.isSuccess()) {
+          stripe?.redirectToCheckout({
+            sessionId: response.getCheckoutSessionId(),
+          });
+        } else {
+          setError(response.getMessage());
+          setErrorAlert(true);
+        }
+      },
+    );
   };
 
   /**
@@ -190,6 +214,26 @@ const NewslettersPage: React.FC = () => {
             loading={loading}
             onClick={handleUnsubscribe}
             text={'Unsubscribe'}
+          />
+        </Grid>
+        <Grid
+          size={{ xs: 12, md: 4 }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            borderRadius: 2,
+            boxShadow: 3,
+            padding: 2,
+          }}
+        >
+          <Avatar sx={{ mt: 2 }}>
+            <UnsubscribeIcon />
+          </Avatar>
+          <LoadingButton
+            loading={loading}
+            onClick={handlePurchase}
+            text={'Purchase'}
           />
         </Grid>
       </Grid>
