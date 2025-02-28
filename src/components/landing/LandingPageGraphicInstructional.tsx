@@ -9,6 +9,9 @@ import { Colors } from '../../constants/Constants';
 import { LOGIN_PAGE } from '../../pages/common/Pages';
 import LoadingButton from '../button/LoadingButton';
 
+const GRAPHIC_INSTRUCTIONAL_WIDTH: string = '80%';
+const MOBILE_GRAPHIC_INSTRUCTIONAL_WIDTH: string = '190%';
+
 const LandingPageGraphicInstructional: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
   const isMobile: boolean = useIsMobile();
@@ -25,9 +28,10 @@ const LandingPageGraphicInstructional: React.FC = () => {
           src={WalterLandingPage1}
           alt="walter-step-1-create-account"
           style={{
-            width: 'auto',
-            height: '100px',
-            marginLeft: isMobile ? '40px' : '100px',
+            width: isMobile
+              ? MOBILE_GRAPHIC_INSTRUCTIONAL_WIDTH
+              : GRAPHIC_INSTRUCTIONAL_WIDTH,
+            height: 'auto',
           }}
         />
       </Grid>
@@ -36,9 +40,10 @@ const LandingPageGraphicInstructional: React.FC = () => {
           src={WalterLandingPage2}
           alt="walter-step-2-verify-email-address"
           style={{
-            width: 'auto',
-            height: '100px',
-            marginLeft: '40px',
+            width: isMobile
+              ? MOBILE_GRAPHIC_INSTRUCTIONAL_WIDTH
+              : GRAPHIC_INSTRUCTIONAL_WIDTH,
+            height: 'auto',
           }}
         />
       </Grid>
@@ -47,9 +52,10 @@ const LandingPageGraphicInstructional: React.FC = () => {
           src={WalterLandingPage3}
           alt="walter-step-3-subscribe-to-newsletter"
           style={{
-            width: 'auto',
-            height: '100px',
-            marginLeft: isMobile ? '40px' : '0px',
+            width: isMobile
+              ? MOBILE_GRAPHIC_INSTRUCTIONAL_WIDTH
+              : GRAPHIC_INSTRUCTIONAL_WIDTH,
+            height: 'auto',
           }}
         />
       </Grid>
@@ -63,9 +69,8 @@ const LandingPageGraphicInstructional: React.FC = () => {
               backgroundColor: Colors.YELLOW_HOVER,
             },
             transition: 'background-color 0.3s ease',
-            width: isMobile ? '150%' : '60%',
-            marginTop: isMobile ? '20px' : '0px',
-            marginLeft: isMobile ? '40px' : '0px',
+            width: isMobile ? '150%' : '50%',
+            marginTop: '20px',
           }}
           loading={false}
           onClick={() => navigate(LOGIN_PAGE)}

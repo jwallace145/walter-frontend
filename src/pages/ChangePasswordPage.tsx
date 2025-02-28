@@ -19,8 +19,8 @@ const ChangePasswordPage: React.FC = () => {
     } else {
       return (
         <>
-          {getChangePasswordInformational(FULL_PAGE_WIDTH)}
-          {getChangePasswordForm(FULL_PAGE_WIDTH)}
+          {getChangePasswordInformational(HALF_PAGE_WIDTH)}
+          {getChangePasswordForm(HALF_PAGE_WIDTH)}
         </>
       );
     }
