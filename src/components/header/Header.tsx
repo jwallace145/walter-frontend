@@ -75,9 +75,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
           alt="Walter Logo"
           style={{
             width: 'auto',
-            height: '40px',
-            marginTop: 12,
-            marginRight: 24,
+            height: '30px',
             cursor: 'pointer',
           }}
           onClick={() => navigate(LANDING_PAGE)}
@@ -114,7 +112,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             visibility: 'visible',
           }}
         >
-          <MenuIcon fontSize="large" />
+          <MenuIcon fontSize={isMobile ? 'medium' : 'large'} />
         </Button>
         <SwipeableDrawer
           anchor="right"
@@ -204,7 +202,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
       position="static"
       sx={{
         background: 'linear-gradient(to right, #B5E0F7, white)',
-        height: isMobile ? '80px' : '120px',
+        height: isMobile ? '60px' : '120px',
       }}
     >
       <Container maxWidth="xl">

@@ -14,7 +14,7 @@ const LandingPage: React.FC = () => {
       <Grid
         size={size}
         sx={{
-          marginTop: isMobile ? '40px' : '70px',
+          marginTop: isMobile ? '30px' : '70px',
           marginLeft: isMobile ? '40px' : '100px',
         }}
       >
@@ -42,7 +42,11 @@ const LandingPage: React.FC = () => {
   };
 
   const getLandingPageGraphicInstructional = (size: number) => {
-    return <LandingPageGraphicInstructional />;
+    return (
+      <Grid size={size} sx={{ marginLeft: '100px' }}>
+        <LandingPageGraphicInstructional />
+      </Grid>
+    );
   };
 
   return (

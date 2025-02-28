@@ -229,8 +229,6 @@ const LoginForm: React.FC<LoginFormProps> = (props: LoginFormProps) => {
             sx={{
               backgroundColor: Colors.YELLOW,
               borderRadius: '40px',
-              marginTop: '20px',
-              marginBottom: '20px',
               padding: isMobile ? '8px' : '10px',
               '&:hover': {
                 backgroundColor: Colors.YELLOW_HOVER,

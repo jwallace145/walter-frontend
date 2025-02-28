@@ -1,7 +1,7 @@
 import { Button, CircularProgress } from '@mui/material';
 import React from 'react';
 import Box from '@mui/material/Box';
-import { grey } from '@mui/material/colors';
+import { Colors, Fonts } from '../../constants/Constants';
 
 export interface LoadingButtonProps {
   sx?: object;
@@ -14,15 +14,16 @@ const LoadingButton: React.FC<LoadingButtonProps> = (
   props: LoadingButtonProps,
 ) => {
   return (
-    <Box sx={{ m: 1, position: 'relative', ...props.sx }}>
+    <Box sx={{ position: 'relative', ...props.sx }}>
       <Button
         fullWidth
         disabled={props.loading}
         onClick={props.onClick}
         sx={{
-          fontFamily: 'Raleway, sans-serif',
+          fontFamily: Fonts.RALEWAY,
           fontWeight: 'bold',
-          color: 'black',
+          color: Colors.BLACK,
+          position: 'relative',
           visibility: props.loading ? 'hidden' : 'visible',
         }}
       >
@@ -30,14 +31,14 @@ const LoadingButton: React.FC<LoadingButtonProps> = (
       </Button>
       {props.loading && (
         <CircularProgress
-          size={18}
+          size={24}
+          thickness={5}
           sx={{
-            color: grey[400],
+            color: Colors.BLACK_HOVER,
             position: 'absolute',
-            top: '50%',
+            top: '30%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            visibility: 'visible',
           }}
         />
       )}
