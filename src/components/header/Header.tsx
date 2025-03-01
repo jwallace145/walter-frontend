@@ -25,7 +25,7 @@ import WalterLogo from '../logo/walter-logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
 // @ts-ignore
 import useIsMobile from '../utils/IsMobile';
-import StocksSearchBar from './StocksSearchBar';
+import StocksSearchBar from './SearchBar';
 
 /**
  * HeaderProps
@@ -68,7 +68,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
 
-  const getLogo = (isMobile: boolean) => {
+  const getLogo = (isMobile: boolean, isAuthenticated: boolean) => {
     if (isMobile) {
       return (
         <img
@@ -79,7 +79,9 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             height: '30px',
             cursor: 'pointer',
           }}
-          onClick={() => navigate(LANDING_PAGE)}
+          onClick={() =>
+            navigate(isAuthenticated ? DASHBOARD_PAGE : LANDING_PAGE)
+          }
         />
       );
     } else {
@@ -92,7 +94,9 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
             height: '85px',
             cursor: 'pointer',
           }}
-          onClick={() => navigate(LANDING_PAGE)}
+          onClick={() =>
+            navigate(isAuthenticated ? DASHBOARD_PAGE : LANDING_PAGE)
+          }
         />
       );
     }
@@ -213,7 +217,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
               marginTop: '10px',
             }}
           >
-            {getLogo(isMobile)}
+            {getLogo(isMobile, props.authenticated)}
           </Box>
           <Box
             sx={{

@@ -10,7 +10,7 @@ import PortfolioDataGridV2 from '../components/portfolio/datagrid/PortfolioDataG
 import PortfolioPieChartWidget from '../components/portfolio/piechart/PortfolioPieChartWidget';
 import { Colors } from '../constants/Constants';
 import { Stack } from '@mui/material';
-import DashboardSideBar from '../components/sidebar/DashboardSideBar';
+import SideBar from '../components/sidebar/SideBar';
 
 interface DashboardProps {
   setAuthenticated: (authenticated: boolean) => void;
@@ -91,7 +91,7 @@ const Dashboard: React.FC<DashboardProps> = (
         </Stack>
       </Grid>
       <Grid size={2} spacing={2}>
-        <DashboardSideBar setAuthenticated={props.setAuthenticated} />
+        <SideBar setAuthenticated={props.setAuthenticated} />
       </Grid>
     </Grid>
   );

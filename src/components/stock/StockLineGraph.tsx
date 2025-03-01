@@ -4,12 +4,9 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import dayjs from 'dayjs';
 import { Container, Card, CardContent, Typography, Box } from '@mui/material';
 import { Stock } from '../../api/methods/GetStock';
-import { US_DOLLAR } from '../../constants/Constants';
+import { Colors, Fonts, US_DOLLAR } from '../../constants/Constants';
 import { Price } from '../../api/methods/GetPrices';
 
-/**
- * StockLineGraphProps
- */
 interface StockLineGraphProps {
   loading: boolean;
   stock: Stock | undefined;
@@ -18,37 +15,25 @@ interface StockLineGraphProps {
 
 const StockLineGraph: FC<StockLineGraphProps> = (
   props: StockLineGraphProps,
-) => {
-  /**
-   * Get the timestamps from the prices in the given props.
-   */
-  const getTimestamps = () => {
+): React.ReactElement => {
+  const getTimestamps: () => number[] = (): number[] => {
     return props.prices.map((price: Price) =>
       new Date(price.timestamp).getTime(),
     );
   };
 
-  /**
-   * Get the prices from the prices in the given props.
-   */
-  const getPrices = () => {
+  const getPrices: () => number[] = (): number[] => {
     return props.prices.map((price: Price) => price.price);
   };
 
-  /**
-   * Get the start price of the stock at the start of the time period.
-   */
-  const getStartPrice = () => {
+  const getStartPrice: () => number = (): number => {
     if (props.prices.length === 0) {
       return 0;
     }
     return props.prices[0].price;
   };
 
-  /**
-   * Get the end price of the stock at the end of the time period.
-   */
-  const getEndPrice = () => {
+  const getEndPrice: () => number = (): number => {
     if (props.prices.length === 0) {
       return 0;
     }
@@ -57,7 +42,15 @@ const StockLineGraph: FC<StockLineGraphProps> = (
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
+      <Card
+        sx={{
+          borderRadius: '40px',
+          padding: '3px',
+          boxShadow: 3,
+          backgroundColor: Colors.LIGHT_GRAY,
+          outline: `2px solid ${Colors.GRAY}`,
+        }}
+      >
         <CardContent>
           <Box
             sx={{
@@ -70,15 +63,18 @@ const StockLineGraph: FC<StockLineGraphProps> = (
             <Typography
               variant="h6"
               component="div"
-              sx={{ fontWeight: 'bold' }}
+              sx={{ fontWeight: 'bold', fontFamily: Fonts.RALEWAY }}
             >
               {props.stock?.company} ({props.stock?.symbol})
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ fontFamily: Fonts.RALEWAY }}
+            >
               {`Start: ${US_DOLLAR.format(getStartPrice())} | End: ${US_DOLLAR.format(getEndPrice())}`}
             </Typography>
           </Box>
-
           <LineChart
             xAxis={[
               {
@@ -86,7 +82,7 @@ const StockLineGraph: FC<StockLineGraphProps> = (
                 valueFormatter: (v) => dayjs(v).format('MMM D, YYYY'),
                 tickLabelStyle: {
                   fontSize: 12,
-                  fontFamily: 'Raleway, sans-serif',
+                  fontFamily: Fonts.RALEWAY,
                   fontWeight: 'bold',
                 },
               },
@@ -96,7 +92,7 @@ const StockLineGraph: FC<StockLineGraphProps> = (
                 valueFormatter: (value) => `${US_DOLLAR.format(value)}`,
                 tickLabelStyle: {
                   fontSize: 12,
-                  fontFamily: 'Raleway, sans-serif',
+                  fontFamily: Fonts.RALEWAY,
                   fontWeight: 'bold',
                 },
               },
@@ -105,7 +101,7 @@ const StockLineGraph: FC<StockLineGraphProps> = (
               {
                 data: getPrices(),
                 valueFormatter: (v) => `${US_DOLLAR.format(v as number)}`,
-                color: '#257180',
+                color: Colors.YELLOW,
                 showMark: false,
               },
             ]}

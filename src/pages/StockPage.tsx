@@ -11,8 +11,10 @@ import StockNewsSummary from '../components/stock/StockNewsSummary';
 import { GetPricesResponse, Price } from '../api/methods/GetPrices';
 import StockLineGraph from '../components/stock/StockLineGraph';
 import StockNewsSource from '../components/stock/StockNewsSource';
+import Grid from '@mui/material/Grid2';
+import { Stack } from '@mui/material';
 
-const StockDashboardPage: React.FC = (props) => {
+const StockPage: React.FC = (): React.ReactElement => {
   const params: Readonly<Params> = useParams();
   const [stockLoading, setStockLoading] = useState(false);
   const [pricesLoading, setPricesLoading] = useState(false);
@@ -64,16 +66,24 @@ const StockDashboardPage: React.FC = (props) => {
 
   return (
     <>
-      <StockOverview loading={stockLoading} stock={stock} />
-      <StockLineGraph
-        loading={pricesLoading && stockLoading}
-        stock={stock}
-        prices={prices}
-      />
-      <StockNewsSummary loading={summaryLoading} summary={summary} />
-      <StockNewsSource loading={summaryLoading} sources={sources} />
+      <Grid container>
+        <Grid size={6}>
+          <Stack>
+            <StockLineGraph
+              loading={pricesLoading && stockLoading}
+              stock={stock}
+              prices={prices}
+            />
+            <StockOverview loading={stockLoading} stock={stock} />
+            <StockNewsSource loading={summaryLoading} sources={sources} />
+          </Stack>
+        </Grid>
+        <Grid size={6}>
+          <StockNewsSummary loading={summaryLoading} summary={summary} />
+        </Grid>
+      </Grid>
     </>
   );
 };
 
-export default StockDashboardPage;
+export default StockPage;

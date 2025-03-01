@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  Card,
-  CardContent,
-  Container,
-  CssBaseline,
-  Link,
-  Typography,
-} from '@mui/material';
-import Grid from '@mui/material/Grid2';
+import { Card, CardContent, Container, CssBaseline, Link, Typography } from '@mui/material';
 import LoadingCircularProgress from '../progress/LoadingCircularProgress';
 import { NewsSource } from '../../api/methods/GetNewsSummary';
+import { Colors, Fonts } from '../../constants/Constants';
 
 interface StockNewsSourceProps {
   loading: boolean;
@@ -31,10 +24,11 @@ const StockNewsSources: React.FC<StockNewsSourceProps> = (props) => {
       {props.sources.map((source, index) => (
         <Card
           sx={{
-            borderRadius: 2,
             boxShadow: 2,
             padding: 2,
-            backgroundColor: 'background.paper',
+            borderRadius: '40px',
+            backgroundColor: Colors.LIGHT_GRAY,
+            outline: '2px solid ' + Colors.GRAY,
           }}
         >
           <CardContent>
@@ -44,14 +38,25 @@ const StockNewsSources: React.FC<StockNewsSourceProps> = (props) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 color="inherit"
+                sx={{
+                  fontFamily: Fonts.RALEWAY,
+                }}
               >
                 {source.title}
               </Link>
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mb: 1, fontFamily: Fonts.RALEWAY }}
+            >
               Source: {source.source}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ fontFamily: Fonts.RALEWAY }}
+            >
               Published:{' '}
               {new Date(source.published_timestamp).toISOString().split('T')[0]}
             </Typography>

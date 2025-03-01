@@ -3,11 +3,12 @@ import { FC, useEffect } from 'react';
 import { LineChart } from '@mui/x-charts/LineChart';
 import { Price } from '../../../api/methods/GetPrices';
 import dayjs from 'dayjs';
-import { Container, Link, Typography, useMediaQuery } from '@mui/material';
-import { US_DOLLAR } from '../../../constants/Constants';
+import { Container, Link, Typography } from '@mui/material';
+import { Colors, Fonts, US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import PortfolioStockDelta from './PortfolioStockDelta';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import isMobile from '../../utils/IsMobile';
 
 /**
  * PortfolioStockLineChartProps
@@ -30,7 +31,7 @@ interface PortfolioStockLineChartProps {
  */
 const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
   props: PortfolioStockLineChartProps,
-) => {
+): React.ReactElement => {
   const navigate: NavigateFunction = useNavigate();
   const [delta, setDelta] = React.useState<number>(0);
 
@@ -42,46 +43,31 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
     setDelta(getDelta());
   }, [props.prices]);
 
-  /**
-   * Get the timestamps from the prices in the given props.
-   */
-  const getTimestamps = () => {
+  const getTimestamps: () => number[] = (): number[] => {
     return props.prices.map((price: Price) =>
       new Date(price.timestamp).getTime(),
     );
   };
 
-  /**
-   * Get the prices from the prices in the given props.
-   */
-  const getPrices = () => {
+  const getPrices: () => number[] = (): number[] => {
     return props.prices.map((price: Price) => price.price);
   };
 
-  /**
-   * Get the start price of the stock at the start of the time period.
-   */
-  const getStartPrice = () => {
+  const getStartPrice: () => number = (): number => {
     if (props.prices.length === 0) {
       return 0;
     }
     return props.prices[0].price;
   };
 
-  /**
-   * Get the end price of the stock at the end of the time period.
-   */
-  const getEndPrice = () => {
+  const getEndPrice: () => number = () => {
     if (props.prices.length === 0) {
       return 0;
     }
     return props.prices[props.prices.length - 1].price;
   };
 
-  /**
-   * Get the delta of the stock over the given time period.
-   */
-  const getDelta = (): number => {
+  const getDelta: () => number = (): number => {
     if (props.prices.length === 0) {
       return 0;
     }
@@ -91,7 +77,10 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
   if (props.prices.length === 0) {
     return (
       <Container>
-        <Typography variant="subtitle1">
+        <Typography
+          variant="subtitle1"
+          sx={{ fontFamily: Fonts.RALEWAY, fontWeight: 'bold' }}
+        >
           No stock prices available for this stock.
         </Typography>
       </Container>
@@ -104,8 +93,10 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
    * For mobile, utilize a shorter name such as the ticker symbol to use
    * less characters and improve UX.
    */
-  const getStock = () => {
-    if (false) {
+  const getStock: (isMobile: boolean) => React.ReactElement = (
+    isMobile: boolean,
+  ): React.ReactElement => {
+    if (isMobile) {
       return (
         <Typography
           variant="subtitle1"
@@ -113,9 +104,10 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
             navigate(`/stocks/${props.stock.symbol.toLowerCase()}`)
           }
           sx={{
+            fontFamily: Fonts.RALEWAY,
+            fontWeight: 'bold',
             cursor: 'pointer',
             textDecoration: 'none',
-            color: 'inherit',
           }}
         >
           <Link>{props.stock.symbol}</Link>
@@ -123,7 +115,15 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
       );
     } else {
       return (
-        <Typography variant="subtitle1">
+        <Typography
+          variant="subtitle1"
+          sx={{
+            fontFamily: Fonts.RALEWAY,
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            textDecoration: 'none',
+          }}
+        >
           <Link
             onClick={() =>
               navigate(`/stocks/${props.stock.symbol.toLowerCase()}`)
@@ -150,7 +150,7 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
           alignItems: 'center',
         }}
       >
-        {getStock()}
+        {getStock(isMobile())}
         <PortfolioStockDelta delta={delta} equity={props.stock.equity} />
       </Container>
       <LineChart
@@ -160,7 +160,7 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
             valueFormatter: (v) => dayjs(v).format('MMM D, YYYY'),
             tickLabelStyle: {
               fontSize: 12,
-              fontFamily: 'Raleway, sans-serif',
+              fontFamily: Fonts.RALEWAY,
               fontWeight: 'bold',
             },
           },
@@ -170,7 +170,7 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
             valueFormatter: (value) => `${US_DOLLAR.format(value)}`,
             tickLabelStyle: {
               fontSize: 12,
-              fontFamily: 'Raleway, sans-serif',
+              fontFamily: Fonts.RALEWAY,
               fontWeight: 'bold',
             },
           },
@@ -179,12 +179,12 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
           {
             data: getPrices(),
             valueFormatter: (v) => `${US_DOLLAR.format(v as number)}`,
-            color: '#257180',
+            color: Colors.YELLOW,
             showMark: false,
           },
         ]}
         height={400}
-        margin={{ left: 60, right: 60, top: 60, bottom: 60 }}
+        margin={{ left: 60 }}
         grid={{ vertical: true, horizontal: true }}
       />
     </Container>
