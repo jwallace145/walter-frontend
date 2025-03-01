@@ -2,14 +2,20 @@ import * as React from 'react';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
 import { Container, Typography, useMediaQuery } from '@mui/material';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
-import { US_DOLLAR } from '../../../constants/Constants';
+import { Colors, Fonts, US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import { useNavigate } from 'react-router-dom';
 
 /**
  * The colors utilized for the pie chart.
  */
-const colors = ['#257180', '#F2E5BF', '#FD8B51', '#CB6040', '#FF6F61'];
+const colors = [
+  Colors.LIGHT_BLUE,
+  Colors.YELLOW,
+  Colors.TEAL,
+  Colors.GRAY,
+  Colors.LAVENDER,
+];
 
 /**
  * PortfolioPieChartProps
@@ -79,11 +85,11 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
           ]}
           sx={{
             [`& .${pieArcLabelClasses.root}`]: {
-              fontFamily: 'Raleway, sans-serif',
+              fontFamily: Fonts.RALEWAY,
               fontWeight: 'bold',
             },
           }}
-          slotProps={{ legend: { hidden: false } }}
+          slotProps={{ legend: { hidden: true } }}
           height={400}
           colors={colors}
           onItemClick={handleItemClick}

@@ -34,10 +34,16 @@ export const HALF_PAGE_WIDTH: number = 6;
 export const Colors = {
   BLACK: '#000000',
   BLACK_HOVER: '#444444',
+  LIGHT_GRAY: '#FAFAFA',
   GRAY: '#cccccc',
+  DARK_GRAY: '#333333',
   YELLOW: '#FFD213',
   YELLOW_HOVER: '#F1B800',
   WHITE: '#FFFFFF',
+  LIGHT_BLUE: '#B5E0F7',
+  DARK_BLUE: '#003366',
+  TEAL: '#4C9F8D',
+  LAVENDER: '#D7B9FF',
 };
 
 export const Fonts = {
