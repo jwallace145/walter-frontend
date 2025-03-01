@@ -19,12 +19,13 @@ import {
   REGISTER_PAGE,
 } from '../../pages/common/Pages';
 import HeaderButton from './HeaderButton';
-import { WALTER_TOKEN_NAME } from '../../constants/Constants';
+import { Colors, Fonts, WALTER_TOKEN_NAME } from '../../constants/Constants';
 import WalterLogoText from '../logo/walter-logo-text.png';
 import WalterLogo from '../logo/walter-logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
 // @ts-ignore
 import useIsMobile from '../utils/IsMobile';
+import StocksSearchBar from './StocksSearchBar';
 
 /**
  * HeaderProps
@@ -88,9 +89,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
           alt="Walter Logo"
           style={{
             width: 'auto',
-            height: '100px',
-            marginRight: 24,
-            marginBottom: '10px',
+            height: '85px',
             cursor: 'pointer',
           }}
           onClick={() => navigate(LANDING_PAGE)}
@@ -106,9 +105,9 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
           fullWidth
           onClick={() => setOpenMenu(true)}
           sx={{
-            fontFamily: 'Raleway',
+            fontFamily: Fonts.RALEWAY,
             fontWeight: 'bold',
-            color: 'black',
+            color: Colors.BLACK,
             visibility: 'visible',
           }}
         >
@@ -165,12 +164,7 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
 
   const getHeaderButtons = (authenticated: boolean) => {
     if (authenticated) {
-      return [
-        ...AUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
-          getHeaderButton(button),
-        ),
-        getHeaderLogoutButton(),
-      ];
+      return <StocksSearchBar />;
     } else {
       return UNAUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
         getHeaderButton(button),
@@ -201,22 +195,31 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
     <AppBar
       position="static"
       sx={{
-        background: 'linear-gradient(to right, #B5E0F7, white)',
-        height: isMobile ? '60px' : '120px',
+        background: Colors.LIGHT_BLUE,
+        height: isMobile ? '60px' : '100px',
       }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <Box
             sx={{
-              alignItems: 'left',
               marginTop: '10px',
             }}
           >
             {getLogo(isMobile)}
           </Box>
           <Box
-            sx={{ display: 'flex', flexDirection: 'row', marginLeft: 'auto' }}
+            sx={{
+              display: 'flex',
+              marginTop: '10px',
+            }}
           >
             {isMobile
               ? getHeaderMenu(props.authenticated)

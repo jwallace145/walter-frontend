@@ -4,7 +4,7 @@
 export const LANDING_PAGE = '/';
 export const LOGIN_PAGE = '/login';
 export const REGISTER_PAGE = '/register';
-export const DASHBOARD_PAGE = '/portfolio';
+export const DASHBOARD_PAGE = '/dashboard';
 export const NEWSLETTER_PAGE = '/newsletter';
 export const SEND_VERIFY_EMAIL_PAGE = '/send-verify-email';
 export const VERIFY_EMAIL_PAGE = '/verify';

@@ -23,7 +23,7 @@ import { GetUserResponse } from './api/methods/GetUser';
 import UserNotVerifiedAlert from './components/alerts/UserNotVerifiedAlert';
 import SendVerifyEmail from './components/verify/SendVerifyEmail';
 import NewslettersPage from './pages/NewslettersPage';
-import PortfolioDashboardPage from './pages/PortfolioDashboardPage';
+import Dashboard from './pages/Dashboard';
 import UnsubscribePage from './pages/UnsubscribePage';
 import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
 import StockDashboardPage from './pages/StockDashboardPage';
@@ -40,15 +40,6 @@ import SentEmailVerificationAlert from './components/alerts/SentEmailVerificatio
 import NoStocksInUserPortfolioAlert from './components/alerts/NoStocksInUserPortfolioAlert';
 import PurchaseNewsletterSubscriptionSuccessPage from './pages/PurchaseNewsletterSubscriptionSuccessPage';
 
-/**
- * Walter App
- *
- * The web application for Walter, the market know-it-all that uses AI and the
- * latest market data to provide subscribed users with a daily newsletter about
- * their portfolio's performance.
- *
- * @constructor
- */
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
@@ -120,8 +111,9 @@ const App: React.FC = () => {
             <Route
               path={DASHBOARD_PAGE}
               element={
-                <PortfolioDashboardPage
+                <Dashboard
                   setNoStocksAlert={setNoStocksInUserPortfolioAlert}
+                  setAuthenticated={setAuthenticated}
                 />
               }
             />
