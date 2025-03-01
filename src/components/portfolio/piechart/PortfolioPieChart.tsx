@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
-import { Container, Typography, useMediaQuery } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
 import { Colors, Fonts, US_DOLLAR } from '../../../constants/Constants';
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+import useIsMobile from '../../utils/IsMobile';
 
 /**
  * The colors utilized for the pie chart.
@@ -38,7 +39,8 @@ interface PortfolioPieChartProps {
  * @constructor
  */
 const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
+  const isMobile: boolean = useIsMobile();
 
   const graphStocks = () => {
     return props.stocks.map((stock) => ({
@@ -59,19 +61,29 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
 
   return (
     <>
-      <Container>
-        <Container
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
+      <Container
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Typography
+          variant="subtitle1"
+          sx={{ fontFamily: Fonts.RALEWAY, fontWeight: 'bold' }}
         >
-          <Typography variant="subtitle1">Portfolio</Typography>
-          <Typography variant="subtitle1">
-            {US_DOLLAR.format(props.equity)}
-          </Typography>
-        </Container>
+          Portfolio
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          sx={{ fontFamily: Fonts.RALEWAY, fontWeight: 'bold' }}
+        >
+          {US_DOLLAR.format(props.equity)}
+        </Typography>
+      </Container>
+      <Container
+        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      >
         <PieChart
           series={[
             {
@@ -86,11 +98,10 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
           sx={{
             [`& .${pieArcLabelClasses.root}`]: {
               fontFamily: Fonts.RALEWAY,
-              fontWeight: 'bold',
             },
           }}
+          height={isMobile ? 300 : 400}
           slotProps={{ legend: { hidden: true } }}
-          height={400}
           colors={colors}
           onItemClick={handleItemClick}
         />

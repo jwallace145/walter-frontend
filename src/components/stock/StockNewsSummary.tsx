@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 import LoadingCircularProgress from '../progress/LoadingCircularProgress';
+import { Colors, Fonts } from '../../constants/Constants';
 
 /**
  * StockNewsSummaryProps
@@ -38,21 +39,19 @@ const StockNewsSummary: React.FC<StockNewsSummaryProps> = (props) => {
       <CssBaseline />
       <Card
         sx={{
-          borderRadius: 2,
           boxShadow: 2,
           padding: 2,
-          backgroundColor: 'background.paper',
+          borderRadius: '40px',
+          backgroundColor: Colors.LIGHT_GRAY,
+          outline: '2px solid ' + Colors.GRAY,
         }}
       >
         <CardContent>
           <Typography
-            variant="h6"
-            component="div"
-            sx={{ mb: 2, fontWeight: 'bold' }}
+            variant="body1"
+            color="text.secondary"
+            sx={{ fontFamily: Fonts.RALEWAY }}
           >
-            Recent Stock News
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
             <ReactMarkdown children={props.summary} />
           </Typography>
         </CardContent>

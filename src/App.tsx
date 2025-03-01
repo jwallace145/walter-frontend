@@ -10,6 +10,7 @@ import {
   LANDING_PAGE,
   LOGIN_PAGE,
   NEWSLETTER_PAGE,
+  PORTFOLIO_PAGE,
   PURCHASE_NEWSLETTER_SUBSCRIPTION_SUCCESS_PAGE,
   REGISTER_PAGE,
   SEARCH_STOCKS_PAGE,
@@ -26,7 +27,7 @@ import NewslettersPage from './pages/NewslettersPage';
 import Dashboard from './pages/Dashboard';
 import UnsubscribePage from './pages/UnsubscribePage';
 import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
-import StockDashboardPage from './pages/StockDashboardPage';
+import StockDashboardPage from './pages/StockPage';
 import SearchStocksPage from './pages/SearchStocksPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
@@ -39,6 +40,7 @@ import VerifyEmailPage from './pages/VerifyEmailPage';
 import SentEmailVerificationAlert from './components/alerts/SentEmailVerificationAlert';
 import NoStocksInUserPortfolioAlert from './components/alerts/NoStocksInUserPortfolioAlert';
 import PurchaseNewsletterSubscriptionSuccessPage from './pages/PurchaseNewsletterSubscriptionSuccessPage';
+import Typography from '@mui/material/Typography';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -116,6 +118,10 @@ const App: React.FC = () => {
                   setAuthenticated={setAuthenticated}
                 />
               }
+            />
+            <Route
+              path={PORTFOLIO_PAGE}
+              element={<Typography>Test</Typography>}
             />
             <Route path={NEWSLETTER_PAGE} element={<NewslettersPage />} />
             <Route

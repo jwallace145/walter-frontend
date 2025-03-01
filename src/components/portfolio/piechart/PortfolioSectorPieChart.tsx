@@ -1,11 +1,17 @@
 import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import React from 'react';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
-import { Container, Typography, useMediaQuery } from '@mui/material';
-import { US_DOLLAR } from '../../../constants/Constants';
+import { Container, Typography } from '@mui/material';
+import { Colors, Fonts, US_DOLLAR } from '../../../constants/Constants';
 import { pieArcLabelClasses, PieChart } from '@mui/x-charts/PieChart';
 
-const colors = ['#257180', '#F2E5BF', '#FD8B51', '#CB6040', '#FF6F61'];
+const colors = [
+  Colors.LIGHT_BLUE,
+  Colors.YELLOW,
+  Colors.TEAL,
+  Colors.GRAY,
+  Colors.LAVENDER,
+];
 
 interface PortfolioPieChartProps {
   loading: boolean;
@@ -64,7 +70,12 @@ const PortfolioSectorPieChart: React.FC<PortfolioPieChartProps> = (props) => {
             alignItems: 'center',
           }}
         >
-          <Typography variant="subtitle1">Portfolio</Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{ fontFamily: Fonts.RALEWAY, fontWeight: 'bold' }}
+          >
+            Portfolio
+          </Typography>
           <Typography variant="subtitle1">
             {US_DOLLAR.format(props.equity)}
           </Typography>
@@ -82,11 +93,11 @@ const PortfolioSectorPieChart: React.FC<PortfolioPieChartProps> = (props) => {
           ]}
           sx={{
             [`& .${pieArcLabelClasses.root}`]: {
-              fontFamily: 'Raleway, sans-serif',
+              fontFamily: Fonts.RALEWAY,
               fontWeight: 'bold',
             },
           }}
-          slotProps={{ legend: { hidden: false } }}
+          slotProps={{ legend: { hidden: true } }}
           height={400}
           colors={colors}
         />
