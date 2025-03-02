@@ -1,5 +1,12 @@
 import React from 'react';
-import { Card, CardContent, Container, CssBaseline, Link, Typography } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Container,
+  CssBaseline,
+  Link,
+  Typography,
+} from '@mui/material';
 import LoadingCircularProgress from '../progress/LoadingCircularProgress';
 import { NewsSource } from '../../api/methods/GetNewsSummary';
 import { Colors, Fonts } from '../../constants/Constants';

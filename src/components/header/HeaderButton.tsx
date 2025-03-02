@@ -3,6 +3,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { LANDING_PAGE } from '../../pages/common/Pages';
 import Typography from '@mui/material/Typography';
+import { Colors, Fonts } from '../../constants/Constants';
 
 /**
  * HeaderButtonProps
@@ -28,12 +29,12 @@ const HeaderButton: FC<HeaderButtonProps> = (props) => {
     <>
       <Typography
         sx={{
-          color: 'black',
-          fontFamily: 'Raleway',
+          color: Colors.BLACK,
+          fontFamily: Fonts.RALEWAY,
           fontSize: '20px',
           fontWeight: 'bold',
           '&:hover': {
-            color: '#FFD213',
+            color: Colors.YELLOW,
             textDecoration: 'underline',
           },
           transition: 'color 0.3s ease, text-decoration 0.3s ease',

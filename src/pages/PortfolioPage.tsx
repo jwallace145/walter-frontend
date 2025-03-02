@@ -1,29 +1,33 @@
 import React from 'react';
-import HomePage from './common/HomePage';
 import SideBar from '../components/sidebar/SideBar';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
+import HomePage from './common/HomePage';
 
-interface NewslettersPageProps {
+interface PortfolioPageProps {
   setAuthenticated: (authenticated: boolean) => void;
 }
 
-const NewslettersPage: React.FC<NewslettersPageProps> = (
-  props: NewslettersPageProps,
+const PortfolioPage: React.FC<PortfolioPageProps> = (
+  props: PortfolioPageProps,
 ): React.ReactElement => {
   const getSideBar: () => React.ReactElement = (): React.ReactElement => {
     return (
       <SideBar
         setAuthenticated={props.setAuthenticated}
-        currentTab={'newsletters'}
+        currentTab={'portfolio'}
       />
     );
   };
 
   const getContent: () => React.ReactElement = (): React.ReactElement => {
-    return <Typography>Yo</Typography>;
+    return (
+      <Typography variant="body2" color="textSecondary" component="div">
+        Test
+      </Typography>
+    );
   };
 
   return <HomePage sideBar={getSideBar()} content={getContent()} />;
 };
 
-export default NewslettersPage;
+export default PortfolioPage;
