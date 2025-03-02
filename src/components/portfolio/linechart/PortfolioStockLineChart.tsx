@@ -106,8 +106,13 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
           sx={{
             fontFamily: Fonts.RALEWAY,
             fontWeight: 'bold',
-            cursor: 'pointer',
             textDecoration: 'none',
+            '&:hover': {
+              color: Colors.YELLOW,
+              textDecoration: 'underline',
+            },
+            transition: 'color 0.3s ease, text-decoration 0.3s ease',
+            cursor: 'pointer',
           }}
         >
           <Link>{props.stock.symbol}</Link>
@@ -120,8 +125,13 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
           sx={{
             fontFamily: Fonts.RALEWAY,
             fontWeight: 'bold',
-            cursor: 'pointer',
             textDecoration: 'none',
+            '&:hover': {
+              color: Colors.YELLOW,
+              textDecoration: 'underline',
+            },
+            transition: 'color 0.3s ease, text-decoration 0.3s ease',
+            cursor: 'pointer',
           }}
         >
           <Link

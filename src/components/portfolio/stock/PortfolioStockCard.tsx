@@ -216,6 +216,7 @@ const PortfolioStockCard: React.FC<PortfolioStockCardProps> = (
     <>
       <Grid
         container
+        size={12}
         sx={{
           borderRadius: '40px',
           backgroundColor: Colors.LIGHT_GRAY,

@@ -9,6 +9,7 @@ import {
 import ReactMarkdown from 'react-markdown';
 import LoadingCircularProgress from '../progress/LoadingCircularProgress';
 import { Colors, Fonts } from '../../constants/Constants';
+import Grid from '@mui/material/Grid2';
 
 /**
  * StockNewsSummaryProps
@@ -16,6 +17,7 @@ import { Colors, Fonts } from '../../constants/Constants';
  * The props used to display a brief summary of recent stock news articles.
  */
 interface StockNewsSummaryProps {
+  sx?: object;
   loading: boolean;
   summary: string | undefined;
 }
@@ -35,28 +37,25 @@ const StockNewsSummary: React.FC<StockNewsSummaryProps> = (props) => {
   }
 
   return (
-    <Container maxWidth="md" sx={{ mt: 4 }}>
-      <CssBaseline />
-      <Card
-        sx={{
-          boxShadow: 2,
-          padding: 2,
-          borderRadius: '40px',
-          backgroundColor: Colors.LIGHT_GRAY,
-          outline: '2px solid ' + Colors.GRAY,
-        }}
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        borderRadius: '40px',
+        backgroundColor: Colors.LIGHT_GRAY,
+        outline: '1px solid ' + Colors.GRAY,
+        padding: '20px',
+        ...props.sx,
+      }}
+    >
+      <Typography
+        variant="body1"
+        color="text.secondary"
+        sx={{ fontFamily: Fonts.RALEWAY }}
       >
-        <CardContent>
-          <Typography
-            variant="body1"
-            color="text.secondary"
-            sx={{ fontFamily: Fonts.RALEWAY }}
-          >
-            <ReactMarkdown children={props.summary} />
-          </Typography>
-        </CardContent>
-      </Card>
-    </Container>
+        <ReactMarkdown children={props.summary} />
+      </Typography>
+    </Grid>
   );
 };
 

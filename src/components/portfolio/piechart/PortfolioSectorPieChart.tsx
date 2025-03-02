@@ -89,6 +89,8 @@ const PortfolioSectorPieChart: React.FC<PortfolioPieChartProps> = (props) => {
               arcLabel: (value) => `${Math.trunc(value.value)} %`,
               arcLabelMinAngle: 35,
               valueFormatter: (value) => `${Math.trunc(value.value)} %`,
+              highlightScope: { fade: 'global', highlight: 'item' },
+              faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
             },
           ]}
           sx={{

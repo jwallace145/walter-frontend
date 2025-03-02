@@ -7,6 +7,7 @@ import { PortfolioStock } from '../../../api/methods/GetPortfolio';
 import { WalterAPI } from '../../../api/WalterAPI';
 import Box from '@mui/material/Box';
 import LoadingCircularProgress from '../../progress/LoadingCircularProgress';
+import { Fonts } from '../../../constants/Constants';
 
 interface PortfolioStockLineChartWidgetProps {
   loading: boolean; // the loading boolean state for parent component GetPortfolio API call
@@ -76,7 +77,7 @@ const PortfolioStockLineChartWidget: React.FC<
           style={{ marginTop: '5px' }}
           sx={{
             '& .MuiPaginationItem-root': {
-              fontFamily: 'Raleway, sans-serif',
+              fontFamily: Fonts.RALEWAY,
               fontSize: '16px',
             },
           }}
