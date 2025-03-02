@@ -82,7 +82,10 @@ const SideBar: React.FC<SideBarProps> = (
           sx={{ marginTop: '30px', marginBottom: '30px' }}
         />
       </Container>
-      <Modal open={openLogoutModal} onClose={() => setOpenLogoutModal(false)}>
+      <Modal
+        open={openLogoutModal}
+        onClose={(): void => setOpenLogoutModal(false)}
+      >
         <Container>
           <Box
             sx={{
