@@ -13,8 +13,17 @@ import StockLineGraph from '../components/stock/StockLineGraph';
 import StockNewsSource from '../components/stock/StockNewsSource';
 import Grid from '@mui/material/Grid2';
 import { Stack } from '@mui/material';
+import HomePage from './common/HomePage';
+import SideBar from '../components/sidebar/SideBar';
 
-const StockPage: React.FC = (): React.ReactElement => {
+interface StockPageProps {
+  authenticated: boolean;
+  setAuthenticated: (authenticated: boolean) => void;
+}
+
+const StockPage: React.FC<StockPageProps> = (
+  props: StockPageProps,
+): React.ReactElement => {
   const params: Readonly<Params> = useParams();
   const [stockLoading, setStockLoading] = useState(false);
   const [pricesLoading, setPricesLoading] = useState(false);
@@ -36,7 +45,7 @@ const StockPage: React.FC = (): React.ReactElement => {
       .then((response: GetStockResponse) => {
         setStock(response.getStock());
       })
-      .finally(() => {
+      .finally((): void => {
         setStockLoading(false);
       });
   };
@@ -47,7 +56,7 @@ const StockPage: React.FC = (): React.ReactElement => {
       .then((response: GetPricesResponse) => {
         setPrices(response.getPrices());
       })
-      .finally(() => {
+      .finally((): void => {
         setPricesLoading(false);
       });
   };
@@ -59,30 +68,48 @@ const StockPage: React.FC = (): React.ReactElement => {
         setSummary(response.getSummary());
         setSources(response.getSources());
       })
-      .finally(() => {
+      .finally((): void => {
         setSummaryLoading(false);
       });
   };
 
-  return (
-    <>
+  const getSideBar: () => React.ReactElement = (): React.ReactElement => {
+    return (
+      <SideBar setAuthenticated={props.setAuthenticated} currentTab={''} />
+    );
+  };
+
+  const getContent: () => React.ReactElement = (): React.ReactElement => {
+    return (
       <Grid container>
         <Grid size={6}>
           <Stack>
+            <StockOverview loading={stockLoading} stock={stock} />
             <StockLineGraph
               loading={pricesLoading && stockLoading}
               stock={stock}
               prices={prices}
             />
-            <StockOverview loading={stockLoading} stock={stock} />
             <StockNewsSource loading={summaryLoading} sources={sources} />
           </Stack>
         </Grid>
         <Grid size={6}>
-          <StockNewsSummary loading={summaryLoading} summary={summary} />
+          <StockNewsSummary
+            loading={summaryLoading}
+            summary={summary}
+            sx={{ marginLeft: '10px' }}
+          />
         </Grid>
       </Grid>
-    </>
+    );
+  };
+
+  return (
+    <HomePage
+      sideBar={getSideBar()}
+      content={getContent()}
+      authenticated={true}
+    />
   );
 };
 

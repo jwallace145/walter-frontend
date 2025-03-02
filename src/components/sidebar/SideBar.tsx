@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Modal } from '@mui/material';
 import { Colors, Fonts, WALTER_TOKEN_NAME } from '../../constants/Constants';
-import HeaderButton from '../header/HeaderButton';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import {
   DASHBOARD_PAGE,
@@ -20,6 +19,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SideBarButton from './SideBarButton';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 interface SideBarProps {
   setAuthenticated: (authenticated: boolean) => void;
@@ -62,7 +62,7 @@ const SideBar: React.FC<SideBarProps> = (
         />
         <SideBarButton
           title="Newsletters"
-          icon={<EmailIcon sx={{ color: Colors.YELLOW }} />}
+          icon={<MailOutlineIcon sx={{ color: Colors.YELLOW }} />}
           onClick={(): void => navigate(NEWSLETTER_PAGE)}
           bold={props.currentTab.toLowerCase() === 'newsletters'}
           sx={{ marginTop: '30px' }}

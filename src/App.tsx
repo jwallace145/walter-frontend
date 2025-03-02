@@ -165,7 +165,15 @@ const App: React.FC = () => {
               path={SEND_VERIFY_EMAIL_PAGE}
               element={<SendVerifyEmail />}
             />
-            <Route path={STOCK_PAGE} element={<StockPage />} />
+            <Route
+              path={STOCK_PAGE}
+              element={
+                <StockPage
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
+              }
+            />
             <Route
               path={SEARCH_STOCKS_PAGE}
               element={<SearchStocksPage setAuthenticated={setAuthenticated} />}

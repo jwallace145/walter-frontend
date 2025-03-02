@@ -96,6 +96,8 @@ const PortfolioPieChart: React.FC<PortfolioPieChartProps> = (props) => {
               arcLabel: (value) => `${US_DOLLAR.format(value.value)}`,
               arcLabelMinAngle: 35,
               valueFormatter: (value) => `${US_DOLLAR.format(value.value)}`,
+              highlightScope: { fade: 'global', highlight: 'item' },
+              faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
             },
           ]}
           sx={{
