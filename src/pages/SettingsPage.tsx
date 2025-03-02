@@ -4,6 +4,7 @@ import SideBar from '../components/sidebar/SideBar';
 import { Typography } from '@mui/material';
 
 interface SettingsPageProps {
+  authenticated: boolean;
   setAuthenticated: (authenticated: boolean) => void;
 }
 
@@ -23,7 +24,13 @@ const SettingsPage: React.FC<SettingsPageProps> = (
     return <Typography>Yo</Typography>;
   };
 
-  return <HomePage sideBar={getSideBar()} content={getContent()} />;
+  return (
+    <HomePage
+      authenticated={props.authenticated}
+      sideBar={getSideBar()}
+      content={getContent()}
+    />
+  );
 };
 
 export default SettingsPage;

@@ -14,6 +14,7 @@ import SideBar from '../components/sidebar/SideBar';
 import HomePage from './common/HomePage';
 
 interface DashboardProps {
+  authenticated: boolean;
   setAuthenticated: (authenticated: boolean) => void;
   setNoStocksAlert: (noStocks: boolean) => void;
 }
@@ -62,7 +63,7 @@ const DashboardPage: React.FC<DashboardProps> = (
             padding: 2,
             borderRadius: '40px',
             backgroundColor: Colors.LIGHT_GRAY,
-            outline: '2px solid ' + Colors.GRAY,
+            outline: `1px solid ${Colors.GRAY}`,
           }}
         >
           <PortfolioPieChartWidget
@@ -77,7 +78,7 @@ const DashboardPage: React.FC<DashboardProps> = (
             padding: 2,
             borderRadius: '40px',
             backgroundColor: Colors.LIGHT_GRAY,
-            outline: '2px solid ' + Colors.GRAY,
+            outline: `1px solid ${Colors.GRAY}`,
           }}
         >
           <PortfolioStockLineChartWidget loading={loading} stocks={stocks} />
@@ -88,7 +89,7 @@ const DashboardPage: React.FC<DashboardProps> = (
             padding: 2,
             borderRadius: '40px',
             backgroundColor: Colors.LIGHT_GRAY,
-            outline: '2px solid ' + Colors.GRAY,
+            outline: `1px solid ${Colors.GRAY}`,
           }}
         >
           <PortfolioDataGridV2
@@ -101,7 +102,13 @@ const DashboardPage: React.FC<DashboardProps> = (
     );
   };
 
-  return <HomePage sideBar={getSideBar()} content={getContent()} />;
+  return (
+    <HomePage
+      authenticated={props.authenticated}
+      sideBar={getSideBar()}
+      content={getContent()}
+    />
+  );
 };
 
 export default DashboardPage;

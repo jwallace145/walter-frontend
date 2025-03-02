@@ -6,7 +6,7 @@ import LandingPageTextTitle from '../components/landing/LandingPageTextTitle';
 import LandingPageGraphicInstructional from '../components/landing/LandingPageGraphicInstructional';
 import { Divider } from '@mui/material';
 
-const LandingPage: React.FC = () => {
+const LandingPage: React.FC = (): React.ReactElement => {
   const isMobile: boolean = useIsMobile();
 
   const getLandingPageTextTitle = (size: number) => {
