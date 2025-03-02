@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, ListItem, Modal } from '@mui/material';
+import { Container, Modal } from '@mui/material';
 import { Colors, Fonts, WALTER_TOKEN_NAME } from '../../constants/Constants';
 import HeaderButton from '../header/HeaderButton';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
@@ -14,46 +14,23 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '../button/LoadingButton';
 import { removeCookie } from 'typescript-cookie';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import AddchartIcon from '@mui/icons-material/Addchart';
+import EmailIcon from '@mui/icons-material/Email';
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
+import SideBarButton from './SideBarButton';
 
 interface SideBarProps {
   setAuthenticated: (authenticated: boolean) => void;
+  currentTab: string;
 }
-
-// does not include logout button because logout button does not navigate
-// anywhere, just opens a logout model for the user to logout
-const SIDEBAR_NAVIGATE_BUTTONS: any[] = [
-  { title: 'Dashboard', page: DASHBOARD_PAGE },
-  { title: 'Portfolio', page: PORTFOLIO_PAGE },
-  { title: 'Newsletter', page: NEWSLETTER_PAGE },
-  { title: 'Settings', page: SETTINGS_PAGE },
-];
 
 const SideBar: React.FC<SideBarProps> = (
   props: SideBarProps,
 ): React.ReactElement => {
   const navigate: NavigateFunction = useNavigate();
   const [openLogoutModal, setOpenLogoutModal] = React.useState(false);
-
-  const getButtons: () => React.ReactElement[] = (): React.ReactElement[] => {
-    return [
-      ...SIDEBAR_NAVIGATE_BUTTONS.map((button: any) => (
-        <HeaderButton
-          title={button.title}
-          onClick={() => navigate(button.page)}
-        />
-      )),
-      getLogoutButton(),
-    ];
-  };
-
-  const getLogoutButton: () => React.ReactElement = (): React.ReactElement => {
-    return (
-      <HeaderButton
-        title={'Logout'}
-        onClick={(): void => setOpenLogoutModal(true)}
-      />
-    );
-  };
 
   const handleLogout: () => void = (): void => {
     setOpenLogoutModal(false);
@@ -67,12 +44,43 @@ const SideBar: React.FC<SideBarProps> = (
       <Container
         sx={{
           padding: 2,
-          borderRadius: '40px',
-          backgroundColor: Colors.LIGHT_GRAY,
-          outline: `2px solid ${Colors.GRAY}`,
         }}
       >
-        {getButtons()}
+        <SideBarButton
+          title="Dashboard"
+          icon={<AutoGraphIcon sx={{ color: Colors.YELLOW }} />}
+          onClick={(): void => navigate(DASHBOARD_PAGE)}
+          bold={props.currentTab.toLowerCase() === 'dashboard'}
+          sx={{ marginTop: '30px' }}
+        />
+        <SideBarButton
+          title="Portfolio"
+          icon={<AddchartIcon sx={{ color: Colors.YELLOW }} />}
+          onClick={(): void => navigate(PORTFOLIO_PAGE)}
+          bold={props.currentTab.toLowerCase() === 'portfolio'}
+          sx={{ marginTop: '30px' }}
+        />
+        <SideBarButton
+          title="Newsletters"
+          icon={<EmailIcon sx={{ color: Colors.YELLOW }} />}
+          onClick={(): void => navigate(NEWSLETTER_PAGE)}
+          bold={props.currentTab.toLowerCase() === 'newsletters'}
+          sx={{ marginTop: '30px' }}
+        />
+        <SideBarButton
+          title="Settings"
+          icon={<SettingsIcon sx={{ color: Colors.YELLOW }} />}
+          onClick={(): void => navigate(SETTINGS_PAGE)}
+          bold={props.currentTab.toLowerCase() === 'settings'}
+          sx={{ marginTop: '30px' }}
+        />
+        <SideBarButton
+          title="Logout"
+          icon={<LogoutIcon sx={{ color: Colors.YELLOW }} />}
+          onClick={(): any => setOpenLogoutModal(true)}
+          bold={props.currentTab.toLowerCase() === 'logout'}
+          sx={{ marginTop: '30px', marginBottom: '30px' }}
+        />
       </Container>
       <Modal open={openLogoutModal} onClose={() => setOpenLogoutModal(false)}>
         <Container>
@@ -89,12 +97,12 @@ const SideBar: React.FC<SideBarProps> = (
               backgroundColor: Colors.LIGHT_GRAY,
               borderRadius: 4,
               boxShadow: 24,
-              p: 4,
+              padding: 4,
             }}
           >
             <Typography
               variant="h5"
-              sx={{ fontFamily: Fonts.RALEWAY, fontWeight: '700' }}
+              sx={{ fontFamily: Fonts.RALEWAY, fontWeight: 'bold' }}
             >
               Logout?
             </Typography>

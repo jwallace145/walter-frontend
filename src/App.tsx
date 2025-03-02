@@ -16,6 +16,7 @@ import {
   SEARCH_STOCKS_PAGE,
   SEND_CHANGE_PASSWORD_EMAIL_PAGE,
   SEND_VERIFY_EMAIL_PAGE,
+  SETTINGS_PAGE,
   STOCK_DASHBOARD_PAGE,
   UNSUBSCRIBE_PAGE,
   VERIFY_EMAIL_PAGE,
@@ -24,7 +25,7 @@ import { GetUserResponse } from './api/methods/GetUser';
 import UserNotVerifiedAlert from './components/alerts/UserNotVerifiedAlert';
 import SendVerifyEmail from './components/verify/SendVerifyEmail';
 import NewslettersPage from './pages/NewslettersPage';
-import Dashboard from './pages/Dashboard';
+import DashboardPage from './pages/DashboardPage';
 import UnsubscribePage from './pages/UnsubscribePage';
 import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
 import StockDashboardPage from './pages/StockPage';
@@ -41,6 +42,8 @@ import SentEmailVerificationAlert from './components/alerts/SentEmailVerificatio
 import NoStocksInUserPortfolioAlert from './components/alerts/NoStocksInUserPortfolioAlert';
 import PurchaseNewsletterSubscriptionSuccessPage from './pages/PurchaseNewsletterSubscriptionSuccessPage';
 import Typography from '@mui/material/Typography';
+import PortfolioPage from './pages/PortfolioPage';
+import SettingsPage from './pages/SettingsPage';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -113,7 +116,7 @@ const App: React.FC = () => {
             <Route
               path={DASHBOARD_PAGE}
               element={
-                <Dashboard
+                <DashboardPage
                   setNoStocksAlert={setNoStocksInUserPortfolioAlert}
                   setAuthenticated={setAuthenticated}
                 />
@@ -121,9 +124,16 @@ const App: React.FC = () => {
             />
             <Route
               path={PORTFOLIO_PAGE}
-              element={<Typography>Test</Typography>}
+              element={<PortfolioPage setAuthenticated={setAuthenticated} />}
             />
-            <Route path={NEWSLETTER_PAGE} element={<NewslettersPage />} />
+            <Route
+              path={NEWSLETTER_PAGE}
+              element={<NewslettersPage setAuthenticated={setAuthenticated} />}
+            />
+            <Route
+              path={SETTINGS_PAGE}
+              element={<SettingsPage setAuthenticated={setAuthenticated} />}
+            />
             <Route
               path={SEND_VERIFY_EMAIL_PAGE}
               element={<SendVerifyEmail />}

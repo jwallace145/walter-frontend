@@ -52,7 +52,7 @@ const SearchBar: React.FC = (): React.ReactElement => {
       <Container>
         <AccountCircleIcon
           fontSize="large"
-          sx={{ cursor: 'pointer' }}
+          sx={{ cursor: 'pointer', color: Colors.LIGHT_GRAY }}
           onClick={() => navigate(DASHBOARD_PAGE)}
         />
       </Container>

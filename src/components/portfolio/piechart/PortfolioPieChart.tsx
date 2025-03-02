@@ -13,9 +13,12 @@ import useIsMobile from '../../utils/IsMobile';
 const colors = [
   Colors.LIGHT_BLUE,
   Colors.YELLOW,
-  Colors.TEAL,
   Colors.GRAY,
   Colors.LAVENDER,
+  Colors.OTTER_GREEN,
+  Colors.BLURPLE,
+  Colors.ATLANTIC_BLUE,
+  Colors.SLATE_GRAY,
 ];
 
 /**

@@ -179,7 +179,7 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
           {
             data: getPrices(),
             valueFormatter: (v) => `${US_DOLLAR.format(v as number)}`,
-            color: Colors.YELLOW,
+            color: Colors.ATLANTIC_BLUE,
             showMark: false,
           },
         ]}

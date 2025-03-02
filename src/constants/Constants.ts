@@ -44,6 +44,10 @@ export const Colors = {
   DARK_BLUE: '#003366',
   TEAL: '#4C9F8D',
   LAVENDER: '#D7B9FF',
+  OTTER_GREEN: '#8CB89F',
+  SLATE_GRAY: '#444B5A',
+  ATLANTIC_BLUE: '#4282AA',
+  BLURPLE: '#4B5D8A',
 };
 
 export const Fonts = {

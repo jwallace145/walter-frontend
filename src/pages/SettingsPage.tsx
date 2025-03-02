@@ -3,18 +3,18 @@ import HomePage from './common/HomePage';
 import SideBar from '../components/sidebar/SideBar';
 import { Typography } from '@mui/material';
 
-interface NewslettersPageProps {
+interface SettingsPageProps {
   setAuthenticated: (authenticated: boolean) => void;
 }
 
-const NewslettersPage: React.FC<NewslettersPageProps> = (
-  props: NewslettersPageProps,
+const SettingsPage: React.FC<SettingsPageProps> = (
+  props: SettingsPageProps,
 ): React.ReactElement => {
   const getSideBar: () => React.ReactElement = (): React.ReactElement => {
     return (
       <SideBar
         setAuthenticated={props.setAuthenticated}
-        currentTab={'newsletters'}
+        currentTab={'settings'}
       />
     );
   };
@@ -26,4 +26,4 @@ const NewslettersPage: React.FC<NewslettersPageProps> = (
   return <HomePage sideBar={getSideBar()} content={getContent()} />;
 };
 
-export default NewslettersPage;
+export default SettingsPage;
