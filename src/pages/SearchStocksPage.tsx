@@ -4,10 +4,17 @@ import { WalterAPI } from '../api/WalterAPI';
 import { SearchStocksResponse, StockSearch } from '../api/methods/SearchStocks';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import { Box, Typography } from '@mui/material';
-import Grid from '@mui/material/Grid2';
 import StockSearchResult from '../components/stock/StockSearchResult';
+import HomePage from './common/HomePage';
+import SideBar from '../components/sidebar/SideBar';
 
-const SearchStocksPage: React.FC = () => {
+interface SearchStocksPageProps {
+  setAuthenticated: (authenticated: boolean) => void;
+}
+
+const SearchStocksPage: React.FC<SearchStocksPageProps> = (
+  props: SearchStocksPageProps,
+): React.ReactElement => {
   const params: Readonly<Params> = useParams();
   const [stocksLoading, setStocksLoading] = useState(false);
   const [stocks, setStocks] = useState<StockSearch[]>([]);
@@ -21,35 +28,40 @@ const SearchStocksPage: React.FC = () => {
       .finally(() => setStocksLoading(false));
   }, [params.symbol]);
 
-  if (stocksLoading) {
-    return <LoadingCircularProgress />;
-  }
+  const getSideBar: () => React.ReactElement = (): React.ReactElement => {
+    return (
+      <SideBar setAuthenticated={props.setAuthenticated} currentTab="none" />
+    );
+  };
 
-  if (!stocks || stocks.length === 0) {
-    return <Typography variant="h6">No stocks found</Typography>;
-  }
+  const getContent: () => React.ReactElement = (): React.ReactElement => {
+    if (stocksLoading) {
+      return <LoadingCircularProgress />;
+    }
+
+    if (!stocks || stocks.length === 0) {
+      return <Typography variant="h6">No stocks found</Typography>;
+    }
+
+    return (
+      <>
+        <Box sx={{ flexGrow: 1, padding: 2 }}>
+          {stocks.map(
+            (stock: StockSearch): React.ReactElement => (
+              <StockSearchResult stock={stock} sx={{ marginTop: '10px' }} />
+            ),
+          )}
+        </Box>
+      </>
+    );
+  };
 
   return (
-    <Box sx={{ flexGrow: 1, padding: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        Search Results ({stocks.length})
-      </Typography>
-      <Grid
-        container
-        direction="column"
-        size={12}
-        spacing={2}
-        sx={{
-          padding: 2,
-          borderRadius: 2,
-          boxShadow: 3,
-        }}
-      >
-        {stocks.map((stock) => (
-          <StockSearchResult stock={stock} />
-        ))}
-      </Grid>
-    </Box>
+    <HomePage
+      sideBar={getSideBar()}
+      content={getContent()}
+      authenticated={true}
+    />
   );
 };
 

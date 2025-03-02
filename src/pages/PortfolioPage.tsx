@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from '../components/sidebar/SideBar';
 import HomePage from './common/HomePage';
-import { Colors, Fonts } from '../constants/Constants';
+import { Fonts } from '../constants/Constants';
 import { Container } from '@mui/material';
 import { WalterAPI } from '../api/WalterAPI';
 import {
@@ -9,7 +9,6 @@ import {
   PortfolioStock,
 } from '../api/methods/GetPortfolio';
 import PortfolioStockCard from '../components/portfolio/stock/PortfolioStockCard';
-import Grid from '@mui/material/Grid2';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import Typography from '@mui/material/Typography';
 
@@ -32,7 +31,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (
   const getPortfolio: () => void = (): void => {
     setLoading(true);
     WalterAPI.getPortfolio()
-      .then((response: GetPortfolioResponse) => {
+      .then((response: GetPortfolioResponse): void => {
         setStocks(response.getStocks());
       })
       .finally(() => {
@@ -65,7 +64,6 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (
               fontSize: '18px',
             }}
           >
-            {' '}
             No stocks found in portfolio...
           </Typography>
         </Container>
@@ -75,7 +73,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (
       <Container>
         {stocks.map(
           (stock: PortfolioStock): React.ReactElement => (
-            <PortfolioStockCard stock={stock} />
+            <PortfolioStockCard stock={stock} setRefresh={setRefresh} />
           ),
         )}
       </Container>
