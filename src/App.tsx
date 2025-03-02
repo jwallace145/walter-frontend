@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/header/Header';
 import { WalterAPI } from './api/WalterAPI';
@@ -17,7 +16,7 @@ import {
   SEND_CHANGE_PASSWORD_EMAIL_PAGE,
   SEND_VERIFY_EMAIL_PAGE,
   SETTINGS_PAGE,
-  STOCK_DASHBOARD_PAGE,
+  STOCK_PAGE,
   UNSUBSCRIBE_PAGE,
   VERIFY_EMAIL_PAGE,
 } from './pages/common/Pages';
@@ -28,7 +27,7 @@ import NewslettersPage from './pages/NewslettersPage';
 import DashboardPage from './pages/DashboardPage';
 import UnsubscribePage from './pages/UnsubscribePage';
 import UserNotSubscribedAlert from './components/alerts/UserNotSubscribedAlert';
-import StockDashboardPage from './pages/StockPage';
+import StockPage from './pages/StockPage';
 import SearchStocksPage from './pages/SearchStocksPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
@@ -41,7 +40,6 @@ import VerifyEmailPage from './pages/VerifyEmailPage';
 import SentEmailVerificationAlert from './components/alerts/SentEmailVerificationAlert';
 import NoStocksInUserPortfolioAlert from './components/alerts/NoStocksInUserPortfolioAlert';
 import PurchaseNewsletterSubscriptionSuccessPage from './pages/PurchaseNewsletterSubscriptionSuccessPage';
-import Typography from '@mui/material/Typography';
 import PortfolioPage from './pages/PortfolioPage';
 import SettingsPage from './pages/SettingsPage';
 
@@ -57,10 +55,7 @@ const App: React.FC = () => {
   const [noStocksInUserPortfolioAlert, setNoStocksInUserPortfolioAlert] =
     useState<boolean>(false);
 
-  /**
-   * On component mount, check to see if the current user is authenticated or not.
-   */
-  useEffect(() => {
+  useEffect((): void => {
     isUserAuthenticated();
   }, [authenticated, sentEmailVerificationAlert]);
 
@@ -100,6 +95,7 @@ const App: React.FC = () => {
       ) : (
         <>
           <Routes>
+            {/* UNAUTHENTICATED PAGES */}
             <Route path={LANDING_PAGE} element={<LandingPage />} />
             <Route
               path={REGISTER_PAGE}
@@ -114,31 +110,6 @@ const App: React.FC = () => {
               element={<LoginPage setAuthenticated={setAuthenticated} />}
             />
             <Route
-              path={DASHBOARD_PAGE}
-              element={
-                <DashboardPage
-                  setNoStocksAlert={setNoStocksInUserPortfolioAlert}
-                  setAuthenticated={setAuthenticated}
-                />
-              }
-            />
-            <Route
-              path={PORTFOLIO_PAGE}
-              element={<PortfolioPage setAuthenticated={setAuthenticated} />}
-            />
-            <Route
-              path={NEWSLETTER_PAGE}
-              element={<NewslettersPage setAuthenticated={setAuthenticated} />}
-            />
-            <Route
-              path={SETTINGS_PAGE}
-              element={<SettingsPage setAuthenticated={setAuthenticated} />}
-            />
-            <Route
-              path={SEND_VERIFY_EMAIL_PAGE}
-              element={<SendVerifyEmail />}
-            />
-            <Route
               path={VERIFY_EMAIL_PAGE}
               element={<VerifyEmailPage setAuthenticated={setAuthenticated} />}
             />
@@ -151,16 +122,58 @@ const App: React.FC = () => {
               element={<SendChangePasswordEmailPage />}
             />
             <Route path={UNSUBSCRIBE_PAGE} element={<UnsubscribePage />} />
+
+            {/* AUTHENTICATED PAGES */}
             <Route
-              path={STOCK_DASHBOARD_PAGE}
-              element={<StockDashboardPage />}
+              path={DASHBOARD_PAGE}
+              element={
+                <DashboardPage
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                  setNoStocksAlert={setNoStocksInUserPortfolioAlert}
+                />
+              }
             />
+            <Route
+              path={PORTFOLIO_PAGE}
+              element={
+                <PortfolioPage
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
+              }
+            />
+            <Route
+              path={NEWSLETTER_PAGE}
+              element={
+                <NewslettersPage
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
+              }
+            />
+            <Route
+              path={SETTINGS_PAGE}
+              element={
+                <SettingsPage
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated}
+                />
+              }
+            />
+            <Route
+              path={SEND_VERIFY_EMAIL_PAGE}
+              element={<SendVerifyEmail />}
+            />
+            <Route path={STOCK_PAGE} element={<StockPage />} />
             <Route path={SEARCH_STOCKS_PAGE} element={<SearchStocksPage />} />
             <Route
               path={PURCHASE_NEWSLETTER_SUBSCRIPTION_SUCCESS_PAGE}
               element={<PurchaseNewsletterSubscriptionSuccessPage />}
             />
           </Routes>
+
+          {/* ALERTS */}
           <UserNotVerifiedAlert
             userNotVerified={userNotVerifiedAlert}
             setUserNotVerifiedAlert={setUserNotVerifiedAlert}
