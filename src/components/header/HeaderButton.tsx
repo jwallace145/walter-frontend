@@ -1,7 +1,4 @@
-import React, { FC, ReactNode } from 'react';
-import { IconButton, Tooltip } from '@mui/material';
-import { grey } from '@mui/material/colors';
-import { LANDING_PAGE } from '../../pages/common/Pages';
+import React, { FC } from 'react';
 import Typography from '@mui/material/Typography';
 import { Colors, Fonts } from '../../constants/Constants';
 

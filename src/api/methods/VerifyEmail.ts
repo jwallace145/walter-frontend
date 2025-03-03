@@ -1,6 +1,6 @@
 import { WalterAPIResponseBase } from '../common/Response';
 import axios, { AxiosResponse } from 'axios';
-import { AUTH_USER_METHOD, VERIFY_EMAIL_METHOD } from '../common/Methods';
+import { VERIFY_EMAIL_METHOD } from '../common/Methods';
 
 /**
  * VerifyEmailResponse
