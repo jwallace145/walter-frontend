@@ -40,6 +40,11 @@ import {
   VerifyPurchaseNewsletterSubscriptionResponse,
 } from './methods/VerifyPurchaseNewsletterSubscription';
 import { WALTER_TOKEN_NAME } from '../constants/Constants';
+import {
+  getNewsletters,
+  GetNewslettersResponse,
+} from './methods/GetNewsletters';
+import { getNewsletter, GetNewsletterResponse } from './methods/GetNewsletter';
 
 /**
  * Walter API
@@ -153,6 +158,18 @@ export class WalterAPI {
   public static async sendNewsletter(): Promise<SendNewsletterResponse> {
     const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return sendNewsletter(WalterAPI.ENDPOINT, token);
+  }
+
+  public static async getNewsletter(
+    date: string,
+  ): Promise<GetNewsletterResponse> {
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
+    return getNewsletter(WalterAPI.ENDPOINT, token, date);
+  }
+
+  public static async getNewsletters(): Promise<GetNewslettersResponse> {
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
+    return getNewsletters(WalterAPI.ENDPOINT, token);
   }
 
   /**
