@@ -15,6 +15,9 @@ import Grid from '@mui/material/Grid2';
 import { Stack } from '@mui/material';
 import HomePage from './common/HomePage';
 import SideBar from '../components/sidebar/SideBar';
+import { StockStatistics } from '../api/methods/GetStatistics';
+import { GetStatisticsResponse } from '../api/methods/GetStatistics';
+import StockStatisticsCard from '../components/stock/StockStatisticsCard';
 
 interface StockPageProps {
   authenticated: boolean;
@@ -26,15 +29,18 @@ const StockPage: React.FC<StockPageProps> = (
 ): React.ReactElement => {
   const params: Readonly<Params> = useParams();
   const [stockLoading, setStockLoading] = useState(false);
+  const [statisticsLoading, setStatisticsLoading] = useState(false);
   const [pricesLoading, setPricesLoading] = useState(false);
   const [summaryLoading, setSummaryLoading] = useState(false);
   const [stock, setStock] = useState<Stock>();
+  const [statistics, setStatistics] = useState<StockStatistics>();
   const [prices, setPrices] = useState<Price[]>([]);
   const [sources, setSources] = useState<NewsSource[]>([]);
   const [summary, setSummary] = useState<string>();
 
-  useEffect(() => {
+  useEffect((): void => {
     getStockOverview();
+    getStockStatistics();
     getStockPrices();
     getStockNewsSummary();
   }, []);
@@ -47,6 +53,18 @@ const StockPage: React.FC<StockPageProps> = (
       })
       .finally((): void => {
         setStockLoading(false);
+      });
+  };
+
+  const getStockStatistics: () => void = (): void => {
+    setStatisticsLoading(true);
+    WalterAPI.getStatistics(params.symbol as string)
+      .then((response: GetStatisticsResponse): void => {
+        setStatistics(response.getStatistics() as StockStatistics);
+      })
+      .catch((error: Error): void => {})
+      .finally((): void => {
+        setStatisticsLoading(false);
       });
   };
 
@@ -85,6 +103,10 @@ const StockPage: React.FC<StockPageProps> = (
         <Grid size={6}>
           <Stack>
             <StockOverview loading={stockLoading} stock={stock} />
+            <StockStatisticsCard
+              loading={statisticsLoading}
+              statistics={statistics}
+            />
             <StockLineGraph
               loading={pricesLoading && stockLoading}
               stock={stock}
