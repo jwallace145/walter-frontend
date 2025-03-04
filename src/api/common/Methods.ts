@@ -5,6 +5,7 @@ export const AUTH_USER_METHOD: string = 'AuthUser';
 export const CREATE_USER_METHOD: string = 'CreateUser';
 export const GET_USER_METHOD: string = 'GetUser';
 export const GET_STOCK_METHOD: string = 'GetStock';
+export const GET_STOCK_STATISTICS: string = 'GetStatistics';
 export const ADD_STOCK_METHOD: string = 'AddStock';
 export const DELETE_STOCK_METHOD: string = 'DeleteStock';
 export const GET_PORTFOLIO_METHOD: string = 'GetPortfolio';

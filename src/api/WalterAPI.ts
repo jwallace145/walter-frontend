@@ -45,6 +45,7 @@ import {
   GetNewslettersResponse,
 } from './methods/GetNewsletters';
 import { getNewsletter, GetNewsletterResponse } from './methods/GetNewsletter';
+import { getStatistics, GetStatisticsResponse } from './methods/GetStatistics';
 
 /**
  * Walter API
@@ -89,6 +90,12 @@ export class WalterAPI {
   public static async getUser(): Promise<GetUserResponse> {
     const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return getUser(WalterAPI.ENDPOINT, token);
+  }
+
+  public static async getStatistics(
+    symbol: string,
+  ): Promise<GetStatisticsResponse> {
+    return getStatistics(WalterAPI.ENDPOINT, symbol);
   }
 
   /**
