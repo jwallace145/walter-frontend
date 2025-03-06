@@ -28,6 +28,20 @@ export const isValidUsername: (username: string) => boolean = (
   return usernamePattern.test(username);
 };
 
+export const formatDate: (date: Date, format: string) => string = (
+  date: Date,
+  format: string,
+): string => {
+  const year: number = date.getFullYear();
+  const month: string = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
+  const day: string = date.getDate().toString().padStart(2, '0');
+
+  return format
+    .replace('yyyy', year.toString())
+    .replace('mm', month)
+    .replace('dd', day);
+};
+
 export const FULL_PAGE_WIDTH: number = 12;
 export const HALF_PAGE_WIDTH: number = 6;
 

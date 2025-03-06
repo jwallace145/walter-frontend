@@ -1,5 +1,4 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid2';
 import UnsubscribeButton from '../components/unsubscribe/UnsubscribeButton';
 import { useLocation } from 'react-router-dom';

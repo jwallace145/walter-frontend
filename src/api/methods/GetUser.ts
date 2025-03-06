@@ -12,6 +12,7 @@ export interface User {
   username: string;
   verified: boolean;
   subscribed: boolean;
+  signUpDate: Date;
 }
 
 /**
@@ -26,6 +27,10 @@ export class GetUserResponse extends WalterAPIResponseBase {
   constructor(status: string, message: string, data?: any) {
     super(GET_USER_METHOD, status, message);
     this.user = this.initUser(data);
+  }
+
+  public getUser(): User {
+    return this.user;
   }
 
   public isAuthenticated(): boolean {
@@ -59,6 +64,7 @@ export class GetUserResponse extends WalterAPIResponseBase {
         username: '',
         verified: false,
         subscribed: false,
+        signUpDate: new Date(),
       };
     }
     return {
@@ -66,6 +72,7 @@ export class GetUserResponse extends WalterAPIResponseBase {
       username: data.username,
       verified: data.verified,
       subscribed: data.subscribed,
+      signUpDate: new Date(data['sign_up_date']),
     };
   }
 }

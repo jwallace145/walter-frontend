@@ -214,6 +214,16 @@ const StockOverview: React.FC<StockOverviewProps> = (
                 fontSize: '18px',
               }}
             >
+              <Typography
+                sx={{
+                  display: 'inline',
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                }}
+              >
+                Company:{' '}
+              </Typography>
               {props.stock.company}
             </Typography>
             <Typography
@@ -223,6 +233,16 @@ const StockOverview: React.FC<StockOverviewProps> = (
                 fontSize: '18px',
               }}
             >
+              <Typography
+                sx={{
+                  display: 'inline',
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                }}
+              >
+                Sector:{' '}
+              </Typography>
               {props.stock.sector}
             </Typography>
             <Typography
@@ -232,6 +252,16 @@ const StockOverview: React.FC<StockOverviewProps> = (
                 fontSize: '18px',
               }}
             >
+              <Typography
+                sx={{
+                  display: 'inline',
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                }}
+              >
+                Industry:{' '}
+              </Typography>
               {props.stock.industry}
             </Typography>
           </Stack>

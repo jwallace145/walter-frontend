@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import HomePage from './common/HomePage';
 import SideBar from '../components/sidebar/SideBar';
-import { Typography } from '@mui/material';
+import Grid from '@mui/material/Grid2';
+import UserDetailsCard from '../components/users/UserDetailsCard';
+import { User } from '../api/methods/GetUser';
 
 interface SettingsPageProps {
   authenticated: boolean;
   setAuthenticated: (authenticated: boolean) => void;
+  user: User;
 }
 
 const SettingsPage: React.FC<SettingsPageProps> = (
   props: SettingsPageProps,
 ): React.ReactElement => {
+  useEffect((): void => {}, []);
+
   const getSideBar: () => React.ReactElement = (): React.ReactElement => {
     return (
       <SideBar
@@ -20,8 +25,18 @@ const SettingsPage: React.FC<SettingsPageProps> = (
     );
   };
 
+  // add user card and payment/subscription status card
   const getContent: () => React.ReactElement = (): React.ReactElement => {
-    return <Typography>Yo</Typography>;
+    return (
+      <Grid container spacing={2}>
+        <Grid size={5}>
+          <UserDetailsCard user={props.user} />
+        </Grid>
+        <Grid size={5}>
+          <UserDetailsCard user={props.user} />
+        </Grid>
+      </Grid>
+    );
   };
 
   return (

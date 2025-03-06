@@ -10,6 +10,7 @@ import {
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import ArchivedNewsletterCard from '../components/newsletter/ArchivedNewsletterCard';
 import { useLocation } from 'react-router-dom';
+import Grid from '@mui/material/Grid2';
 
 interface NewslettersPageProps {
   authenticated: boolean;
@@ -58,13 +59,13 @@ const NewslettersPage: React.FC<NewslettersPageProps> = (
     }
 
     return (
-      <>
+      <Grid size={11}>
         {newsletters.map(
           (newsletter: Newsletter): React.ReactElement => (
             <ArchivedNewsletterCard newsletter={newsletter} />
           ),
         )}
-      </>
+      </Grid>
     );
   };
 
