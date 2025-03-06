@@ -42,10 +42,12 @@ import NoStocksInUserPortfolioAlert from './components/alerts/NoStocksInUserPort
 import PurchaseNewsletterSubscriptionSuccessPage from './pages/PurchaseNewsletterSubscriptionSuccessPage';
 import PortfolioPage from './pages/PortfolioPage';
 import SettingsPage from './pages/SettingsPage';
+import { User } from './api/methods/GetUser';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
   const [userNotVerifiedAlert, setUserNotVerifiedAlert] =
     useState<boolean>(false);
   const [userNotSubscribedAlert, setUserNotSubscribeAlert] =
@@ -79,6 +81,7 @@ const App: React.FC = () => {
         setAuthenticated(response.isAuthenticated());
         setUserNotVerifiedAlert(response.isNotVerified());
         setUserNotSubscribeAlert(response.isNotSubscribed());
+        setUser(response.getUser());
       })
       .catch((error: any) => setAuthenticated(false))
       .finally(() => setLoading(false));
@@ -158,6 +161,7 @@ const App: React.FC = () => {
                 <SettingsPage
                   authenticated={authenticated}
                   setAuthenticated={setAuthenticated}
+                  user={user as User}
                 />
               }
             />

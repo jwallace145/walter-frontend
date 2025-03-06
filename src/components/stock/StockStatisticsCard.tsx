@@ -13,7 +13,7 @@ interface StockStatisticsProps {
 const StockStatisticsCard: React.FC<StockStatisticsProps> = (
   props: StockStatisticsProps,
 ): React.ReactElement => {
-  const formatMarketCap: (number: number) => string = (
+  const formatLargeNumber: (number: number) => string = (
     number: number,
   ): string => {
     if (number >= 1_000_000_000_000) {
@@ -59,8 +59,17 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
                 fontSize: '18px',
               }}
             >
-              Market Cap:{' '}
-              {formatMarketCap(props.statistics.marketCapitalization)}
+              <Typography
+                sx={{
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  display: 'inline',
+                }}
+              >
+                Market Cap:{' '}
+              </Typography>
+              ${formatLargeNumber(props.statistics.marketCapitalization)}
             </Typography>
             <Typography
               sx={{
@@ -69,7 +78,17 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
                 fontSize: '18px',
               }}
             >
-              EBITDA: {props.statistics.ebitda}
+              <Typography
+                sx={{
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  display: 'inline',
+                }}
+              >
+                EBITDA:
+              </Typography>{' '}
+              ${formatLargeNumber(props.statistics.ebitda)}
             </Typography>
             <Typography
               sx={{
@@ -78,7 +97,17 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
                 fontSize: '18px',
               }}
             >
-              PE Ratio: {props.statistics.peRatio}
+              <Typography
+                sx={{
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  display: 'inline',
+                }}
+              >
+                PE Ratio:
+              </Typography>{' '}
+              {props.statistics.peRatio}
             </Typography>
             <Typography
               sx={{
@@ -87,7 +116,17 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
                 fontSize: '18px',
               }}
             >
-              Dividend Yield: {props.statistics.dividendYield}
+              <Typography
+                sx={{
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  display: 'inline',
+                }}
+              >
+                Dividend Yield:
+              </Typography>{' '}
+              {props.statistics.dividendYield}
             </Typography>
           </Stack>
         </Grid>
@@ -107,7 +146,17 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
                 fontSize: '18px',
               }}
             >
-              EPS: {props.statistics.eps}
+              <Typography
+                sx={{
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  display: 'inline',
+                }}
+              >
+                EPS:
+              </Typography>{' '}
+              {props.statistics.eps}
             </Typography>
             <Typography
               sx={{
@@ -116,7 +165,16 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
                 fontSize: '18px',
               }}
             >
-              52 Week High:{' '}
+              <Typography
+                sx={{
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  display: 'inline',
+                }}
+              >
+                52 Week High:{' '}
+              </Typography>
               {US_DOLLAR.format(props.statistics.fiftyTwoWeekHigh)}
             </Typography>
             <Typography
@@ -126,7 +184,17 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
                 fontSize: '18px',
               }}
             >
-              52 Week Low: {US_DOLLAR.format(props.statistics.fiftyTwoWeekLow)}
+              <Typography
+                sx={{
+                  fontFamily: Fonts.RALEWAY,
+                  fontWeight: 'bold',
+                  fontSize: '18px',
+                  display: 'inline',
+                }}
+              >
+                52 Week Low:
+              </Typography>{' '}
+              {US_DOLLAR.format(props.statistics.fiftyTwoWeekLow)}
             </Typography>
           </Stack>
         </Grid>

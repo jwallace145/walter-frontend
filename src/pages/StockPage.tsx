@@ -62,7 +62,9 @@ const StockPage: React.FC<StockPageProps> = (
       .then((response: GetStatisticsResponse): void => {
         setStatistics(response.getStatistics() as StockStatistics);
       })
-      .catch((error: Error): void => {})
+      .catch((error: Error): void => {
+        console.log(error);
+      })
       .finally((): void => {
         setStatisticsLoading(false);
       });
