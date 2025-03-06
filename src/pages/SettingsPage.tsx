@@ -4,6 +4,7 @@ import SideBar from '../components/sidebar/SideBar';
 import Grid from '@mui/material/Grid2';
 import UserDetailsCard from '../components/users/UserDetailsCard';
 import { User } from '../api/methods/GetUser';
+import UserSubscriptionStatusCard from '../components/users/UserSubscriptionStatusCard';
 
 interface SettingsPageProps {
   authenticated: boolean;
@@ -29,9 +30,6 @@ const SettingsPage: React.FC<SettingsPageProps> = (
   const getContent: () => React.ReactElement = (): React.ReactElement => {
     return (
       <Grid container spacing={2}>
-        <Grid size={5}>
-          <UserDetailsCard user={props.user} />
-        </Grid>
         <Grid size={5}>
           <UserDetailsCard user={props.user} />
         </Grid>
