@@ -4,7 +4,6 @@ import SideBar from '../components/sidebar/SideBar';
 import Grid from '@mui/material/Grid2';
 import UserDetailsCard from '../components/users/UserDetailsCard';
 import { User } from '../api/methods/GetUser';
-import UserSubscriptionStatusCard from '../components/users/UserSubscriptionStatusCard';
 
 interface SettingsPageProps {
   authenticated: boolean;
