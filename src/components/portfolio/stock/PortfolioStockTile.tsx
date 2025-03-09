@@ -33,6 +33,20 @@ const PortfolioStockTile: React.FC<PortfolioStockCardProps> = (
     navigate(`/stocks/${props.stock.symbol.toLowerCase()}`);
   };
 
+  const getSymbolLogo: (symbol: string) => React.ReactElement = (
+    symbol: string,
+  ): React.ReactElement => {
+    return (
+      <Box
+        component="img"
+        onClick={handleSymbolClick}
+        className={styles.PortfolioStockTile__logo}
+        src={`https://assets.parqet.com/logos/symbol/${symbol.toUpperCase()}`}
+        alt={symbol.toUpperCase()}
+      />
+    );
+  };
+
   const getEditStockModal: () => React.ReactElement =
     (): React.ReactElement => {
       return (
@@ -197,6 +211,7 @@ const PortfolioStockTile: React.FC<PortfolioStockCardProps> = (
             onClick={handleSymbolClick}
             sx={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '10px' }}
           />
+          {getSymbolLogo(props.stock.symbol)}
           <Typography className={styles.PortfolioStockTile__text}>
             <Typography className={styles.PortfolioStockTile__textBold}>
               Equity:{' '}
