@@ -80,3 +80,18 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
   padding: 15px;
 }
+
+.PortfolioStockTile__logo {
+  margin-bottom: 15px;
+  border-radius: 16px;
+  width: 30%;
+  height: auto;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  object-fit: contain;
+  object-position: center;
+}
+
+.PortfolioStockTile__logo:hover {
+  opacity: 0.7;
+}
