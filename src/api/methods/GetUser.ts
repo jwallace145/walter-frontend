@@ -13,6 +13,7 @@ export interface User {
   verified: boolean;
   subscribed: boolean;
   signUpDate: Date;
+  lastActiveDate: Date;
 }
 
 /**
@@ -65,6 +66,7 @@ export class GetUserResponse extends WalterAPIResponseBase {
         verified: false,
         subscribed: false,
         signUpDate: new Date(),
+        lastActiveDate: new Date(),
       };
     }
     return {
@@ -73,6 +75,7 @@ export class GetUserResponse extends WalterAPIResponseBase {
       verified: data.verified,
       subscribed: data.subscribed,
       signUpDate: new Date(data['sign_up_date']),
+      lastActiveDate: new Date(data['last_active_date']),
     };
   }
 }

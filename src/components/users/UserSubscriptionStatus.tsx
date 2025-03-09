@@ -11,6 +11,7 @@ import { Colors } from '../../constants/Constants';
 
 interface UserSubscriptionStatusProps {
   subscribed: boolean;
+  setRefresh: (refresh: boolean) => void;
 }
 
 const UserSubscriptionStatus: React.FC<UserSubscriptionStatusProps> = (
@@ -82,6 +83,7 @@ const UserSubscriptionStatus: React.FC<UserSubscriptionStatusProps> = (
     WalterAPI.unsubscribe()
       .then((response: UnsubscribeResponse): void => {
         if (response.isSuccess()) {
+          props.setRefresh(true);
           setOpenUnsubscribeModal(false);
         }
       })
@@ -129,6 +131,7 @@ const UserSubscriptionStatus: React.FC<UserSubscriptionStatusProps> = (
     WalterAPI.purchaseNewsletterSubscription()
       .then((response: PurchaseNewsletterSubscriptionResponse): void => {
         if (response.isSuccess()) {
+          props.setRefresh(true);
           window.location.href = response.getCheckoutUrl();
         } else {
           console.log(response.getMessage());

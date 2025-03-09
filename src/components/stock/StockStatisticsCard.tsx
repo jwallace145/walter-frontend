@@ -16,14 +16,23 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
   const formatLargeNumber: (number: number) => string = (
     number: number,
   ): string => {
-    if (number >= 1_000_000_000_000) {
-      return (number / 1_000_000_000_000).toFixed(2) + 'T';
-    } else if (number >= 1_000_000_000) {
-      return (number / 1_000_000_000).toFixed(2) + 'B';
-    } else if (number >= 1_000_000) {
-      return (number / 1_000_000).toFixed(2) + 'M';
+    const absNumber: number = Math.abs(number);
+
+    let largeNumber: string;
+    if (absNumber >= 1_000_000_000_000) {
+      largeNumber = (absNumber / 1_000_000_000_000).toFixed(2) + 'T';
+    } else if (absNumber >= 1_000_000_000) {
+      largeNumber = (absNumber / 1_000_000_000).toFixed(2) + 'B';
+    } else if (absNumber >= 1_000_000) {
+      largeNumber = (absNumber / 1_000_000).toFixed(2) + 'M';
     } else {
-      return number.toString();
+      largeNumber = number.toString();
+    }
+
+    if (number < 0) {
+      return `-$${largeNumber}`;
+    } else {
+      return `$${largeNumber}`;
     }
   };
 
@@ -69,7 +78,7 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
               >
                 Market Cap:{' '}
               </Typography>
-              ${formatLargeNumber(props.statistics.marketCapitalization)}
+              {formatLargeNumber(props.statistics.marketCapitalization)}
             </Typography>
             <Typography
               sx={{
@@ -88,7 +97,7 @@ const StockStatisticsCard: React.FC<StockStatisticsProps> = (
               >
                 EBITDA:
               </Typography>{' '}
-              ${formatLargeNumber(props.statistics.ebitda)}
+              {formatLargeNumber(props.statistics.ebitda)}
             </Typography>
             <Typography
               sx={{

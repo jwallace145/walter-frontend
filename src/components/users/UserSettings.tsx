@@ -6,18 +6,25 @@ import UserInformation from './UserInformation';
 
 interface UserDetailsCardProps {
   user: User;
+  setRefresh: (refresh: boolean) => void;
 }
 
-const UserDetailsCard: React.FC<UserDetailsCardProps> = (
+const UserSettings: React.FC<UserDetailsCardProps> = (
   props: UserDetailsCardProps,
 ): React.ReactElement => {
   return (
     <>
       <UserInformation user={props.user} />
-      <UserVerificationStatus verified={props.user.verified} />
-      <UserSubscriptionStatus subscribed={props.user.subscribed} />
+      <UserVerificationStatus
+        verified={props.user.verified}
+        setRefresh={props.setRefresh}
+      />
+      <UserSubscriptionStatus
+        subscribed={props.user.subscribed}
+        setRefresh={props.setRefresh}
+      />
     </>
   );
 };
 
-export default UserDetailsCard;
+export default UserSettings;
