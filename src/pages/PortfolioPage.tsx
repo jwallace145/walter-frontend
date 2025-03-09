@@ -71,7 +71,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (
       );
     }
     return (
-      <Grid size={10}>
+      <Grid size={11}>
         <Stack spacing={2} direction="row" useFlexGap sx={{ flexWrap: 'wrap' }}>
           {stocks.map(
             (stock: PortfolioStock): React.ReactElement => (

@@ -10,6 +10,7 @@ import styles from './UserVerificationStatus.module.scss';
 
 interface UserVerificationStatusProps {
   verified: boolean;
+  setRefresh: (value: boolean) => void;
 }
 
 const UserVerificationStatus: React.FC<UserVerificationStatusProps> = (
@@ -75,7 +76,10 @@ const UserVerificationStatus: React.FC<UserVerificationStatusProps> = (
     setSendVerificationEmailLoading(true);
     WalterAPI.sendVerifyEmail()
       .then((response: SendVerifyEmailResponse): void => {
-        setOpenSendEmailVerificationModal(false);
+        if (response.isSuccess()) {
+          props.setRefresh(true);
+          setOpenSendEmailVerificationModal(false);
+        }
       })
       .catch((error: Error): void => console.log(error))
       .finally((): void => {

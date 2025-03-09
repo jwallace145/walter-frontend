@@ -2,13 +2,14 @@ import React, { useEffect } from 'react';
 import HomePage from './common/HomePage';
 import SideBar from '../components/sidebar/SideBar';
 import Grid from '@mui/material/Grid2';
-import UserDetailsCard from '../components/users/UserDetailsCard';
+import UserSettings from '../components/users/UserSettings';
 import { User } from '../api/methods/GetUser';
 
 interface SettingsPageProps {
   authenticated: boolean;
   setAuthenticated: (authenticated: boolean) => void;
   user: User;
+  setRefresh: (refresh: boolean) => void;
 }
 
 const SettingsPage: React.FC<SettingsPageProps> = (
@@ -30,7 +31,7 @@ const SettingsPage: React.FC<SettingsPageProps> = (
     return (
       <Grid container spacing={2}>
         <Grid size={5}>
-          <UserDetailsCard user={props.user} />
+          <UserSettings user={props.user} setRefresh={props.setRefresh} />
         </Grid>
       </Grid>
     );

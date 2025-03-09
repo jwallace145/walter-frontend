@@ -43,6 +43,9 @@ const PortfolioStockTile: React.FC<PortfolioStockCardProps> = (
         className={styles.PortfolioStockTile__logo}
         src={`https://assets.parqet.com/logos/symbol/${symbol.toUpperCase()}`}
         alt={symbol.toUpperCase()}
+        sx={{
+          boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)',
+        }}
       />
     );
   };

@@ -49,6 +49,7 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [authenticated, setAuthenticated] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
+  const [refresh, setRefresh] = useState<boolean>(false);
   const [userNotVerifiedAlert, setUserNotVerifiedAlert] =
     useState<boolean>(false);
   const [userNotSubscribedAlert, setUserNotSubscribeAlert] =
@@ -60,7 +61,7 @@ const App: React.FC = () => {
 
   useEffect((): void => {
     isUserAuthenticated();
-  }, [authenticated, sentEmailVerificationAlert]);
+  }, [authenticated, sentEmailVerificationAlert, refresh]);
 
   /**
    * Call Walter API and determine if the current user is authenticated or not.
@@ -78,14 +79,14 @@ const App: React.FC = () => {
     // user authentication token is present in user cookies, call AuthUser API
     setLoading(true);
     WalterAPI.getUser()
-      .then((response: GetUserResponse) => {
+      .then((response: GetUserResponse): void => {
         setAuthenticated(response.isAuthenticated());
         setUserNotVerifiedAlert(response.isNotVerified());
         setUserNotSubscribeAlert(response.isNotSubscribed());
         setUser(response.getUser());
       })
-      .catch((error: any) => setAuthenticated(false))
-      .finally(() => setLoading(false));
+      .catch((error: any): void => setAuthenticated(false))
+      .finally((): void => setLoading(false));
   };
 
   return (
@@ -168,6 +169,7 @@ const App: React.FC = () => {
                     authenticated={authenticated}
                     setAuthenticated={setAuthenticated}
                     user={user as User}
+                    setRefresh={setRefresh}
                   />
                 }
               />

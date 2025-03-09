@@ -33,6 +33,12 @@ const UserInformation: React.FC<UserInformationProps> = (
           </Typography>
           {formatDate(props.user.signUpDate, 'yyyy-mm-dd')}
         </Typography>
+        <Typography className={styles.UserInformation__text}>
+          <Typography className={styles.UserInformation__textBold}>
+            Last Active Date:{' '}
+          </Typography>
+          {formatDate(props.user.lastActiveDate, 'yyyy-mm-dd')}
+        </Typography>
       </Stack>
     </Grid>
   );
