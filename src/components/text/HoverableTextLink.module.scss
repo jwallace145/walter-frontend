@@ -1,0 +1,15 @@
+@import '../../../variables.scss';
+
+.HoverableTextLink {
+  color: $black-color;
+  font-family: $primary-font;
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    text-decoration 0.3s ease;
+}
+
+.HoverableTextLink:hover {
+  color: $secondary-color;
+  text-decoration-line: underline;
+}

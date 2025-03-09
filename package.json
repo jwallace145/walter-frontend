@@ -72,7 +72,11 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "gulp-sass": "^6.0.1",
     "husky": "^9.1.6",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "sass": "^1.85.1",
+    "sass-loader": "^16.0.5",
+    "webpack": "^5.98.0"
   }
 }

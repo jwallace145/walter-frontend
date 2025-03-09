@@ -1,55 +1,15 @@
 import React from 'react';
-import { Colors, Fonts, formatDate } from '../../constants/Constants';
-import {
-  Container,
-  Link,
-  Modal,
-  Stack,
-  styled,
-  Typography,
-} from '@mui/material';
+import { formatDate } from '../../constants/Constants';
+import { Modal, Stack, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { User } from '../../api/methods/GetUser';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import LoadingButton from '../button/LoadingButton';
 import { WalterAPI } from '../../api/WalterAPI';
 import { UnsubscribeResponse } from '../../api/methods/Unsubscribe';
-
-const StyledGrid = styled(Grid)(({ theme }) => ({
-  borderRadius: '40px',
-  backgroundColor: Colors.LIGHT_GRAY,
-  outline: '1px solid ' + Colors.GRAY,
-  padding: '3px',
-  marginBottom: '15px',
-}));
-
-const StyledStack = styled(Stack)(({ theme }) => ({
-  marginLeft: '20px',
-  marginTop: '10px',
-  marginBottom: '10px',
-  padding: '3px',
-}));
-
-const StyledTypography = styled(Typography)(({ theme }) => ({
-  fontFamily: Fonts.RALEWAY,
-  fontSize: '18px',
-  display: 'inline',
-}));
-
-const StyledTypographyLink = styled(Link)(({ theme }) => ({
-  fontFamily: Fonts.RALEWAY,
-  color: Colors.BLACK,
-  fontSize: '18px',
-  display: 'inline',
-  textDecoration: 'none',
-  '&:hover': {
-    color: Colors.YELLOW,
-    textDecoration: 'underline',
-  },
-  transition: 'color 0.3s ease, text-decoration 0.3s ease',
-  cursor: 'pointer',
-}));
+import { SendVerifyEmailResponse } from '../../api/methods/SendVerifyEmail';
+import styles from './UserDetailsCard.module.scss';
+import LoadingButton from '../button/LoadingButton';
+import HoverableTextLink from '../text/HoverableTextLink';
 
 interface UserDetailsCardProps {
   user: User;
@@ -62,6 +22,8 @@ const UserDetailsCard: React.FC<UserDetailsCardProps> = (
   const [openSubscribeModal, setOpenSubscribeModal] = React.useState(false);
   const [unsubscribeLoading, setUnsubscribeLoading] = React.useState(false);
   const [openUnsubscribeModal, setOpenUnsubscribeModal] = React.useState(false);
+  const [sendVerificationEmailLoading, setSendVerificationEmailLoading] =
+    React.useState(false);
   const [openSendVerificationEmailModal, setOpenSendVerificationEmailModal] =
     React.useState(false);
 
@@ -69,19 +31,19 @@ const UserDetailsCard: React.FC<UserDetailsCardProps> = (
     (): React.ReactElement => {
       if (props.user.subscribed) {
         return (
-          <StyledTypographyLink
+          <HoverableTextLink
+            text={'Subscribed! Click here to unsubscribe'}
             onClick={(): void => setOpenUnsubscribeModal(true)}
-          >
-            Subscribed
-          </StyledTypographyLink>
+            sx={{ display: 'inline' }}
+          />
         );
       } else {
         return (
-          <StyledTypographyLink
+          <HoverableTextLink
+            text={'Not subscribed! Click here to subscribe'}
             onClick={(): void => setOpenSubscribeModal(true)}
-          >
-            Not subscribed! Click here to subscribe
-          </StyledTypographyLink>
+            sx={{ display: 'inline' }}
+          />
         );
       }
     };
@@ -89,25 +51,29 @@ const UserDetailsCard: React.FC<UserDetailsCardProps> = (
   const getVerificationStatus: () => React.ReactElement =
     (): React.ReactElement => {
       if (props.user.verified) {
-        return <StyledTypography>Verified</StyledTypography>;
+        return (
+          <Typography className={styles.UserDetailsCard_body}>
+            Verified
+          </Typography>
+        );
       } else {
         return (
-          <StyledTypographyLink
+          <HoverableTextLink
+            text={'Not verified! Click here to verify'}
             onClick={(): void => setOpenSendVerificationEmailModal(true)}
-          >
-            Not verified! Click here to verify
-          </StyledTypographyLink>
+            sx={{ display: 'inline' }}
+          />
         );
       }
     };
 
-  const getUnsubscribeModal: () => React.ReactElement = () => {
+  const getSendVerificationEmailModal: () => React.ReactElement = () => {
     return (
       <Modal
-        open={openUnsubscribeModal}
-        onClose={(): void => setOpenUnsubscribeModal(false)}
+        open={openSendVerificationEmailModal}
+        onClose={(): void => setOpenSendVerificationEmailModal(false)}
       >
-        <StyledGrid
+        <Grid
           sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -119,26 +85,57 @@ const UserDetailsCard: React.FC<UserDetailsCardProps> = (
             width: 400,
           }}
         >
-          <StyledTypography sx={{ fontWeight: 'bold' }}>
-            Unsubscribe?
-          </StyledTypography>
+          <Typography sx={{ fontWeight: 'bold' }}>
+            Send Verification Email
+          </Typography>
+          <LoadingButton
+            loading={unsubscribeLoading}
+            onClick={handleSendVerificationEmail}
+            text={'Send'}
+          />
+        </Grid>
+      </Modal>
+    );
+  };
+
+  const handleSendVerificationEmail: () => void = (): void => {
+    setSendVerificationEmailLoading(true);
+    WalterAPI.sendVerifyEmail()
+      .then((response: SendVerifyEmailResponse): void => {
+        setOpenSendVerificationEmailModal(false);
+      })
+      .catch((error: Error): void => console.log(error))
+      .finally((): void => {
+        setSendVerificationEmailLoading(false);
+      });
+  };
+
+  const getUnsubscribeModal: () => React.ReactElement = () => {
+    return (
+      <Modal
+        open={openUnsubscribeModal}
+        onClose={(): void => setOpenUnsubscribeModal(false)}
+      >
+        <Grid
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+          }}
+        >
+          <Typography sx={{ fontWeight: 'bold' }}>Unsubscribe?</Typography>
           <LoadingButton
             loading={unsubscribeLoading}
             onClick={handleUnsubscribe}
             text={'Logout'}
-            sx={{
-              marginTop: '10px',
-              backgroundColor: Colors.YELLOW,
-              borderRadius: '40px',
-              padding: '2px',
-              '&:hover': {
-                backgroundColor: Colors.YELLOW_HOVER,
-              },
-              transition: 'background-color 0.3s ease',
-              width: '50%',
-            }}
+            sx={{}}
           />
-        </StyledGrid>
+        </Grid>
       </Modal>
     );
   };
@@ -159,42 +156,42 @@ const UserDetailsCard: React.FC<UserDetailsCardProps> = (
 
   return (
     <>
-      <StyledGrid container>
-        <StyledStack>
-          <StyledTypography>
-            <StyledTypography sx={{ fontWeight: 'bold' }}>
+      <Grid container className={styles.UserDetailsCard__container}>
+        <Stack className={styles.UserDetailsCard__stack}>
+          <Typography className={styles.UserDetailsCard_body}>
+            <Typography className={styles.UserDetailsCard_body_bold}>
               Email:{' '}
-            </StyledTypography>
+            </Typography>
             {props.user.email}
-          </StyledTypography>
-          <StyledTypography>
-            <StyledTypography sx={{ fontWeight: 'bold' }}>
+          </Typography>
+          <Typography className={styles.UserDetailsCard_body}>
+            <Typography className={styles.UserDetailsCard_body_bold}>
               Username:{' '}
-            </StyledTypography>
+            </Typography>
             {props.user.username}
-          </StyledTypography>
-          <StyledTypography>
-            <StyledTypography sx={{ fontWeight: 'bold' }}>
+          </Typography>
+          <Typography className={styles.UserDetailsCard_body}>
+            <Typography className={styles.UserDetailsCard_body_bold}>
               Sign Up Date:{' '}
-            </StyledTypography>
+            </Typography>
             {formatDate(props.user.signUpDate, 'yyyy-mm-dd')}
-          </StyledTypography>
-          <StyledTypography>
-            <StyledTypography sx={{ fontWeight: 'bold' }}>
+          </Typography>
+          <Typography className={styles.UserDetailsCard_body}>
+            <Typography className={styles.UserDetailsCard_body_bold}>
               Subscription Status:{' '}
-            </StyledTypography>
+            </Typography>
             {getSubscriptionStatus()}
-          </StyledTypography>
-          <StyledTypography>
-            <StyledTypography sx={{ fontWeight: 'bold' }}>
+          </Typography>
+          <Typography className={styles.UserDetailsCard_body}>
+            <Typography className={styles.UserDetailsCard_body_bold}>
               Verification Status:{' '}
-            </StyledTypography>
+            </Typography>
             {getVerificationStatus()}
-          </StyledTypography>
-        </StyledStack>
-      </StyledGrid>
+          </Typography>
+        </Stack>
+      </Grid>
       {openUnsubscribeModal && getUnsubscribeModal()}
-      {openSendVerificationEmailModal && getUnsubscribeModal()}
+      {openSendVerificationEmailModal && getSendVerificationEmailModal()}
     </>
   );
 };

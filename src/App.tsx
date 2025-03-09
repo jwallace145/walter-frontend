@@ -43,6 +43,7 @@ import PurchaseNewsletterSubscriptionSuccessPage from './pages/PurchaseNewslette
 import PortfolioPage from './pages/PortfolioPage';
 import SettingsPage from './pages/SettingsPage';
 import { User } from './api/methods/GetUser';
+import { StyledEngineProvider } from '@mui/material';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -88,126 +89,134 @@ const App: React.FC = () => {
   };
 
   return (
-    <Router>
-      <Header
-        authenticated={authenticated}
-        setAuthenticated={setAuthenticated}
-      />
-      {loading ? (
-        <LoadingCircularProgress />
-      ) : (
-        <>
-          <Routes>
-            {/* UNAUTHENTICATED PAGES */}
-            <Route path={LANDING_PAGE} element={<LandingPage />} />
-            <Route
-              path={REGISTER_PAGE}
-              element={
-                <SignUpPage
-                  setSentEmailVerificationAlert={setSentEmailVerificationAlert}
-                />
-              }
-            />
-            <Route
-              path={LOGIN_PAGE}
-              element={<LoginPage setAuthenticated={setAuthenticated} />}
-            />
-            <Route
-              path={VERIFY_EMAIL_PAGE}
-              element={<VerifyEmailPage setAuthenticated={setAuthenticated} />}
-            />
-            <Route
-              path={CHANGE_PASSWORD_PAGE}
-              element={<ChangePasswordPage />}
-            />
-            <Route
-              path={SEND_CHANGE_PASSWORD_EMAIL_PAGE}
-              element={<SendChangePasswordEmailPage />}
-            />
-            <Route path={UNSUBSCRIBE_PAGE} element={<UnsubscribePage />} />
+    <StyledEngineProvider injectFirst>
+      <Router>
+        <Header
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
+        {loading ? (
+          <LoadingCircularProgress />
+        ) : (
+          <>
+            <Routes>
+              {/* UNAUTHENTICATED PAGES */}
+              <Route path={LANDING_PAGE} element={<LandingPage />} />
+              <Route
+                path={REGISTER_PAGE}
+                element={
+                  <SignUpPage
+                    setSentEmailVerificationAlert={
+                      setSentEmailVerificationAlert
+                    }
+                  />
+                }
+              />
+              <Route
+                path={LOGIN_PAGE}
+                element={<LoginPage setAuthenticated={setAuthenticated} />}
+              />
+              <Route
+                path={VERIFY_EMAIL_PAGE}
+                element={
+                  <VerifyEmailPage setAuthenticated={setAuthenticated} />
+                }
+              />
+              <Route
+                path={CHANGE_PASSWORD_PAGE}
+                element={<ChangePasswordPage />}
+              />
+              <Route
+                path={SEND_CHANGE_PASSWORD_EMAIL_PAGE}
+                element={<SendChangePasswordEmailPage />}
+              />
+              <Route path={UNSUBSCRIBE_PAGE} element={<UnsubscribePage />} />
 
-            {/* AUTHENTICATED PAGES */}
-            <Route
-              path={DASHBOARD_PAGE}
-              element={
-                <DashboardPage
-                  authenticated={authenticated}
-                  setAuthenticated={setAuthenticated}
-                  setNoStocksAlert={setNoStocksInUserPortfolioAlert}
-                />
-              }
-            />
-            <Route
-              path={PORTFOLIO_PAGE}
-              element={
-                <PortfolioPage
-                  authenticated={authenticated}
-                  setAuthenticated={setAuthenticated}
-                />
-              }
-            />
-            <Route
-              path={NEWSLETTER_PAGE}
-              element={
-                <NewslettersPage
-                  authenticated={authenticated}
-                  setAuthenticated={setAuthenticated}
-                />
-              }
-            />
-            <Route
-              path={SETTINGS_PAGE}
-              element={
-                <SettingsPage
-                  authenticated={authenticated}
-                  setAuthenticated={setAuthenticated}
-                  user={user as User}
-                />
-              }
-            />
-            <Route
-              path={SEND_VERIFY_EMAIL_PAGE}
-              element={<SendVerifyEmail />}
-            />
-            <Route
-              path={STOCK_PAGE}
-              element={
-                <StockPage
-                  authenticated={authenticated}
-                  setAuthenticated={setAuthenticated}
-                />
-              }
-            />
-            <Route
-              path={SEARCH_STOCKS_PAGE}
-              element={<SearchStocksPage setAuthenticated={setAuthenticated} />}
-            />
-            <Route
-              path={PURCHASE_NEWSLETTER_SUBSCRIPTION_SUCCESS_PAGE}
-              element={<PurchaseNewsletterSubscriptionSuccessPage />}
-            />
-          </Routes>
+              {/* AUTHENTICATED PAGES */}
+              <Route
+                path={DASHBOARD_PAGE}
+                element={
+                  <DashboardPage
+                    authenticated={authenticated}
+                    setAuthenticated={setAuthenticated}
+                    setNoStocksAlert={setNoStocksInUserPortfolioAlert}
+                  />
+                }
+              />
+              <Route
+                path={PORTFOLIO_PAGE}
+                element={
+                  <PortfolioPage
+                    authenticated={authenticated}
+                    setAuthenticated={setAuthenticated}
+                  />
+                }
+              />
+              <Route
+                path={NEWSLETTER_PAGE}
+                element={
+                  <NewslettersPage
+                    authenticated={authenticated}
+                    setAuthenticated={setAuthenticated}
+                  />
+                }
+              />
+              <Route
+                path={SETTINGS_PAGE}
+                element={
+                  <SettingsPage
+                    authenticated={authenticated}
+                    setAuthenticated={setAuthenticated}
+                    user={user as User}
+                  />
+                }
+              />
+              <Route
+                path={SEND_VERIFY_EMAIL_PAGE}
+                element={<SendVerifyEmail />}
+              />
+              <Route
+                path={STOCK_PAGE}
+                element={
+                  <StockPage
+                    authenticated={authenticated}
+                    setAuthenticated={setAuthenticated}
+                  />
+                }
+              />
+              <Route
+                path={SEARCH_STOCKS_PAGE}
+                element={
+                  <SearchStocksPage setAuthenticated={setAuthenticated} />
+                }
+              />
+              <Route
+                path={PURCHASE_NEWSLETTER_SUBSCRIPTION_SUCCESS_PAGE}
+                element={<PurchaseNewsletterSubscriptionSuccessPage />}
+              />
+            </Routes>
 
-          {/* ALERTS */}
-          <UserNotVerifiedAlert
-            userNotVerified={userNotVerifiedAlert}
-            setUserNotVerifiedAlert={setUserNotVerifiedAlert}
-          />
-          <UserNotSubscribedAlert
-            userNotSubscribed={userNotSubscribedAlert}
-            setUserNotSubscribedAlert={setUserNotSubscribeAlert}
-          />
-          <SentEmailVerificationAlert
-            sentEmailVerificationAlert={sentEmailVerificationAlert}
-            setSentEmailVerificationAlert={setSentEmailVerificationAlert}
-          />
-          <NoStocksInUserPortfolioAlert
-            noStocksInUserPortfolio={noStocksInUserPortfolioAlert}
-            setNoStocksInUserPortfolio={setNoStocksInUserPortfolioAlert}
-          />
-        </>
-      )}
-    </Router>
+            {/* ALERTS */}
+            <UserNotVerifiedAlert
+              userNotVerified={userNotVerifiedAlert}
+              setUserNotVerifiedAlert={setUserNotVerifiedAlert}
+            />
+            <UserNotSubscribedAlert
+              userNotSubscribed={userNotSubscribedAlert}
+              setUserNotSubscribedAlert={setUserNotSubscribeAlert}
+            />
+            <SentEmailVerificationAlert
+              sentEmailVerificationAlert={sentEmailVerificationAlert}
+              setSentEmailVerificationAlert={setSentEmailVerificationAlert}
+            />
+            <NoStocksInUserPortfolioAlert
+              noStocksInUserPortfolio={noStocksInUserPortfolioAlert}
+              setNoStocksInUserPortfolio={setNoStocksInUserPortfolioAlert}
+            />
+          </>
+        )}
+      </Router>
+    </StyledEngineProvider>
   );
 };
 
