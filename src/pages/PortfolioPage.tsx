@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../components/sidebar/SideBar';
 import HomePage from './common/HomePage';
 import { Fonts } from '../constants/Constants';
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import { WalterAPI } from '../api/WalterAPI';
 import {
   GetPortfolioResponse,
   PortfolioStock,
 } from '../api/methods/GetPortfolio';
-import PortfolioStockCard from '../components/portfolio/stock/PortfolioStockCard';
+import PortfolioStockTile from '../components/portfolio/stock/PortfolioStockTile';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
@@ -71,12 +71,14 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (
       );
     }
     return (
-      <Grid size={11}>
-        {stocks.map(
-          (stock: PortfolioStock): React.ReactElement => (
-            <PortfolioStockCard stock={stock} setRefresh={setRefresh} />
-          ),
-        )}
+      <Grid size={10}>
+        <Stack spacing={2} direction="row" useFlexGap sx={{ flexWrap: 'wrap' }}>
+          {stocks.map(
+            (stock: PortfolioStock): React.ReactElement => (
+              <PortfolioStockTile stock={stock} setRefresh={setRefresh} />
+            ),
+          )}
+        </Stack>
       </Grid>
     );
   };

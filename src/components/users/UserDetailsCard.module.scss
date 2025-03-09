@@ -1,0 +1,31 @@
+@import '../../../variables.scss';
+
+.UserDetailsCard__container {
+  font-family: $primary-font;
+  border-radius: 40px;
+  background-color: $container-color;
+  outline: 1px solid $container-border-color;
+  padding: 3px;
+  margin-bottom: 15px;
+}
+
+.UserDetailsCard__stack {
+  font-family: $primary-font;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 3px;
+}
+
+.UserDetailsCard_body {
+  font-family: $primary-font;
+  font-size: 18px;
+  display: inline;
+}
+
+.UserDetailsCard_body_bold {
+  font-family: $primary-font;
+  font-size: 18px;
+  display: inline;
+  font-weight: bold;
+}
