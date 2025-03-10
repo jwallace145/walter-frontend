@@ -135,22 +135,28 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
     );
   };
 
-  const getHeaderMenuButtons = (authenticated: boolean) => {
+  const getHeaderMenuButtons: (
+    authenticated: boolean,
+  ) => React.ReactElement[] = (
+    authenticated: boolean,
+  ): React.ReactElement[] => {
     if (authenticated) {
       return [
-        ...AUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
-          getHeaderMenuButton(button),
+        ...AUTHENTICATED_HEADER_BUTTON_PROPS.map(
+          (button: any): React.ReactElement => getHeaderMenuButton(button),
         ),
         getHeaderMenuLogoutButton(),
       ];
     } else {
-      return UNAUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
-        getHeaderMenuButton(button),
+      return UNAUTHENTICATED_HEADER_BUTTON_PROPS.map(
+        (button: any): React.ReactElement => getHeaderMenuButton(button),
       );
     }
   };
 
-  const getHeaderMenuButton = (button: any) => {
+  const getHeaderMenuButton: (button: any) => React.ReactElement = (
+    button: any,
+  ): React.ReactElement => {
     return (
       <ListItem key={button.title} disablePadding>
         {getHeaderButton(button)}
@@ -158,29 +164,36 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
     );
   };
 
-  const getHeaderMenuLogoutButton = () => {
-    return (
-      <ListItem key={'Logout'} disablePadding>
-        {getHeaderLogoutButton()}
-      </ListItem>
-    );
-  };
+  const getHeaderMenuLogoutButton: () => React.ReactElement =
+    (): React.ReactElement => {
+      return (
+        <ListItem key={'Logout'} disablePadding>
+          {getHeaderLogoutButton()}
+        </ListItem>
+      );
+    };
 
-  const getHeaderButtons = (authenticated: boolean) => {
+  const getHeaderButtons: (
+    authenticated: boolean,
+  ) => React.ReactElement | React.ReactElement[] = (
+    authenticated: boolean,
+  ): React.ReactElement | React.ReactElement[] => {
     if (authenticated) {
       return <StocksSearchBar />;
     } else {
-      return UNAUTHENTICATED_HEADER_BUTTON_PROPS.map((button: any) =>
-        getHeaderButton(button),
+      return UNAUTHENTICATED_HEADER_BUTTON_PROPS.map(
+        (button: any): React.ReactElement => getHeaderButton(button),
       );
     }
   };
 
-  const getHeaderButton = (button: any) => {
+  const getHeaderButton: (button: any) => React.ReactElement = (
+    button: any,
+  ): React.ReactElement => {
     return (
       <HeaderButton
         title={button.title}
-        onClick={() => navigate(button.page)}
+        onClick={(): void => navigate(button.page)}
       />
     );
   };

@@ -9,8 +9,8 @@ import {
 } from '../api/methods/GetNewsletters';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import ArchivedNewsletterCard from '../components/newsletter/ArchivedNewsletterCard';
-import { useLocation } from 'react-router-dom';
 import Grid from '@mui/material/Grid2';
+import ArchivedNewsletterExplorer from '../components/newsletter/ArchivedNewsletterExplorer';
 
 interface NewslettersPageProps {
   authenticated: boolean;
@@ -20,9 +20,9 @@ interface NewslettersPageProps {
 const NewslettersPage: React.FC<NewslettersPageProps> = (
   props: NewslettersPageProps,
 ): React.ReactElement => {
-  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
+  const [newsletter, setNewsletter] = useState<Newsletter | null>(null);
 
   useEffect((): void => {
     getNewsletters();
@@ -58,15 +58,7 @@ const NewslettersPage: React.FC<NewslettersPageProps> = (
       return <Typography>No newsletters found</Typography>;
     }
 
-    return (
-      <Grid size={11}>
-        {newsletters.map(
-          (newsletter: Newsletter): React.ReactElement => (
-            <ArchivedNewsletterCard newsletter={newsletter} />
-          ),
-        )}
-      </Grid>
-    );
+    return <ArchivedNewsletterExplorer newsletters={newsletters} />;
   };
 
   return (

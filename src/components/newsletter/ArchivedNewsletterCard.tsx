@@ -1,103 +1,59 @@
-import React, { useState } from 'react';
-import { getNewsletters, Newsletter } from '../../api/methods/GetNewsletters';
-import { Colors, Fonts, US_DOLLAR } from '../../constants/Constants';
+import React from 'react';
+import { Newsletter } from '../../api/methods/GetNewsletters';
+import { Colors } from '../../constants/Constants';
 import Grid from '@mui/material/Grid2';
-import { Modal, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '../button/LoadingButton';
+import styles from './ArchivedNewsletterCard.module.scss';
 import { WalterAPI } from '../../api/WalterAPI';
 import { GetNewsletterResponse } from '../../api/methods/GetNewsletter';
-import Box from '@mui/material/Box';
 
 interface ArchivedNewsletterCardProps {
   newsletter: Newsletter;
+  setCurrentNewsletterHtml: (newsletterHtml: string) => void;
 }
 
 const ArchivedNewsletterCard: React.FC<ArchivedNewsletterCardProps> = (
   props: ArchivedNewsletterCardProps,
 ): React.ReactElement => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [newsletter, setNewsletter] = useState<string>('');
-  const [openNewsletter, setOpenNewsletter] = useState<boolean>(false);
+  const [loading, setLoading] = React.useState(false);
 
   const getNewsletter: () => void = (): void => {
+    if (props.newsletter === null) {
+      return;
+    }
+
     setLoading(true);
     WalterAPI.getNewsletter(props.newsletter.datestamp)
       .then((response: GetNewsletterResponse): void => {
         if (response.isSuccess()) {
-          setNewsletter(response.getNewsletter());
-          setOpenNewsletter(true);
+          props.setCurrentNewsletterHtml(response.getNewsletter());
+        } else {
+          console.log(response.getMessage());
         }
       })
       .catch((error: Error): any => console.log(error))
-      .finally(() => setLoading(false));
+      .finally((): void => {
+        setLoading(false);
+      });
   };
-
-  const displayNewsletter: () => React.ReactElement =
-    (): React.ReactElement => {
-      return (
-        <Grid size={12} sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Box
-            sx={{
-              alignItems: 'center',
-              padding: 2,
-              borderRadius: '40px',
-              backgroundColor: Colors.LIGHT_GRAY,
-              outline: `1px solid ${Colors.GRAY}`,
-              width: '70%',
-            }}
-          >
-            <div dangerouslySetInnerHTML={{ __html: newsletter }} />
-          </Box>
-        </Grid>
-      );
-    };
-
   return (
     <>
       <Grid
         container
         size={12}
-        sx={{
-          borderRadius: '40px',
-          backgroundColor: Colors.LIGHT_GRAY,
-          outline: '1px solid ' + Colors.GRAY,
-          padding: '3px',
-          marginBottom: '15px',
-        }}
+        className={styles.ArchivedNewsletterCard__container}
       >
         <Grid size={6}>
-          <Stack
-            sx={{
-              marginLeft: '20px',
-              marginTop: '10px',
-              marginBottom: '10px',
-              padding: '3px',
-            }}
-          >
+          <Stack className={styles.ArchivedNewsletterCard__stack}>
             <Typography
               onClick={(): void => {}}
-              sx={{
-                fontFamily: Fonts.RALEWAY,
-                fontWeight: 'bold',
-                fontSize: '24px',
-                '&:hover': {
-                  color: Colors.YELLOW,
-                  textDecoration: 'underline',
-                },
-                transition: 'color 0.3s ease, text-decoration 0.3s ease',
-                cursor: 'pointer',
-              }}
+              className={styles.ArchivedNewsletterCard__title}
             >
               {props.newsletter.template}
             </Typography>
-            <Typography
-              sx={{
-                fontFamily: Fonts.RALEWAY,
-                fontWeight: 'normal',
-                fontSize: '18px',
-              }}
-            >
+            <Typography className={styles.ArchivedNewsletterCard__text}>
               {props.newsletter.datestamp}
             </Typography>
           </Stack>
@@ -105,8 +61,8 @@ const ArchivedNewsletterCard: React.FC<ArchivedNewsletterCardProps> = (
         <Grid size={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <LoadingButton
             loading={loading}
-            onClick={(): void => getNewsletter()}
-            text={'Get'}
+            onClick={getNewsletter}
+            text={'View'}
             sx={{
               outline: `1px solid ${Colors.GRAY}`,
               backgroundColor: Colors.YELLOW,
@@ -122,7 +78,6 @@ const ArchivedNewsletterCard: React.FC<ArchivedNewsletterCardProps> = (
             }}
           />
         </Grid>
-        {openNewsletter && displayNewsletter()}
       </Grid>
     </>
   );
