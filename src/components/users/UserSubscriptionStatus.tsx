@@ -7,10 +7,12 @@ import { WalterAPI } from '../../api/WalterAPI';
 import { UnsubscribeResponse } from '../../api/methods/Unsubscribe';
 import { PurchaseNewsletterSubscriptionResponse } from '../../api/methods/PurchaseNewsletterSubscription';
 import styles from './UserSubscriptionStatus.module.scss';
-import { Colors } from '../../constants/Constants';
+import { Colors, formatDate } from '../../constants/Constants';
 
 interface UserSubscriptionStatusProps {
   subscribed: boolean;
+  freeTrialEndDate: Date;
+  activeStripeSubscription: boolean;
   setRefresh: (refresh: boolean) => void;
 }
 
@@ -26,9 +28,40 @@ const UserSubscriptionStatus: React.FC<UserSubscriptionStatusProps> = (
   const [openSubscribeModal, setOpenSubscribeModal] =
     React.useState<boolean>(false);
 
-  const getStatus: (subscribed: boolean) => React.ReactElement = (
+  const getStatus: (
     subscribed: boolean,
+    freeTrialEndDate: Date,
+    activeStripeSubscription: boolean,
+  ) => React.ReactElement = (
+    subscribed: boolean,
+    freeTrialEndDate: Date,
+    activeStripeSubscription: boolean,
   ): React.ReactElement => {
+    const now: Date = new Date();
+
+    // user is in free trial and has not yet paid to subscribe to newsletter
+    if (now <= freeTrialEndDate && !activeStripeSubscription) {
+      return (
+        <HoverableTextLink
+          text={'Currently in free trial. Click here to subscribe now.'}
+          onClick={(): void => setOpenSubscribeModal(true)}
+          sx={{ display: 'inline' }}
+        />
+      );
+    }
+
+    // user free trial has expired and user has not purchased a newsletter subscription
+    if (now > freeTrialEndDate && !activeStripeSubscription) {
+      return (
+        <HoverableTextLink
+          text={'Free trial expired! Click here to subscribe.'}
+          onClick={(): void => setOpenSubscribeModal(true)}
+          sx={{ display: 'inline' }}
+        />
+      );
+    }
+
+    // user is an active subscriber
     if (subscribed) {
       return (
         <HoverableTextLink
@@ -148,12 +181,25 @@ const UserSubscriptionStatus: React.FC<UserSubscriptionStatusProps> = (
   return (
     <>
       <Grid container className={styles.UserSubscriptionStatus__container}>
-        <Stack direction="row" className={styles.UserSubscriptionStatus__stack}>
+        <Stack
+          direction="column"
+          className={styles.UserSubscriptionStatus__stack}
+        >
           <Typography className={styles.UserSubscriptionStatus_text}>
             <Typography className={styles.UserSubscriptionStatus_textBold}>
               Subscription Status:{' '}
             </Typography>
-            {getStatus(props.subscribed)}
+            {getStatus(
+              props.subscribed,
+              props.freeTrialEndDate,
+              props.activeStripeSubscription,
+            )}
+          </Typography>
+          <Typography className={styles.UserSubscriptionStatus_text}>
+            <Typography className={styles.UserSubscriptionStatus_textBold}>
+              Free Trial End Date:{' '}
+            </Typography>
+            {formatDate(props.freeTrialEndDate, 'yyyy-mm-dd')}
           </Typography>
         </Stack>
       </Grid>

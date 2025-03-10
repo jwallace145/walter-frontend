@@ -9,7 +9,6 @@ import PortfolioStockLineChartWidget from '../components/portfolio/linechart/Por
 import PortfolioDataGridV2 from '../components/portfolio/datagrid/PortfolioDataGridV2';
 import PortfolioPieChartWidget from '../components/portfolio/piechart/PortfolioPieChartWidget';
 import { Colors } from '../constants/Constants';
-import { Stack } from '@mui/material';
 import SideBar from '../components/sidebar/SideBar';
 import HomePage from './common/HomePage';
 
@@ -27,11 +26,11 @@ const DashboardPage: React.FC<DashboardProps> = (
   const [totalEquity, setTotalEquity] = useState<number>(0);
   const [refresh, setRefresh] = useState<boolean>(false);
 
-  useEffect(() => {
+  useEffect((): void => {
     getPortfolio();
   }, [refresh]);
 
-  const getPortfolio = (): void => {
+  const getPortfolio: () => void = (): void => {
     setLoading(true);
     WalterAPI.getPortfolio()
       .then((response: GetPortfolioResponse) => {
@@ -64,6 +63,7 @@ const DashboardPage: React.FC<DashboardProps> = (
             borderRadius: '40px',
             backgroundColor: Colors.LIGHT_GRAY,
             outline: `1px solid ${Colors.GRAY}`,
+            boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)',
           }}
         >
           <PortfolioPieChartWidget
@@ -79,6 +79,7 @@ const DashboardPage: React.FC<DashboardProps> = (
             borderRadius: '40px',
             backgroundColor: Colors.LIGHT_GRAY,
             outline: `1px solid ${Colors.GRAY}`,
+            boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)',
           }}
         >
           <PortfolioStockLineChartWidget loading={loading} stocks={stocks} />
@@ -90,6 +91,7 @@ const DashboardPage: React.FC<DashboardProps> = (
             borderRadius: '40px',
             backgroundColor: Colors.LIGHT_GRAY,
             outline: `1px solid ${Colors.GRAY}`,
+            boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)',
           }}
         >
           <PortfolioDataGridV2
