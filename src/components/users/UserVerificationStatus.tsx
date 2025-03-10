@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@mui/material/Grid2';
-import { Modal, Stack, Typography } from '@mui/material';
+import { Alert, Modal, Snackbar, Stack, Typography } from '@mui/material';
 import HoverableTextLink from '../text/HoverableTextLink';
 import LoadingButton from '../button/LoadingButton';
 import { Colors } from '../../constants/Constants';
@@ -20,6 +20,9 @@ const UserVerificationStatus: React.FC<UserVerificationStatusProps> = (
     React.useState<boolean>(false);
   const [openSendVerificationEmailModal, setOpenSendEmailVerificationModal] =
     React.useState<boolean>(false);
+  const [openAlert, setOpenAlert] = React.useState<boolean>(false);
+  const [alertMessage, setAlertMessage] = React.useState<string>('');
+  const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 
   const getStatus: (verified: boolean) => React.ReactElement = (
     verified: boolean,
@@ -76,14 +79,23 @@ const UserVerificationStatus: React.FC<UserVerificationStatusProps> = (
     setSendVerificationEmailLoading(true);
     WalterAPI.sendVerifyEmail()
       .then((response: SendVerifyEmailResponse): void => {
-        if (response.isSuccess()) {
+        console.log(response);
+        const success: boolean = response.isSuccess();
+        const message: string = response.getMessage();
+        setIsSuccess(success);
+        setAlertMessage(message);
+        if (success) {
           props.setRefresh(true);
-          setOpenSendEmailVerificationModal(false);
         }
       })
-      .catch((error: Error): void => console.log(error))
+      .catch((error: Error): void => {
+        setIsSuccess(false);
+        setAlertMessage(error.message);
+      })
       .finally((): void => {
         setSendVerificationEmailLoading(false);
+        setOpenSendEmailVerificationModal(false);
+        setOpenAlert(true);
       });
   };
 
@@ -99,6 +111,18 @@ const UserVerificationStatus: React.FC<UserVerificationStatusProps> = (
           </Typography>
         </Stack>
       </Grid>
+      <Snackbar
+        open={openAlert}
+        autoHideDuration={6000}
+        onClose={(e) => setOpenAlert(false)}
+      >
+        <Alert
+          onClose={(e) => setOpenAlert(false)}
+          severity={isSuccess ? 'success' : 'error'}
+        >
+          {alertMessage}
+        </Alert>
+      </Snackbar>
       {openSendVerificationEmailModal && getSendVerificationEmailModel()}
     </>
   );

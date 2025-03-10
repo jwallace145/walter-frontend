@@ -14,6 +14,8 @@ export interface User {
   subscribed: boolean;
   signUpDate: Date;
   lastActiveDate: Date;
+  freeTrialEndDate: Date;
+  activeStripeSubscription: boolean;
 }
 
 /**
@@ -67,6 +69,8 @@ export class GetUserResponse extends WalterAPIResponseBase {
         subscribed: false,
         signUpDate: new Date(),
         lastActiveDate: new Date(),
+        freeTrialEndDate: new Date(),
+        activeStripeSubscription: false,
       };
     }
     return {
@@ -76,6 +80,8 @@ export class GetUserResponse extends WalterAPIResponseBase {
       subscribed: data.subscribed,
       signUpDate: new Date(data['sign_up_date']),
       lastActiveDate: new Date(data['last_active_date']),
+      freeTrialEndDate: new Date(data['free_trial_end_date']),
+      activeStripeSubscription: data['active_stripe_subscription'],
     };
   }
 }

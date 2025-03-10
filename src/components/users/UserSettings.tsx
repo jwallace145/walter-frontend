@@ -21,6 +21,8 @@ const UserSettings: React.FC<UserDetailsCardProps> = (
       />
       <UserSubscriptionStatus
         subscribed={props.user.subscribed}
+        freeTrialEndDate={props.user.freeTrialEndDate}
+        activeStripeSubscription={props.user.activeStripeSubscription}
         setRefresh={props.setRefresh}
       />
     </>

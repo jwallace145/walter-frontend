@@ -1,7 +1,6 @@
 import { WalterAPIResponseBase } from '../common/Response';
 import axios, { AxiosResponse } from 'axios';
 import { SEND_VERIFY_EMAIL_METHOD } from '../common/Methods';
-import { VerifyEmailResponse } from './VerifyEmail';
 
 /**
  * SendVerifyEmailResponse
@@ -31,7 +30,7 @@ export async function sendVerifyEmail(
       Authorization: `Bearer ${token}`,
     },
   });
-  return new VerifyEmailResponse(
+  return new SendVerifyEmailResponse(
     SEND_VERIFY_EMAIL_METHOD,
     response.data['Status'],
     response.data['Message'],

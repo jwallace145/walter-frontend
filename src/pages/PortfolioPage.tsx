@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SideBar from '../components/sidebar/SideBar';
 import HomePage from './common/HomePage';
 import { Fonts } from '../constants/Constants';
-import { Container, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { WalterAPI } from '../api/WalterAPI';
 import {
   GetPortfolioResponse,
@@ -25,7 +25,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (
   const [stocks, setStocks] = useState<PortfolioStock[]>([]);
   const [refresh, setRefresh] = useState<boolean>(false);
 
-  useEffect(() => {
+  useEffect((): void => {
     getPortfolio();
   }, [refresh]);
 
@@ -35,7 +35,7 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (
       .then((response: GetPortfolioResponse): void => {
         setStocks(response.getStocks());
       })
-      .finally(() => {
+      .finally((): void => {
         setLoading(false);
         setRefresh(false);
       });
