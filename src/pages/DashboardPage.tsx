@@ -56,7 +56,7 @@ const DashboardPage: React.FC<DashboardProps> = (
 
   const getContent: () => React.ReactElement = (): React.ReactElement => {
     return (
-      <Stack spacing={2} direction="row" useFlexGap sx={{ flexWrap: 'wrap' }}>
+      <Grid container size={11} spacing={2}>
         <Grid
           size={6}
           sx={{
@@ -98,7 +98,7 @@ const DashboardPage: React.FC<DashboardProps> = (
             setRefresh={setRefresh}
           />
         </Grid>
-      </Stack>
+      </Grid>
     );
   };
 

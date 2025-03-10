@@ -1,0 +1,24 @@
+@import '../../../variables.scss';
+
+.ArchivedNewsletterExplorer__container {
+  border-radius: 40px;
+  background-color: $container-color;
+  outline: 1px solid $container-border-color;
+  padding: 20px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.ArchivedNewsletterExplorer__container:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ArchivedNewsletterExplorer__title {
+  font-family: $primary-font;
+  font-weight: bold;
+  font-size: 24px;
+}

@@ -13,14 +13,16 @@ interface UnsubscribeProps {
 
 const UnsubscribeButton: React.FC<UnsubscribeProps> = (
   props: UnsubscribeProps,
-) => {
+): React.ReactElement => {
   const isMobile: boolean = useIsMobile();
   const [loading, setLoading] = React.useState<boolean>(false);
   const [success, setSuccess] = React.useState<boolean>(false);
   const [message, setMessage] = React.useState<string>('');
   const [open, setOpen] = React.useState<boolean>(false);
 
-  const handleUnsubscribe = (event: React.FormEvent) => {
+  const handleUnsubscribe: (event: React.FormEvent) => void = (
+    event: React.FormEvent,
+  ): void => {
     event.preventDefault();
 
     if (!isValidUnsubscribeToken(props.token)) {
@@ -33,38 +35,46 @@ const UnsubscribeButton: React.FC<UnsubscribeProps> = (
     attemptToUnsubscribeUser(props.token);
   };
 
-  const isValidUnsubscribeToken = (token: string): boolean => {
+  const isValidUnsubscribeToken: (token: string) => boolean = (
+    token: string,
+  ): boolean => {
     if (token === null || token == undefined) {
       return false;
     }
     return true;
   };
 
-  const attemptToUnsubscribeUser = (token: string) => {
+  const attemptToUnsubscribeUser: (token: string) => void = (
+    token: string,
+  ): void => {
     setLoading(true);
     WalterAPI.unsubscribeUser(token)
-      .then((response: UnsubscribeResponse) => {
+      .then((response: UnsubscribeResponse): void => {
         if (response.isSuccess()) {
           handleUnsubscribeSuccess(response.getMessage());
         } else {
           handleUnsubscribeFailure(response.getMessage());
         }
       })
-      .catch((error: any) => {
+      .catch((error: any): void => {
         setMessage('Unexpected error occurred!');
         setSuccess(false);
         setOpen(true);
       })
-      .finally(() => setLoading(false));
+      .finally((): void => setLoading(false));
   };
 
-  const handleUnsubscribeSuccess = (message: string) => {
+  const handleUnsubscribeSuccess: (message: string) => void = (
+    message: string,
+  ): void => {
     setMessage(message);
     setSuccess(true);
     setOpen(true);
   };
 
-  const handleUnsubscribeFailure = (message: string) => {
+  const handleUnsubscribeFailure: (message: string) => void = (
+    message: string,
+  ): void => {
     setMessage(message);
     setSuccess(false);
     setOpen(true);
@@ -110,10 +120,10 @@ const UnsubscribeButton: React.FC<UnsubscribeProps> = (
         <Snackbar
           open={open}
           autoHideDuration={6000}
-          onClose={() => setOpen(false)}
+          onClose={(): void => setOpen(false)}
         >
           <Alert
-            onClose={() => setOpen(false)}
+            onClose={(): void => setOpen(false)}
             severity={success ? 'success' : 'error'}
           >
             {message}

@@ -177,7 +177,8 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
         ]}
         yAxis={[
           {
-            valueFormatter: (value) => `${US_DOLLAR.format(value)}`,
+            valueFormatter: (value: any): string =>
+              `${US_DOLLAR.format(value)}`,
             tickLabelStyle: {
               fontSize: 12,
               fontFamily: Fonts.RALEWAY,
@@ -188,9 +189,12 @@ const PortfolioStockLineChart: FC<PortfolioStockLineChartProps> = (
         series={[
           {
             data: getPrices(),
-            valueFormatter: (v) => `${US_DOLLAR.format(v as number)}`,
+            valueFormatter: (v: number | null): string =>
+              `${US_DOLLAR.format(v as number)}`,
             color: Colors.ATLANTIC_BLUE,
             showMark: false,
+            area: true,
+            baseline: 'min',
           },
         ]}
         height={400}
