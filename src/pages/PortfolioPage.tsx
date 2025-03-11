@@ -12,6 +12,7 @@ import PortfolioStockTile from '../components/portfolio/stock/PortfolioStockTile
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
+import PortfolioStockExplorer from '../components/portfolio/stock/PortfolioStockExplorer';
 
 interface PortfolioPageProps {
   authenticated: boolean;
@@ -55,30 +56,9 @@ const PortfolioPage: React.FC<PortfolioPageProps> = (
       return <LoadingCircularProgress />;
     }
 
-    if (stocks.length === 0) {
-      return (
-        <>
-          <Typography
-            sx={{
-              fontFamily: Fonts.RALEWAY,
-              fontWeight: 'normal',
-              fontSize: '18px',
-            }}
-          >
-            No stocks found in portfolio...
-          </Typography>
-        </>
-      );
-    }
     return (
       <Grid size={11}>
-        <Stack spacing={2} direction="row" useFlexGap sx={{ flexWrap: 'wrap' }}>
-          {stocks.map(
-            (stock: PortfolioStock): React.ReactElement => (
-              <PortfolioStockTile stock={stock} setRefresh={setRefresh} />
-            ),
-          )}
-        </Stack>
+        <PortfolioStockExplorer stocks={stocks} setRefresh={setRefresh} />
       </Grid>
     );
   };
