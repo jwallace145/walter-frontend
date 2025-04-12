@@ -40,7 +40,6 @@ interface PortfolioStockRow {
 interface PortfolioDataGridProps {
   loading: boolean;
   stocks: PortfolioStock[];
-  setRefresh: (refresh: boolean) => void;
 }
 
 const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
@@ -140,12 +139,10 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
       WalterAPI.deleteStock(deleteRow.symbol).then((response) => {
         if (response.isSuccess()) {
           setRows(rows.filter((stock) => stock.id !== id));
-          props.setRefresh(true);
         }
       });
     } catch (e) {
       console.log(e);
-      props.setRefresh(true);
     }
   };
 
@@ -173,7 +170,6 @@ const PortfolioDataGridV2: React.FC<PortfolioDataGridProps> = (props) => {
               toolbar: {
                 setRows,
                 setRowModesModel,
-                setRefresh: props.setRefresh,
               },
             }}
             sx={{

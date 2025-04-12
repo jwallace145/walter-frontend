@@ -24,23 +24,21 @@ const DashboardPage: React.FC<DashboardProps> = (
   const [loading, setLoading] = useState(false);
   const [stocks, setStocks] = useState<PortfolioStock[]>([]);
   const [totalEquity, setTotalEquity] = useState<number>(0);
-  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect((): void => {
     getPortfolio();
-  }, [refresh]);
+  }, []);
 
   const getPortfolio: () => void = (): void => {
     setLoading(true);
     WalterAPI.getPortfolio()
-      .then((response: GetPortfolioResponse) => {
+      .then((response: GetPortfolioResponse): void => {
         setStocks(response.getStocks());
         setTotalEquity(response.getTotalEquity());
         props.setNoStocksAlert(response.getStocks().length === 0);
       })
-      .finally(() => {
+      .finally((): void => {
         setLoading(false);
-        setRefresh(false);
       });
   };
 
@@ -97,7 +95,6 @@ const DashboardPage: React.FC<DashboardProps> = (
           <PortfolioDataGridV2
             loading={loading}
             stocks={stocks}
-            setRefresh={setRefresh}
           />
         </Grid>
       </Grid>

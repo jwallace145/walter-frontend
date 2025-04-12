@@ -61,7 +61,7 @@ const App: React.FC = () => {
 
   useEffect((): void => {
     isUserAuthenticated();
-  }, [authenticated, sentEmailVerificationAlert, refresh]);
+  }, [refresh]);
 
   /**
    * Call Walter API and determine if the current user is authenticated or not.
