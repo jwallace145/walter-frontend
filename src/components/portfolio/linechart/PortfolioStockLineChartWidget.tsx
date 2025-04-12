@@ -48,7 +48,7 @@ const PortfolioStockLineChartWidget: React.FC<
         .catch((error) => console.log(error))
         .finally(() => setPricesLoading(false));
     }
-  }, [props.stocks]);
+  }, [page, props.stocks]);
 
   // if either parent component GetPortfolio API call or GetPrices API call is still in progress, return loading symbol
   if (props.loading || pricesLoading) {
