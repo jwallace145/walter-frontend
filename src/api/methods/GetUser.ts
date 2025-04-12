@@ -51,7 +51,6 @@ export class GetUserResponse extends WalterAPIResponseBase {
   }
 
   public isNotSubscribed(): boolean {
-    console.log(this.user);
     return !this.user.subscribed && this.isAuthenticated();
   }
 
@@ -60,7 +59,6 @@ export class GetUserResponse extends WalterAPIResponseBase {
   }
 
   private initUser(data?: any): User {
-    console.log(data);
     if (data === null || data === undefined) {
       return {
         email: '',
