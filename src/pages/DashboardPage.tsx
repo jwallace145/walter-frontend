@@ -92,10 +92,7 @@ const DashboardPage: React.FC<DashboardProps> = (
             boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)',
           }}
         >
-          <PortfolioDataGridV2
-            loading={loading}
-            stocks={stocks}
-          />
+          <PortfolioDataGridV2 loading={loading} stocks={stocks} />
         </Grid>
       </Grid>
     );
