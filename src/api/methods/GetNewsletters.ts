@@ -44,6 +44,9 @@ export async function getNewsletters(
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    params: {
+      page: 1,
+    },
   });
   return new GetNewslettersResponse(
     response.data['Status'],

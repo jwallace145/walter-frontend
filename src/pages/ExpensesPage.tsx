@@ -8,7 +8,6 @@ import { Colors } from '../constants/Constants';
 import ExpensesDataGrid from '../components/expenses/ExpensesDataGrid';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import ExpensesPieChart from '../components/expenses/ExpensesPieChart';
-import ExpensesLineChart from '../components/expenses/ExpensesLineChart';
 import ExpensesChartWidget from '../components/expenses/ExpensesChartWidget';
 
 interface ExpensesProps {
@@ -27,8 +26,13 @@ const ExpensesPage: React.FC<ExpensesProps> = (
   }, []);
 
   const getExpenses: () => void = (): void => {
+    const today = new Date();
+    const startDate: string = new Date(today.getFullYear(), today.getMonth(), 1)
+      .toISOString()
+      .split('T')[0];
+    const endDate: string = new Date().toISOString().split('T')[0];
     setLoading(true);
-    WalterAPI.getExpenses('2025-03-01', '2025-03-30')
+    WalterAPI.getExpenses(startDate, endDate)
       .then((response: GetExpensesResponse): void => {
         setExpenses(response.getExpenses());
       })
