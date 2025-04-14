@@ -14,7 +14,7 @@ interface PortfolioPieChartWidgetProps {
 
 const PortfolioPieChartWidget: React.FC<PortfolioPieChartWidgetProps> = (
   props,
-) => {
+): React.ReactElement => {
   const [page, setPage] = useState<number>(1); // pagination component starts pages list at 1 (not zero-indexed)
 
   if (props.loading) {

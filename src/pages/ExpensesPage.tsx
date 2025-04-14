@@ -9,6 +9,7 @@ import ExpensesDataGrid from '../components/expenses/ExpensesDataGrid';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import ExpensesPieChart from '../components/expenses/ExpensesPieChart';
 import ExpensesLineChart from '../components/expenses/ExpensesLineChart';
+import ExpensesChartWidget from '../components/expenses/ExpensesChartWidget';
 
 interface ExpensesProps {
   authenticated: boolean;
@@ -59,7 +60,7 @@ const ExpensesPage: React.FC<ExpensesProps> = (
           {loading ? (
             <LoadingCircularProgress />
           ) : (
-            <ExpensesLineChart expenses={expenses} />
+            <ExpensesChartWidget expenses={expenses} />
           )}
         </Grid>
         <Grid
