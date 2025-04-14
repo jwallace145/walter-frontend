@@ -6,6 +6,7 @@ import LoadingCircularProgress from './components/progress/LoadingCircularProgre
 import {
   CHANGE_PASSWORD_PAGE,
   DASHBOARD_PAGE,
+  EXPENSES_PAGE,
   LANDING_PAGE,
   LOGIN_PAGE,
   NEWSLETTER_PAGE,
@@ -44,6 +45,7 @@ import PortfolioPage from './pages/PortfolioPage';
 import SettingsPage from './pages/SettingsPage';
 import { User } from './api/methods/GetUser';
 import { StyledEngineProvider } from '@mui/material';
+import ExpensesPage from './pages/ExpensesPage';
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -141,6 +143,15 @@ const App: React.FC = () => {
                     authenticated={authenticated}
                     setAuthenticated={setAuthenticated}
                     setNoStocksAlert={setNoStocksInUserPortfolioAlert}
+                  />
+                }
+              />
+              <Route
+                path={EXPENSES_PAGE}
+                element={
+                  <ExpensesPage
+                    authenticated={authenticated}
+                    setAuthenticated={setAuthenticated}
                   />
                 }
               />

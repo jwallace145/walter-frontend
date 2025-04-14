@@ -46,6 +46,9 @@ import {
 } from './methods/GetNewsletters';
 import { getNewsletter, GetNewsletterResponse } from './methods/GetNewsletter';
 import { getStatistics, GetStatisticsResponse } from './methods/GetStatistics';
+import { getExpenses, GetExpensesResponse } from './methods/GetExpenses';
+import { addExpense, AddExpenseResponse } from './methods/AddExpense';
+import { deleteExpense, DeleteExpenseResponse } from './methods/DeleteExpense';
 
 /**
  * Walter API
@@ -270,5 +273,38 @@ export class WalterAPI {
       token,
       stripeSessionId,
     );
+  }
+
+  public static async getExpenses(
+    startDate: string,
+    endDate: string,
+  ): Promise<GetExpensesResponse> {
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
+    return getExpenses(WalterAPI.ENDPOINT, token, startDate, endDate);
+  }
+
+  public static async addExpense(
+    date: string,
+    vendor: string,
+    amount: number,
+    category: string,
+  ): Promise<AddExpenseResponse> {
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
+    return addExpense(
+      WalterAPI.ENDPOINT,
+      token,
+      date,
+      vendor,
+      amount,
+      category,
+    );
+  }
+
+  public static async deleteExpense(
+    date: string,
+    expenseId: string,
+  ): Promise<DeleteExpenseResponse> {
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
+    return deleteExpense(WalterAPI.ENDPOINT, token, date, expenseId);
   }
 }

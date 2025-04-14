@@ -6,6 +6,7 @@ export const LOGIN_PAGE = '/login';
 export const REGISTER_PAGE = '/register';
 export const DASHBOARD_PAGE = '/dashboard';
 export const PORTFOLIO_PAGE = '/portfolio';
+export const EXPENSES_PAGE = '/expenses';
 export const SETTINGS_PAGE = '/settings';
 export const NEWSLETTER_PAGE = '/newsletter';
 export const SEND_VERIFY_EMAIL_PAGE = '/send-verify-email';

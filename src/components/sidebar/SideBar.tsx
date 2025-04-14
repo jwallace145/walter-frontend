@@ -4,6 +4,7 @@ import { Colors, Fonts, WALTER_TOKEN_NAME } from '../../constants/Constants';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import {
   DASHBOARD_PAGE,
+  EXPENSES_PAGE,
   LANDING_PAGE,
   NEWSLETTER_PAGE,
   PORTFOLIO_PAGE,
@@ -16,6 +17,7 @@ import { removeCookie } from 'typescript-cookie';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import AddchartIcon from '@mui/icons-material/Addchart';
 import EmailIcon from '@mui/icons-material/Email';
+import PaymentIcon from '@mui/icons-material/Payment';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SideBarButton from './SideBarButton';
@@ -58,6 +60,13 @@ const SideBar: React.FC<SideBarProps> = (
           icon={<AddchartIcon sx={{ color: Colors.YELLOW }} />}
           onClick={(): void => navigate(PORTFOLIO_PAGE)}
           bold={props.currentTab.toLowerCase() === 'portfolio'}
+          sx={{ marginTop: '30px' }}
+        />
+        <SideBarButton
+          title="Expenses"
+          icon={<PaymentIcon sx={{ color: Colors.YELLOW }} />}
+          onClick={(): void => navigate(EXPENSES_PAGE)}
+          bold={props.currentTab.toLowerCase() === 'expenses'}
           sx={{ marginTop: '30px' }}
         />
         <SideBarButton
