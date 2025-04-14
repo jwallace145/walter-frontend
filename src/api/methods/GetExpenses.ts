@@ -1,9 +1,42 @@
 import axios, { AxiosResponse } from 'axios';
 import { WalterAPIResponseBase } from '../common/Response';
 import { GET_EXPENSES_METHOD } from '../common/Methods';
-import { DeleteExpenseResponse } from './DeleteExpense';
 
-export class GetExpensesResponse extends WalterAPIResponseBase {}
+export interface Expense {
+  expenseId: string;
+  date: string;
+  vendor: string;
+  amount: number;
+  category: string;
+}
+
+export class GetExpensesResponse extends WalterAPIResponseBase {
+  private readonly expenses: Expense[];
+
+  constructor(status: string, message: string, data?: any) {
+    super(GET_EXPENSES_METHOD, status, message);
+    this.expenses = this.setExpenses(data);
+  }
+
+  public getExpenses(): Expense[] {
+    return this.expenses;
+  }
+
+  private setExpenses(data: any): Expense[] {
+    if (data === null || data === undefined) {
+      return [];
+    }
+    return data.expenses.map((expense: any): Expense => {
+      return {
+        expenseId: expense.expense_id,
+        date: expense.date,
+        vendor: expense.vendor,
+        amount: expense.amount,
+        category: expense.category,
+      };
+    });
+  }
+}
 
 export async function getExpenses(
   endpoint: string,
@@ -22,9 +55,9 @@ export async function getExpenses(
       end_date: endDate,
     },
   });
-  return new DeleteExpenseResponse(
-    GET_EXPENSES_METHOD,
+  return new GetExpensesResponse(
     response.data['Status'],
     response.data['Message'],
+    response.data['Data'],
   );
 }
