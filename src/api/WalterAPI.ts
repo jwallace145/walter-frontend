@@ -181,9 +181,11 @@ export class WalterAPI {
     return getNewsletter(WalterAPI.ENDPOINT, token, date);
   }
 
-  public static async getNewsletters(): Promise<GetNewslettersResponse> {
+  public static async getNewsletters(
+    page: number,
+  ): Promise<GetNewslettersResponse> {
     const token: string = getCookie(WALTER_TOKEN_NAME) as string;
-    return getNewsletters(WalterAPI.ENDPOINT, token);
+    return getNewsletters(WalterAPI.ENDPOINT, token, page);
   }
 
   /**

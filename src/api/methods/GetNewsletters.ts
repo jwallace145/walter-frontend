@@ -9,11 +9,23 @@ export interface Newsletter {
 }
 
 export class GetNewslettersResponse extends WalterAPIResponseBase {
+  private readonly currentPage: number;
+  private readonly lastPage: number;
   private readonly newsletters: Newsletter[];
 
   constructor(status: string, message: string, data?: any) {
     super(GET_NEWSLETTERS_METHOD, status, message);
+    this.currentPage = data?.current_page;
+    this.lastPage = data?.last_page;
     this.newsletters = this.parseData(data);
+  }
+
+  public getCurrentPage(): number {
+    return this.currentPage;
+  }
+
+  public getLastPage(): number {
+    return this.lastPage;
   }
 
   public getNewsletters(): Newsletter[] {
@@ -37,6 +49,7 @@ export class GetNewslettersResponse extends WalterAPIResponseBase {
 export async function getNewsletters(
   endpoint: string,
   token: string,
+  page: number,
 ): Promise<GetNewslettersResponse> {
   const response: AxiosResponse = await axios({
     method: 'GET',
@@ -45,7 +58,7 @@ export async function getNewsletters(
       Authorization: `Bearer ${token}`,
     },
     params: {
-      page: 1,
+      page: page,
     },
   });
   return new GetNewslettersResponse(

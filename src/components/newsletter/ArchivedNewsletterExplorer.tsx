@@ -7,21 +7,36 @@ import Grid from '@mui/material/Grid2';
 import ArchivedNewsletterCard from './ArchivedNewsletterCard';
 import styles from './ArchivedNewsletterExplorer.module.scss';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import { Colors } from '../../constants/Constants';
 import { WalterAPI } from '../../api/WalterAPI';
-import { GetNewsletterResponse } from '../../api/methods/GetNewsletter';
+import LoadingCircularProgress from '../progress/LoadingCircularProgress';
+import { Container, Pagination } from '@mui/material';
 
-interface ArchivedNewsletterExplorerProps {
-  newsletters: Newsletter[];
-}
-
-const ArchivedNewsletterExplorer: React.FC<ArchivedNewsletterExplorerProps> = (
-  props: ArchivedNewsletterExplorerProps,
-): React.ReactElement => {
+const ArchivedNewsletterExplorer: React.FC = (): React.ReactElement => {
   const [currentNewsletterHtml, setCurrentNewsletterHtml] = React.useState<
     string | null
   >(null);
+  const [loading, setLoading] = React.useState<boolean>(false);
+  const [page, setPage] = React.useState(1);
+  const [lastPage, setLastPage] = React.useState(-1);
+  const [newsletters, setNewsletters] = useState<Newsletter[]>([]);
+
+  useEffect((): void => {
+    getNewsletters(page);
+  }, []);
+
+  const getNewsletters: (page: number) => void = (page: number): void => {
+    setLoading(true);
+    WalterAPI.getNewsletters(page)
+      .then((response: GetNewslettersResponse): void => {
+        if (response.isSuccess()) {
+          setPage(response.getCurrentPage());
+          setLastPage(response.getLastPage());
+          setNewsletters(response.getNewsletters());
+        }
+      })
+      .catch((error: Error): any => console.log(error))
+      .finally((): any => setLoading(false));
+  };
 
   const viewNewsletter: (
     newsletterHtml: string | null,
@@ -44,10 +59,20 @@ const ArchivedNewsletterExplorer: React.FC<ArchivedNewsletterExplorerProps> = (
     );
   };
 
+  const handleChangePage = (event: any, newPage: any): void => {
+    if (newPage !== page && newPage > 0 && newPage <= lastPage) {
+      getNewsletters(newPage);
+    }
+  };
+
+  if (loading) {
+    return <LoadingCircularProgress />;
+  }
+
   return (
     <Grid container size={11} spacing={2}>
-      <Grid size={5}>
-        {props.newsletters.map(
+      <Grid size={5} sx={{ alignItems: 'center' }}>
+        {newsletters.map(
           (newsletter: Newsletter): React.ReactElement => (
             <ArchivedNewsletterCard
               newsletter={newsletter}
@@ -55,6 +80,19 @@ const ArchivedNewsletterExplorer: React.FC<ArchivedNewsletterExplorerProps> = (
             />
           ),
         )}
+        <Container className={styles.ArchivedNewsletterExplorer__pagination}>
+          <Pagination
+            page={page}
+            count={lastPage}
+            onChange={handleChangePage}
+            sx={{
+              '& .MuiPaginationItem-root': {
+                fontFamily: 'Raleway',
+                fontSize: '1.2rem',
+              },
+            }}
+          />
+        </Container>
       </Grid>
       <Grid size={7} className={styles.ArchivedNewsletterExplorer__container}>
         {viewNewsletter(currentNewsletterHtml)}
