@@ -44,14 +44,23 @@ export class GetPricesResponse extends WalterAPIResponseBase {
  *
  * @param endpoint
  * @param stock
+ * @param startDate
+ * @param endDate
  */
 export async function getPrices(
   endpoint: string,
   stock: string,
+  startDate: string,
+  endDate: string,
 ): Promise<GetPricesResponse> {
   const response: AxiosResponse = await axios({
     method: 'GET',
-    url: `${endpoint}/prices?stock=${stock}`,
+    url: `${endpoint}/prices`,
+    params: {
+      stock: stock,
+      start_date: startDate,
+      end_date: endDate,
+    },
   });
   return new GetPricesResponse(
     response.data['Status'],

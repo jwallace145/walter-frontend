@@ -43,7 +43,16 @@ const PortfolioStockLineChartWidget: React.FC<
     if (props.stocks.length > 0) {
       setStock(props.stocks[page - 1]);
       setPricesLoading(true);
-      WalterAPI.getPrices(props.stocks[page - 1].symbol)
+      const today = new Date();
+      const startDate: string = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1,
+      )
+        .toISOString()
+        .split('T')[0];
+      const endDate: string = new Date().toISOString().split('T')[0];
+      WalterAPI.getPrices(props.stocks[page - 1].symbol, startDate, endDate)
         .then((response: GetPricesResponse) => setPrices(response.getPrices()))
         .catch((error) => console.log(error))
         .finally(() => setPricesLoading(false));

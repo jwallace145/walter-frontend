@@ -72,7 +72,12 @@ const StockPage: React.FC<StockPageProps> = (
 
   const getStockPrices = () => {
     setPricesLoading(true);
-    WalterAPI.getPrices(params.symbol as string)
+    const today = new Date();
+    const startDate: string = new Date(today.getFullYear(), today.getMonth(), 1)
+      .toISOString()
+      .split('T')[0];
+    const endDate: string = new Date().toISOString().split('T')[0];
+    WalterAPI.getPrices(params.symbol as string, startDate, endDate)
       .then((response: GetPricesResponse) => {
         setPrices(response.getPrices());
       })
