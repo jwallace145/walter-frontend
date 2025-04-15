@@ -150,8 +150,12 @@ export class WalterAPI {
    *
    * @param stock
    */
-  public static async getPrices(stock: string): Promise<GetPricesResponse> {
-    return getPrices(WalterAPI.ENDPOINT, stock);
+  public static async getPrices(
+    stock: string,
+    startDate: string,
+    endDate: string,
+  ): Promise<GetPricesResponse> {
+    return getPrices(WalterAPI.ENDPOINT, stock, startDate, endDate);
   }
 
   /**
