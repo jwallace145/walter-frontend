@@ -2,7 +2,7 @@ import React from 'react';
 import { Newsletter } from '../../api/methods/GetNewsletters';
 import { Colors } from '../../constants/Constants';
 import Grid from '@mui/material/Grid2';
-import { Stack } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '../button/LoadingButton';
 import styles from './ArchivedNewsletterCard.module.scss';
@@ -25,7 +25,7 @@ const ArchivedNewsletterCard: React.FC<ArchivedNewsletterCardProps> = (
     }
 
     setLoading(true);
-    WalterAPI.getNewsletter(props.newsletter.datestamp)
+    WalterAPI.getNewsletter(props.newsletter.date)
       .then((response: GetNewsletterResponse): void => {
         if (response.isSuccess()) {
           props.setCurrentNewsletterHtml(response.getNewsletter());
@@ -45,16 +45,33 @@ const ArchivedNewsletterCard: React.FC<ArchivedNewsletterCardProps> = (
         size={12}
         className={styles.ArchivedNewsletterCard__container}
       >
+        <Grid size={12}>
+          <Typography
+            onClick={(): void => {}}
+            className={styles.ArchivedNewsletterCard__title}
+          >
+            {props.newsletter.title}
+          </Typography>
+        </Grid>
         <Grid size={6}>
-          <Stack className={styles.ArchivedNewsletterCard__stack}>
-            <Typography
-              onClick={(): void => {}}
-              className={styles.ArchivedNewsletterCard__title}
-            >
-              {props.newsletter.template}
+          <Stack>
+            <Typography className={styles.ArchivedNewsletterCard__text__bold}>
+              Model:{' '}
+              <Typography
+                className={styles.ArchivedNewsletterCard__text}
+                sx={{ display: 'inline' }}
+              >
+                {props.newsletter.model}
+              </Typography>
             </Typography>
-            <Typography className={styles.ArchivedNewsletterCard__text}>
-              {props.newsletter.datestamp}
+            <Typography className={styles.ArchivedNewsletterCard__text__bold}>
+              Date:{' '}
+              <Typography
+                className={styles.ArchivedNewsletterCard__text}
+                sx={{ display: 'inline' }}
+              >
+                {props.newsletter.date}
+              </Typography>
             </Typography>
           </Stack>
         </Grid>

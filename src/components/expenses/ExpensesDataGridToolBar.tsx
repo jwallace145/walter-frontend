@@ -4,7 +4,10 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
+  InputLabel,
   Modal,
+  Select,
   TextField,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
@@ -116,6 +119,18 @@ const ExpensesDataGridToolBar: React.FC = (): React.ReactElement => {
                   setCategory(e.target.value);
                 }}
               />
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={1}
+                  label="Age"
+                  onChange={(): void => {}}
+                >
+                  <h1>Hello, World!</h1>
+                </Select>
+              </FormControl>
               <LoadingButton
                 loading={loading}
                 onClick={handleSubmit}
