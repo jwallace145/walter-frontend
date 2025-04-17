@@ -3,8 +3,9 @@ import { GET_NEWSLETTERS_METHOD } from '../common/Methods';
 import axios, { AxiosResponse } from 'axios';
 
 export interface Newsletter {
-  key: string;
-  datestamp: string;
+  title: string;
+  date: string;
+  model: string;
   template: string;
 }
 
@@ -38,9 +39,10 @@ export class GetNewslettersResponse extends WalterAPIResponseBase {
     }
     return data.newsletters.map((newsletter: any): Newsletter => {
       return {
-        key: newsletter['newsletter_key'],
-        datestamp: newsletter['datestamp'],
-        template: newsletter['template'],
+        title: newsletter['title'],
+        date: newsletter['date'],
+        model: newsletter['model'],
+        template: newsletter['model'],
       };
     });
   }

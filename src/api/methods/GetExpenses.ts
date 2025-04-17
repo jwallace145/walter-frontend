@@ -2,6 +2,35 @@ import axios, { AxiosResponse } from 'axios';
 import { WalterAPIResponseBase } from '../common/Response';
 import { GET_EXPENSES_METHOD } from '../common/Methods';
 
+export enum ExpenseCategory {
+  bills = 'Bills',
+  entertainment = 'Entertainment',
+  groceries = 'Groceries',
+  health_and_wellness = 'Health And Wellness',
+  hobbies = 'Hobbies',
+  housing = 'Housing',
+  insurance = 'Insurance',
+  merchandise = 'Merchandise',
+  restaurants = 'Restaurants',
+  subscriptions = 'Subscriptions',
+  transportation = 'Transportation',
+  travel = 'Travel',
+}
+
+/**
+ * Get the ExpenseCategory enum from the given string.
+ *
+ * @param category The ExpenseCategory given as a string.
+ */
+function getExpenseCategory(category: string): string {
+  for (const [key, value] of Object.entries(ExpenseCategory)) {
+    if (key.toLowerCase() === category.toLowerCase()) {
+      return value;
+    }
+  }
+  throw Error(`Invalid ExpenseCategory: ${category}`);
+}
+
 export interface Expense {
   expenseId: string;
   date: string;
@@ -32,7 +61,7 @@ export class GetExpensesResponse extends WalterAPIResponseBase {
         date: expense.date,
         vendor: expense.vendor,
         amount: expense.amount,
-        category: expense.category,
+        category: getExpenseCategory(expense.category),
       };
     });
   }
