@@ -22,7 +22,7 @@ export enum ExpenseCategory {
  *
  * @param category The ExpenseCategory given as a string.
  */
-function getExpenseCategory(category: string): string {
+export function getExpenseCategory(category: string): string {
   for (const [key, value] of Object.entries(ExpenseCategory)) {
     if (key.toLowerCase() === category.toLowerCase()) {
       return value;

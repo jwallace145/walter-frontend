@@ -49,6 +49,7 @@ import { getStatistics, GetStatisticsResponse } from './methods/GetStatistics';
 import { getExpenses, GetExpensesResponse } from './methods/GetExpenses';
 import { addExpense, AddExpenseResponse } from './methods/AddExpense';
 import { deleteExpense, DeleteExpenseResponse } from './methods/DeleteExpense';
+import { editExpense, EditExpenseResponse } from './methods/EditExpense';
 
 /**
  * Walter API
@@ -304,5 +305,24 @@ export class WalterAPI {
   ): Promise<DeleteExpenseResponse> {
     const token: string = getCookie(WALTER_TOKEN_NAME) as string;
     return deleteExpense(WalterAPI.ENDPOINT, token, date, expenseId);
+  }
+
+  public static async editExpense(
+    date: string,
+    expenseId: string,
+    vendor: string,
+    amount: number,
+    category: string,
+  ): Promise<EditExpenseResponse> {
+    const token: string = getCookie(WALTER_TOKEN_NAME) as string;
+    return editExpense(
+      WalterAPI.ENDPOINT,
+      token,
+      date,
+      expenseId,
+      vendor,
+      amount,
+      category,
+    );
   }
 }

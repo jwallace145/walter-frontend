@@ -27,5 +27,6 @@ export const PURCHASE_NEWSLETTER_SUBSCRIPTION_METHOD: string =
 export const VERIFY_PURCHASE_NEWSLETTER_SUBSCRIPTION_METHOD: string =
   'VerifyPurchaseNewsletterSubscription';
 export const GET_EXPENSES_METHOD: string = 'GetExpenses';
+export const EDIT_EXPENSE_METHOD: string = 'EditExpense';
 export const ADD_EXPENSE_METHOD: string = 'AddExpense';
 export const DELETE_EXPENSE_METHOD: string = 'DeleteExpense';
