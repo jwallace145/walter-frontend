@@ -19,6 +19,7 @@ import PaidIcon from '@mui/icons-material/Paid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { DeleteExpenseResponse } from '../../api/methods/DeleteExpense';
+import { EditExpenseResponse } from '../../api/methods/EditExpense';
 
 interface ExpensesExplorerProps {
   expenses: Expense[];
@@ -32,8 +33,10 @@ const ExpensesExplorer: React.FC<ExpensesExplorerProps> = (
   const [lastPage, setLastPage] = React.useState<number>(-1);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [date, setDate] = React.useState<string>('');
+  const [expenseId, setExpenseId] = React.useState<string>('');
   const [vendor, setVendor] = React.useState<string>('');
   const [amount, setAmount] = React.useState<string>('');
+  const [category, setCategory] = React.useState<string>('');
   const [expenseToDelete, setExpenseToDelete] = React.useState<Expense | null>(
     null,
   );
@@ -62,6 +65,23 @@ const ExpensesExplorer: React.FC<ExpensesExplorerProps> = (
         } else {
           console.log(response.getMessage());
         }
+      })
+      .finally((): void => setLoading(false));
+  };
+
+  const handleEditExpense = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setLoading(true);
+    WalterAPI.editExpense(date, expenseId, vendor, parseFloat(amount), category)
+      .then((response: EditExpenseResponse): void => {
+        if (response.isSuccess()) {
+          setOpenEditExpenseModal(false);
+        } else {
+          console.log(response.getMessage());
+        }
+      })
+      .catch((error: Error): void => {
+        console.log(error);
       })
       .finally((): void => setLoading(false));
   };
@@ -141,7 +161,14 @@ const ExpensesExplorer: React.FC<ExpensesExplorerProps> = (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Button
               startIcon={<EditIcon />}
-              onClick={(): void => setOpenAddExpenseModal(true)}
+              onClick={(): void => {
+                setDate(expense.date);
+                setExpenseId(expense.expenseId);
+                setVendor(expense.vendor);
+                setAmount(expense.amount.toString());
+                setCategory(expense.category);
+                setOpenEditExpenseModal(true);
+              }}
               sx={{
                 color: 'black',
                 '&:hover': {
@@ -268,7 +295,86 @@ const ExpensesExplorer: React.FC<ExpensesExplorerProps> = (
 
   const getEditExpenseModal: () => React.ReactElement =
     (): React.ReactElement => {
-      return <p>hello, world!</p>;
+      return (
+        <Modal
+          open={openEditExpenseModal}
+          onClose={(): void => setOpenEditExpenseModal(false)}
+        >
+          <Container maxWidth="xs">
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: 400,
+                bgcolor: 'background.paper',
+                borderRadius: 4,
+                boxShadow: 24,
+                p: 4,
+              }}
+            >
+              <Avatar sx={{ m: 2 }}>
+                <EditIcon />
+              </Avatar>
+              <Box sx={{ mt: 2 }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="date"
+                  label="Date"
+                  name="date"
+                  autoFocus
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="vendor"
+                  label="Vendor"
+                  name="vendor"
+                  autoFocus
+                  value={vendor}
+                  onChange={(e) => setVendor(e.target.value)}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="amount"
+                  label="Amount"
+                  name="amount"
+                  autoFocus
+                  value={amount}
+                  onChange={(e): void => setAmount(e.target.value)}
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="category"
+                  label="Category"
+                  name="category"
+                  autoFocus
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                />
+                <LoadingButton
+                  loading={loading}
+                  onClick={handleEditExpense}
+                  text={'Edit Expense'}
+                />
+              </Box>
+            </Box>
+          </Container>
+        </Modal>
+      );
     };
 
   const getDeleteExpenseModal: () => React.ReactElement =
