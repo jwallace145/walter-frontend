@@ -4,7 +4,6 @@ import { LineChart } from '@mui/x-charts/LineChart';
 import dayjs from 'dayjs';
 import { Colors, Fonts, US_DOLLAR } from '../../constants/Constants';
 import { Container } from '@mui/material';
-import { Price } from '../../api/methods/GetPrices';
 
 interface ExpensesLineChartProps {
   expenses: Expense[];
@@ -13,8 +12,16 @@ interface ExpensesLineChartProps {
 const ExpensesLineChart: React.FC<ExpensesLineChartProps> = (
   props: ExpensesLineChartProps,
 ): React.ReactElement => {
+  const sortExpenses: () => Expense[] = (): Expense[] => {
+    return [...props.expenses].sort(
+      (a: Expense, b: Expense): number =>
+        dayjs(a.date, 'YYYY-MM-DD').valueOf() -
+        dayjs(b.date, 'YYYY-MM-DD').valueOf(),
+    );
+  };
+
   const getTimestamps: () => number[] = (): number[] => {
-    return props.expenses.map((expense: Expense): number => {
+    return sortExpenses().map((expense: Expense): number => {
       return dayjs(expense.date, 'YYYY-MM-DD').valueOf();
     });
   };
@@ -22,7 +29,7 @@ const ExpensesLineChart: React.FC<ExpensesLineChartProps> = (
   const getExpenses: () => number[] = (): number[] => {
     let expensesSum: number = 0;
     const expensesRunningSum: number[] = [];
-    props.expenses.forEach((expense: Expense): void => {
+    sortExpenses().forEach((expense: Expense): void => {
       expensesSum += expense.amount;
       expensesRunningSum.push(expensesSum);
     });

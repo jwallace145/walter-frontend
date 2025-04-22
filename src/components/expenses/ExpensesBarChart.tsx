@@ -2,6 +2,7 @@ import React from 'react';
 import { Expense } from '../../api/methods/GetExpenses';
 import { BarChart } from '@mui/x-charts';
 import { Colors } from '../../constants/Constants';
+import dayjs from 'dayjs';
 
 const colors = [
   Colors.LIGHT_BLUE,
@@ -18,9 +19,17 @@ interface ExpensesBarChartProps {
 const ExpensesBarChart: React.FC<ExpensesBarChartProps> = (
   props: ExpensesBarChartProps,
 ): React.ReactElement => {
+  const sortExpenses: () => Expense[] = (): Expense[] => {
+    return [...props.expenses].sort(
+      (a: Expense, b: Expense): number =>
+        dayjs(a.date, 'YYYY-MM-DD').valueOf() -
+        dayjs(b.date, 'YYYY-MM-DD').valueOf(),
+    );
+  };
+
   const getDataset = () => {
     const expensesByDate: { [key: string]: number } = {};
-    props.expenses.forEach((expense: Expense): void => {
+    sortExpenses().forEach((expense: Expense): void => {
       if (expensesByDate[expense.date]) {
         expensesByDate[expense.date] += expense.amount;
       } else {
