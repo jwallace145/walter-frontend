@@ -23,12 +23,11 @@ const ExpensesDataGridToolBar: React.FC = (): React.ReactElement => {
   const [date, setDate] = React.useState<string>('');
   const [vendor, setVendor] = React.useState<string>('');
   const [amount, setAmount] = React.useState<string>('');
-  const [category, setCategory] = React.useState<string>('');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    WalterAPI.addExpense(date, vendor, parseFloat(amount), category)
+    WalterAPI.addExpense(date, vendor, parseFloat(amount))
       .then((response) => {
         if (response.isSuccess()) {
           setOpenAddExpenseModal(false);
@@ -107,30 +106,6 @@ const ExpensesDataGridToolBar: React.FC = (): React.ReactElement => {
                   setAmount(e.target.value);
                 }}
               />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="category"
-                label="Category"
-                name="category"
-                value={category}
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
-              />
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={1}
-                  label="Age"
-                  onChange={(): void => {}}
-                >
-                  <h1>Hello, World!</h1>
-                </Select>
-              </FormControl>
               <LoadingButton
                 loading={loading}
                 onClick={handleSubmit}

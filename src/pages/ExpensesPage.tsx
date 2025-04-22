@@ -5,7 +5,6 @@ import { WalterAPI } from '../api/WalterAPI';
 import { Expense, GetExpensesResponse } from '../api/methods/GetExpenses';
 import Grid from '@mui/material/Grid2';
 import { Colors } from '../constants/Constants';
-import ExpensesDataGrid from '../components/expenses/ExpensesDataGrid';
 import LoadingCircularProgress from '../components/progress/LoadingCircularProgress';
 import ExpensesPieChart from '../components/expenses/ExpensesPieChart';
 import ExpensesChartWidget from '../components/expenses/ExpensesChartWidget';
@@ -84,32 +83,11 @@ const ExpensesPage: React.FC<ExpensesProps> = (
             <ExpensesPieChart expenses={expenses} />
           )}
         </Grid>
-        <Grid
-          size={12}
-          sx={{
-            padding: 2,
-          }}
-        >
+        <Grid size={12}>
           {loading ? (
             <LoadingCircularProgress />
           ) : (
-            <ExpensesExplorer expenses={expenses} />
-          )}
-        </Grid>
-        <Grid
-          size={12}
-          sx={{
-            padding: 2,
-            borderRadius: '40px',
-            backgroundColor: Colors.LIGHT_GRAY,
-            outline: `1px solid ${Colors.GRAY}`,
-            boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.15)',
-          }}
-        >
-          {loading ? (
-            <LoadingCircularProgress />
-          ) : (
-            <ExpensesDataGrid expenses={expenses} />
+            <ExpensesExplorer expenses={expenses} pageSize={10} />
           )}
         </Grid>
       </Grid>

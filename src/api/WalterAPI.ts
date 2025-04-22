@@ -293,17 +293,9 @@ export class WalterAPI {
     date: string,
     vendor: string,
     amount: number,
-    category: string,
   ): Promise<AddExpenseResponse> {
     const token: string = getCookie(WALTER_TOKEN_NAME) as string;
-    return addExpense(
-      WalterAPI.ENDPOINT,
-      token,
-      date,
-      vendor,
-      amount,
-      category,
-    );
+    return addExpense(WalterAPI.ENDPOINT, token, date, vendor, amount);
   }
 
   public static async deleteExpense(

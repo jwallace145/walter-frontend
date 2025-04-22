@@ -10,7 +10,6 @@ export async function addExpense(
   date: string,
   vendor: string,
   amount: number,
-  category: string,
 ): Promise<AddExpenseResponse> {
   const response: AxiosResponse = await axios({
     method: 'POST',
@@ -23,7 +22,6 @@ export async function addExpense(
       date: date,
       vendor: vendor,
       amount: amount,
-      category: category,
     },
   });
   return new AddExpenseResponse(
